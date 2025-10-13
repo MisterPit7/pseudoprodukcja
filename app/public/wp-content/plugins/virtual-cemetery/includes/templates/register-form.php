@@ -1,20 +1,26 @@
+<style>
+    <?php include MY_PLUGIN_PATH."assets/css/register-form.css"; ?>
+</style>
+
 <form id="register-form">
+    <h1>Zarejestruj się</h1>
     <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
 
-    <label for="name">Imie: </label>
-    <input type="text" name="name"><br><br>
+    <label for="name">Imie: </label><br>
+    <input type="text" name="name" placeholder="Wpisz swoje Imię"><br><br>
 
-    <label for="surname">Nazwisko: </label>
-    <input type="text" name="surname"><br><br>
+    <label for="surname">Nazwisko: </label><br>
+    <input type="text" name="surname" placeholder="Wpisz swoje Nazwisko"><br><br>
 
-    <label for="email">Email: </label>
-    <input type="email" name="email"><br><br>
+    <label for="email">Email: </label><br>
+    <input type="email" name="email" placeholder="Wpisz swój Email" ><br><br>
 
-    <label for="password">Hasło: </label>
-    <input type="password" name="password"><br><br>
+    <label for="password">Hasło: </label><br>
+    <input type="password" name="password" placeholder="Wpisz swoje Hasło"><br><br>
 
-    <button type="submit">Zarejestruj się</button>
-
+    <div style="display:flex;justify-content:center">
+        <button type="submit">Zarejestruj się</button>
+    </div>
 </form>
 
 <script>
