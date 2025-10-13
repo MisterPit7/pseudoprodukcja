@@ -18,20 +18,32 @@ function register_user($data){
         }
     }
 
+    $options = [
+        'cost' => 12,
+        'salt' => 'b0x5e9ma6b0c36z9n6ql0f'
+    ];
+
     global $wpdb;
     $table_name = $wpdb->prefix . 'klienci';
+
+    $email = $params['email']; 
+    $result = $wpdb->get_results(
+        $wpdb->prepare("SELECT * FROM $table_name WHERE Email = %s", $email)
+    );
+
+    if(count($result) >0){
+        return new WP_Error('invalid_value','email is already set',array('status'=>403));
+    }
+
     $wpdb->insert(
         $table_name,
         array(
            'Imie' => $params['name'],
            'Nazwisko' => $params['surname'],
            'Email' => $params['email'],
-           'Haslo' => password_hash($params['password'], PASSWORD_BCRYPT) 
+           'Haslo' => password_hash($params['password'], PASSWORD_BCRYPT, $options) 
         )
     );
-
-    $result = $wpdb->get_results("SELECT * FROM $table_name");
-    print_r($result);
 
 }
 
