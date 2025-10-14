@@ -5,6 +5,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $wpdb;
 
+$charset_collate = $wpdb->get_charset_collate();
+
+
+
+require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
 /* ==============================
    Tabela: Zmarli
 ============================== */
@@ -23,7 +29,6 @@ $sql = "CREATE TABLE $table_name (
     Is_payed boolean DEFAULT 0,
     ID_Klienta int(11) NOT NULL,
     PRIMARY KEY (ID),
-    CONSTRAINT FK_ID_klienta FOREIGN KEY (ID_Klienta) REFERENCES $tmp_table_name(ID) ON DELETE CASCADE
 ) $charset_collate ENGINE=InnoDB;";
 
 dbDelta($sql);
@@ -65,11 +70,5 @@ $sql = "CREATE TABLE $table_name (
 ) $charset_collate ENGINE=InnoDB;";
 
 dbDelta($sql);
-
-$tmp_users = $wpdb->prefix . 'users';
-$sql = "ALTER TABLE Zmarli
-ADD CONSTRAINT fk_zmarli_klient
-FOREIGN KEY (ID)
-REFERENCES $tmp_users(ID)";
 
 

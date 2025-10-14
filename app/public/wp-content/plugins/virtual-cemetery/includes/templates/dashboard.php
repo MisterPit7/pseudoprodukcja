@@ -1,12 +1,12 @@
 <?php
 
-
     global $wpdb;
     $table_name = $wpdb->prefix . 'zmarli';
 
     $user = wp_get_current_user();
+
     $result = $wpdb->get_results(
-        $wpdb->prepare("SELECT * FROM $table_name WHERE ID_Klienta = %s", $user)
+        $wpdb->prepare("SELECT * FROM $table_name WHERE ID_Klienta = %d", $user->ID)
     );
 
     if($result){
@@ -17,9 +17,9 @@
         <?php foreach($result as $person): ?>
 
             <div>
-                <!-- kiedys bedzie profilowe -->
-                Imie: <?php $person->imie?>
-                Nazwisko: <?php $person->nazwisko?>
+                <img src="data:image/jpeg;base64,<?php echo base64_encode($person->Profilowe); ?>" width="200px" height="200px">
+                Imie: <?php echo $person->Imie?>
+                Nazwisko: <?php echo $person->Nazwisko?>
             </div>
 
         <?php endforeach;?>
@@ -28,4 +28,8 @@
 
         <?php
     }
+
+    ?>
+
+    <button onclick="window.location.href='<?php echo esc_url( home_url( '/create-dead-person/' ) ); ?>'">Dodaj</button>
 
