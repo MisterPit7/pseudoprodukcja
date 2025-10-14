@@ -2,12 +2,12 @@
     <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
    
     <label for="email">Email: </label>
-    <input type="email" name="email"><br><br>
+    <input type="email" name="email" required><br><br>
 
     <label for="password">Hasło: </label>
-    <input type="password" name="password"><br><br>
+    <input type="password" name="password" required><br><br>
 
-    <button type="submit">Zarejestruj się</button>
+    <button type="submit">Zaluguj się</button>
 
 </form>
 
@@ -17,14 +17,11 @@
             event.preventDefault();
            
             var form = $(this);  
-            
 
             $.ajax({
                 type: "POST",
                 url: "<?php echo get_rest_url(null, 'v1/login') ?>",
-                data: form.serialize(),
-                processData: false,
-                contetType: false,
+                data: form.serialize()
 
             })
 
