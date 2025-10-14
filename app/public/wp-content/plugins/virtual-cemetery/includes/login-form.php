@@ -17,28 +17,25 @@ function login_user($data){
     }
 
     global $wpdb;
-    $table_name = $wpdb->prefix . 'klienci';
-    
-  
-
-     $options = [
-        'cost' => 12,
-        'salt' => 'b0x5e9ma6b0c36z9n6ql0f'
-    ];
+    $table_name = $wpdb->prefix . 'users';
 
     $email = $params['email'];
-    $password = password_hash($params['password'], PASSWORD_BCRYPT, $options);
+    $password = $params['password'];
 
     $result = $wpdb->get_results(
-        $wpdb->prepare("SELECT * FROM $table_name WHERE Email = %s AND Haslo = %s", $email,$password)
+        $wpdb->prepare("SELECT * FROM $table_name WHERE user_email = %s", $email)
     );
+    
 
-    print_r($result);
-
-    if($result == ''){
+    if(!$result){
         return new WP_Error('invalid_value','no account found',array('status'=>403));
     }
 
+    if(!password_verify($password, $result[0]->user_pass)){
+        return new WP_Error('invalid_value','incorrect paswrd',array('status'=>403));
+    }
+
+    return $result[0];
 
 }
 
