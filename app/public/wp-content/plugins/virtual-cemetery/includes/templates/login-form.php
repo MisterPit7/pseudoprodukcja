@@ -14,7 +14,7 @@
     <input type="password" name="password" required placeholder="Podaj hasło"><br><br>
 
     <div style="display:flex;justify-content:center">
-        <button type="submit">Zaluguj się</button>
+        <button type="submit">Zaloguj się</button>
     </div>
 </form>
 
