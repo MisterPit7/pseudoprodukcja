@@ -43,11 +43,10 @@ function login_user($data){
     );
 }
 
-
 function show_login_form(){
 
-    if (is_user_logged_in()) {
-       echo "<script>window.location.href =" . home_url('/dashboard/') . "</script>";
+    if (wp_get_current_user()) {
+       echo "<script>window.location.href='" . esc_url( home_url('/dashboard/') ) . "';</script>";
        exit;
     }
     

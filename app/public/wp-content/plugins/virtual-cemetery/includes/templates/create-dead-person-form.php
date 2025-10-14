@@ -26,6 +26,7 @@
     <button type="submit">DODAJ</button>
 
 </form>
+ <button onclick="window.location.href='<?php echo esc_url( home_url( '/dashboard/' ) ); ?>'">Powrót</button>
 
 <script>
 
@@ -42,14 +43,7 @@
             data: formData,
             processData: false,
             contentType: false,
-            success: function(response) {
-                alert('Dodano pomyślnie!');
-                console.log(response);
-            },
-            error: function(error) {
-                alert('Wystąpił błąd');
-                console.log(error);
-            }
+           
         });
     });
 });
