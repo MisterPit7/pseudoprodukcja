@@ -34,10 +34,23 @@ function login_user($data){
         return new WP_Error('invalid_value','incorrect paswrd',array('status'=>403));
     }
 
-    return $result[0];
+    wp_set_current_user($result[0]->ID);
+    wp_set_auth_cookie($result[0]->ID);
 
+    return array(
+        'success' => true,
+        'redirect' => home_url('/dashboard/')
+    );
 }
 
+
 function show_login_form(){
+
+    if (is_user_logged_in()) {
+       echo "<script>window.location.href =" . home_url('/dashboard/') . "</script>";
+       exit;
+    }
+    
     include MY_PLUGIN_PATH."/includes/templates/login-form.php";
+
 }

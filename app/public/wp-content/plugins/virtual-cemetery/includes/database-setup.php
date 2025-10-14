@@ -6,25 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $wpdb;
 
 /* ==============================
-   Tabela: Klienci
-============================== */
-$table_name = $wpdb->prefix . 'klienci';
-$charset_collate = $wpdb->get_charset_collate();
-
-$sql = "CREATE TABLE $table_name (
-    ID int(11) NOT NULL AUTO_INCREMENT,
-    Imie varchar(30) NOT NULL,
-    Nazwisko varchar(100) NOT NULL,
-    Email varchar(100) NOT NULL UNIQUE,
-    Haslo char(60) NOT NULL,
-    PRIMARY KEY  (ID)
-) $charset_collate ENGINE=InnoDB;";
-
-require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-dbDelta($sql);
-
-
-/* ==============================
    Tabela: Zmarli
 ============================== */
 $table_name = $wpdb->prefix . 'zmarli';
@@ -84,3 +65,11 @@ $sql = "CREATE TABLE $table_name (
 ) $charset_collate ENGINE=InnoDB;";
 
 dbDelta($sql);
+
+$tmp_users = $wpdb->prefix . 'users';
+$sql = "ALTER TABLE Zmarli
+ADD CONSTRAINT fk_zmarli_klient
+FOREIGN KEY (ID)
+REFERENCES $tmp_users(ID)";
+
+
