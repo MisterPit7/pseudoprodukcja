@@ -18,6 +18,8 @@
 </form>
 
 <script>
+
+    
     jQuery(document).ready(function($){
         $("#login-form").submit(function(event){
             event.preventDefault();
@@ -27,7 +29,12 @@
             $.ajax({
                 type: "POST",
                 url: "<?php echo get_rest_url(null, 'v1/login') ?>",
-                data: form.serialize()
+                data: form.serialize(),
+                success: function(response){
+                    if (response.success && response.redirect) {
+                        window.location.href = response.redirect;
+                    }
+                }
 
             })
 

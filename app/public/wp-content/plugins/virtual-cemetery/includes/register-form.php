@@ -6,7 +6,7 @@ function register_user($data){
     
     $params = $data->get_params();
 
-    if(!preg_match("/^[a-zA-Z0-9]{5,50}$/", $params['nickname'])){
+    if(!preg_match("/^[a-zA-Z]{5,50}$/", $params['nickname'])){
     return new WP_Error('invalid_value','wrong nickname',['status'=>403]);
     }
 
@@ -49,7 +49,7 @@ function register_user($data){
     date_default_timezone_set('Europe/Warsaw'); 
 
     $wpdb->insert(
-        $table_name,
+        $table_name,    
         array(
            'user_login' => $nickname,
            'user_pass' => password_hash($params['password'], PASSWORD_BCRYPT),
