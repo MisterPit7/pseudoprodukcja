@@ -3,9 +3,8 @@
 </style>
 
 <form id="login-form">
-    <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
-    
     <h1>Zaloguj się</h1>
+    <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
 
     <label for="email">Email: </label><br>
     <input type="email" name="email" required placeholder="Podaj email"><br><br>
