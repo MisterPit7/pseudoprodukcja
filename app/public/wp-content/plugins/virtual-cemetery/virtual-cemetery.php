@@ -3,11 +3,14 @@
  * Plugin Name:       Virtual Cemetery
  * Description:       Simple plugin to do something 
  * Version:           1.0
- * Author:            MisterPit, MARVI2,Madness  
+ * Author:            MisterPit, MARVI2, Madness  
  */
 
+
+//I am sorry 
+
 if(!defined("ABSPATH")){
-    die("NIGGER");
+    die("you cannot be here");
 }
 
 if(!class_exists('VirtualCemetery')){

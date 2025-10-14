@@ -1,14 +1,21 @@
+<style>
+    <?php include MY_PLUGIN_PATH."assets/css/login-form.css"; ?>
+</style>
+
 <form id="login-form">
     <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
-   
-    <label for="email">Email: </label>
-    <input type="email" name="email"><br><br>
+    
+    <h1>Zaloguj się</h1>
 
-    <label for="password">Hasło: </label>
-    <input type="password" name="password"><br><br>
+    <label for="email">Email: </label><br>
+    <input type="email" name="email" required placeholder="Podaj email"><br><br>
 
-    <button type="submit">Zarejestruj się</button>
+    <label for="password">Hasło: </label><br>
+    <input type="password" name="password" required placeholder="Podaj hasło"><br><br>
 
+    <div style="display:flex;justify-content:center">
+        <button type="submit">Zaluguj się</button>
+    </div>
 </form>
 
 <script>
@@ -17,14 +24,11 @@
             event.preventDefault();
            
             var form = $(this);  
-            
 
             $.ajax({
                 type: "POST",
                 url: "<?php echo get_rest_url(null, 'v1/login') ?>",
-                data: form.serialize(),
-                processData: false,
-                contetType: false,
+                data: form.serialize()
 
             })
 

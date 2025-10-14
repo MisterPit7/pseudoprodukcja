@@ -1,0 +1,35 @@
+*{
+    font-size: 16px;
+}
+
+#login-form{
+    width: 80%;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: #F2F0E4;
+    border-radius: 30px;
+    box-shadow: 4px 4px 4px #F2F0E4;
+}
+
+#login-form h1{
+    color: #586C51;
+    text-align: center;
+}
+#login-form label{
+    color: #586C51;
+    font-size: 1.5rem;
+}
+
+#login-form input{
+    padding: 0.75rem 1rem;
+    border: 2px solid #586C51;
+    background-color: #FBFAF6;
+    border-radius: 5px;
+    width: 100%;
+}
+
+#login-form button{
+    background-color: #586C51;
+    font-size: 1.25rem;
+    color: #F2F0E4;
+}

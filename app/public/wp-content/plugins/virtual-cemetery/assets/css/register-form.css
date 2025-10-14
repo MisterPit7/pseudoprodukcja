@@ -6,7 +6,6 @@
     width: 80%;
     margin: 30px auto;
     padding: 30px;
-    padding-left: 50px;
     background-color: #586C51;
     border-radius: 30px;
     box-shadow: 4px 4px 4px #F2F0E4;
@@ -14,6 +13,7 @@
 
 #register-form h1{
     color: #FBFAF6;
+    text-align: center;
 }
 
 #register-form label{
@@ -23,10 +23,9 @@
 
 #register-form input{
     padding: 0.75rem 1rem;
-    border: 2px solid #586C51;
     background-color: #FBFAF6;
     border-radius: 5px;
-    width: 80%;
+    width: 100%;
 }
 
 #register-form button{
