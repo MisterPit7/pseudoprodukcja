@@ -1,3 +1,6 @@
+<style>
+    <?php include MY_PLUGIN_PATH."assets/css/dashboard.css"?>
+</style>
 <?php
 
     global $wpdb;
@@ -13,14 +16,13 @@
     if($result){
         ?>
 
-        <div>
+        <div id="dead-person-grid">
 
         <?php foreach($result as $person): ?>
 
-            <div name="dead-person" value="<?php echo $person->ID?>">
+            <div id="dead-person" name="dead-person" value="<?php echo $person->ID?>">
                 <img src="data:image/jpeg;base64,<?php echo base64_encode($person->Profilowe); ?>" width="200px" height="200px">
-                Imie: <?php echo $person->Imie?>
-                Nazwisko: <?php echo $person->Nazwisko?>
+                <p> <?php echo $person->Imie?> <?php echo $person->Nazwisko?></p>
             </div>
 
         <?php endforeach;?>
@@ -31,10 +33,10 @@
     }
 
     ?>
-
-    <button onclick="window.location.href='<?php echo esc_url( home_url( '/create-dead-person/' ) ); ?>'">Dodaj</button>
-    <button id="logout">WYLOGUJ SIE</button>
-
+    <div id="btns">
+        <button onclick="window.location.href='<?php echo esc_url( home_url( '/create-dead-person/' ) ); ?>'">Dodaj</button>
+        <button id="logout">WYLOGUJ SIE</button>
+    </div>
     <script>
         jQuery(document).ready(function($){
             $("#logout").click(function(){
