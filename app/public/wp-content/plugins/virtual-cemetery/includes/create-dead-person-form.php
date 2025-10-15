@@ -70,7 +70,10 @@ function create_dead_person($data){
         )
     );
 
-     return "asddas";
+    return new WP_REST_Response([
+        'succes'=>true,
+        'data'=> home_url('/dashboard/')
+    ],200);
 
 }
 
