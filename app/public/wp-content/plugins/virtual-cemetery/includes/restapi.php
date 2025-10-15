@@ -2,10 +2,13 @@
 
 add_action('rest_api_init','create_rest_endpoint');
 
+require_once(MY_PLUGIN_PATH."/includes/get-single-person.php");
 require_once(MY_PLUGIN_PATH."/includes/register-form.php");
 require_once(MY_PLUGIN_PATH."/includes/login-form.php");
+require_once(MY_PLUGIN_PATH."/includes/logout.php");
 require_once(MY_PLUGIN_PATH.'/includes/dashboard.php');
 require_once(MY_PLUGIN_PATH.'/includes/create-dead-person-form.php');
+
 
 function create_rest_endpoint(){
     register_rest_route( "v1", "register",array(
@@ -27,5 +30,18 @@ function create_rest_endpoint(){
         'methods' => 'POST',
         'callback' => 'create_dead_person'
     ));
+
+    register_rest_route( "v1", "logout",array(
+        'methods' => 'GET',
+        'callback' => 'logout_user'
+    ));
+
+   register_rest_route('v1', 'get-single-person', array(
+            'methods'  => 'GET',
+            'callback' => 'get_single_person',
+        )
+    );
+
+
 
 }

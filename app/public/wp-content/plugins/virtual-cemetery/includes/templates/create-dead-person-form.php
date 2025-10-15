@@ -35,7 +35,6 @@
         event.preventDefault();
 
         var formData = new FormData(this);
-        console.log(formData);
 
         $.ajax({
             type: "POST",
@@ -43,6 +42,11 @@
             data: formData,
             processData: false,
             contentType: false,
+            success: function(response){
+                if(response.data){
+                    window.location.href = response.data;
+                }
+            }
            
         });
     });

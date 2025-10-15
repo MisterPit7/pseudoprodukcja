@@ -38,15 +38,15 @@ function login_user($data){
     wp_set_current_user($result[0]->ID);
     wp_set_auth_cookie($result[0]->ID);
 
-    return array(
+    return new WP_REST_Response([
         'success' => true,
         'redirect' => home_url('/dashboard/')
-    );
+    ],200);
 }
 
 function show_login_form(){
 
-    if (wp_get_current_user()) {
+    if (is_user_logged_in()) {
        echo "<script>window.location.href='" . esc_url( home_url('/dashboard/') ) . "';</script>";
        exit;
     }
