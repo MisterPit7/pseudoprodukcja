@@ -1,0 +1,119 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+h1#header{
+      color:#586C51;
+      margin-top: 20px;
+}
+div#container{
+    margin: 0 auto;
+    width: max(1000px,70%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F2F0E4;
+    border-radius: 10px;
+}
+#container img#profilePic{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: aliceblue;
+    margin: 15px;
+}
+#container hr{
+    background-color:#586C51;
+    height: 3px;
+    width: 90%;
+    margin-bottom: 16px;
+}
+#container h2 #info{
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    background-color: #FBFAF6;
+    width: 45%;
+    margin: 10px;
+    text-align: center;
+    border: 2px solid #586C51;
+}
+#container h2{
+    margin: 0;
+    display: flex;
+    width: 90%;
+    justify-content: center;
+}
+#container p i{
+    color:gray;
+    padding: 1.5rem 2rem;
+}
+#container #para{
+    width:70%;
+    text-align: center;
+    color:#586C51;
+}
+#data-viewer-comments{
+    background-color: #FBFAF6;
+    width: 100%;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+}
+#data-viewer-comments p input[type='text']{
+    border-radius: none;
+    border: none;
+    margin-bottom: 10px;
+    width: 80%;
+}
+#data-viewer-comments div#comment{
+    background-color: #F2F0E4;
+    width: 100%;
+    padding: 1rem 1.5rem;
+    margin-bottom: 10px;
+}
+#data-viewer-comments div#comment h4{
+    color: #586C51;
+}
+#imgGallery{
+    display: flex;
+    width: 95%;
+    gap:30px;
+    justify-content: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+#imgGallery img{
+    width: 30%;
+}
+#centerBtn button,#delBtns button{
+    background-color: #586C51;
+    font-size: 1.25rem;
+    color: #F2F0E4;
+    margin: 20px;
+}
+
+#delete-person{
+    text-align: center;
+    width: 400px;
+    padding: 20px;
+    background-color: #cac8bc;
+    border-radius: 10px;
+
+    position: fixed;
+    left:50%;
+    top:40%;
+    transform:translate(-50%,0);
+    z-index: 50;
+}
+#delete-person input{
+    padding: 0.75rem 1rem;
+    border: 2px solid #586C51;
+    background-color: #FBFAF6;
+    border-radius: 5px;
+    width: 100%;
+}
+#delBtns{
+    display: flex;
+    justify-content: space-between;
+}

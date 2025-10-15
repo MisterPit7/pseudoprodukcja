@@ -1,16 +1,37 @@
-<img src="" alt="Profilowe" id="profile">
-<span id="name"></span>
-<span id="surname"></span>
-<span id="date"></span>
-<span id="description"></span>
-<span id="location"></span>
+<style>
+    <?php include MY_PLUGIN_PATH."assets/css/single-person.css"?>
+</style>
+<div id='container'>
+        <h1 id='header'>Ś.P. <span id="name"></span> <span id="surname"></span></h1>
+        <img id='profilePic'>
+        <hr>
+        <h2>
+            <div id='info'><span id="dateU"></span></div> <div style='padding-top:8px;font-size:3rem'>-</div> <div id='info'><span id="dateS"></span></div>
+        </h2>
+        <p id='para'><i>"<span id="description"></span>"</i></p>
+        <p id='para'><b>Spoczywa na <span id="location"></span></b></p>
+        <div id='data-viewer-comments'>
+            <h3>Komentarze</h3>
+            <label for='comment'>Wpisz komentarz</label>
+            <p style='width:100%;text-align:center'><input type='text' id='comment' placeholder='Byles/as dla mnie...'/></p>
+        
+           <div id='comment'><h4>Osoba 1</h4>tresc komentarza 1</span></div>
+           <div id='comment'><h4>Osoba 2</h4>tresc komentarza 2</span></div>
+        </div>
+</div>
+<div id="centerBtn" style="display: flex;justify-content:center">
+    <button id="delProfile">Usuń profil</button>
+</div>
 
 
-<form id="delete-person">
+<form id="delete-person" hidden="true">
     <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
     <input type="hidden" name="id" id="id">
-    <input type="text" name="text">
-    <button type="submit">usun</button>
+    <input type="text" name="text" placeholder="Wpisz nazwisko z profilu, aby potwierdzić"><br>
+    <div id="delBtns">
+    <button type="button" id="cancel">Anuluj</button>
+    <button type="submit">Usuń</button>
+    </div>
 </form>
 
 
@@ -58,15 +79,24 @@
                     $('#location').append('Nie udało się pobrać lokalizacji')
                 }
                 //Daty
-                if(response.Data_urodzenia && response.Data_smierci){
-                    $('#date').append(response.Data_urodzenia +' - '+response.Data_smierci)
+                if(response.Data_urodzenia){
+                    $('#dateU').append(convertDate(response.Data_urodzenia))
+
                 }
                 else{
-                    $('#date').append('Nie udało się pobrać dat')
+                    $('#dateU').append('Nie udało się pobrać daty urodzenia')
+                }
+                if(response.Data_smierci){
+                    $('#dateS').append(convertDate(response.Data_smierci))
+                }
+                else{
+                    $('#dateS').append('Nie udało się pobrać daty śmierci')
                 }
                 //Profilowe
                 if(response.Profilowe){
-                    $('#profile').attr('src','data:image/jpeg;base64,'+response.Profilowe)
+                    $('#profilePic').attr('src','data:image/jpeg;base64,'+response.Profilowe)
+                }else{
+                    $('#profilePic').attr('src','https://i.pinimg.com/736x/1d/ec/e2/1dece2c8357bdd7cee3b15036344faf5.jpg');
                 }
 
             }
@@ -86,6 +116,19 @@
             })
         })
 
-    })
+        $("#delProfile").click(function(){
+            $("#delete-person").attr('hidden',false);
+        })
 
+        $("#cancel").click(function(){
+            $("#delete-person").attr('hidden',true);
+        })
+
+    })
+    function convertDate(date){
+        let arr = date.split('-');
+        return arr[2] +"-"+arr[1]+"-"+arr[0];
+    }
+
+    
 </script>

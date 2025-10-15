@@ -23,7 +23,9 @@
             <div id="dead-person">
                 <img src="data:image/jpeg;base64,<?php echo base64_encode($person->Profilowe); ?>" width="200px" height="200px">
                 <p> <?php echo $person->Imie?> <?php echo $person->Nazwisko?></p>
-                <button onclick="window.location.href = '<?php echo home_url('/single-person?id=').$person->ID; ?>'">Pokaż osobe</button>
+                <div style="display: flex;justify-content:center;">
+                    <button onclick="window.location.href = '<?php echo home_url('/single-person?id=').$person->ID; ?>'">Pokaż osobe</button>
+                </div>
             </div>
 
         <?php endforeach;?>
