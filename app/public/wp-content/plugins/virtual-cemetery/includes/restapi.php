@@ -8,6 +8,7 @@ require_once(MY_PLUGIN_PATH."/includes/login-form.php");
 require_once(MY_PLUGIN_PATH."/includes/logout.php");
 require_once(MY_PLUGIN_PATH.'/includes/dashboard.php');
 require_once(MY_PLUGIN_PATH.'/includes/create-dead-person-form.php');
+require_once(MY_PLUGIN_PATH.'/includes/delete-single-person.php');
 
 
 function create_rest_endpoint(){
@@ -36,11 +37,16 @@ function create_rest_endpoint(){
         'callback' => 'logout_user'
     ));
 
-   register_rest_route('v1', 'get-single-person', array(
+    register_rest_route('v1', 'get-single-person', array(
             'methods'  => 'GET',
             'callback' => 'get_single_person',
         )
     );
+     
+    register_rest_route( "v1", "delete-single-person",array(
+        'methods' => 'POST',
+        'callback' => 'delete_single_person'
+    ));
 
 
 

@@ -4,16 +4,28 @@
 <span id="date"></span>
 <span id="description"></span>
 <span id="location"></span>
+
+
+<form id="delete-person">
+    <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
+    <input type="hidden" name="id" id="id">
+    <input type="text" name="text">
+    <button type="submit">usun</button>
+</form>
+
+
 <script>
 
     jQuery(document).ready(function($){
         const url = new URL(window.location.href);
-        const parts = url.toString().split('?');         
-        const id = parts[parts.length - 1];
+        const parts = url.toString().split('id=')[1].split('&')[0];         
+        const id = parts;
         if(id === null) return;
+        $('#id').val(id);
+
         $.ajax({
             type:'GET',
-            url:"<?php echo get_rest_url(null, 'v1/get-single-person')?>?id=9",
+            url:"<?php echo get_rest_url(null, 'v1/get-single-person')?>?id="+id,
             dataType: 'json',
             success: function(response){
                 //Imie
@@ -38,8 +50,8 @@
                 else{
                     $('#description').append('Nie udało się pobrać opisu')
                 }
-                //Geolokalizacjia
-                if(response.Geolokalizacjia){
+                //Geolokalizacja
+                if(response.Geolokalizacja){
                     $('#location').append(response.Geolokalizacja)
                 }
                 else{
@@ -59,6 +71,21 @@
 
             }
         })
+
+        $('#delete-person').submit(function(){
+            form = $(this)
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo get_rest_url(null, 'v1/delete-single-person')?>",
+                data: form.serialize(),
+                success: function(response){
+                    if(response.data){
+                        window.location.href = response.data
+                    }
+                }
+            })
+        })
+
     })
 
 </script>

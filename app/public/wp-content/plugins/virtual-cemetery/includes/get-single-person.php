@@ -25,7 +25,7 @@ function get_single_person(){
         "Nazwisko"=> $result[0]->Nazwisko,
         "Profilowe"=> base64_encode($result[0]->Profilowe),
         "Opis"=>$result[0]->Opis,
-        "Geolokalizacja"=>$result[0]->Geolokalizacjia,
+        "Geolokalizacja"=>$result[0]->Geolokalizacja,
         "Data_urodzenia"=>$result[0]->Data_urodzenia,
         "Data_smierci"=>$result[0]->Data_smierci,
     );

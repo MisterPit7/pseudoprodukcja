@@ -17,10 +17,11 @@
 
         <?php foreach($result as $person): ?>
 
-            <div name="dead-person" value="<?php echo $person->ID?>">
+            <div>
                 <img src="data:image/jpeg;base64,<?php echo base64_encode($person->Profilowe); ?>" width="200px" height="200px">
                 Imie: <?php echo $person->Imie?>
                 Nazwisko: <?php echo $person->Nazwisko?>
+                <button onclick="window.location.href = '<?php echo home_url('/single-person?id=').$person->ID; ?>'">Pokaż osobe</button>
             </div>
 
         <?php endforeach;?>
