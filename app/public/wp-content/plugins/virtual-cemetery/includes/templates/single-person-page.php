@@ -40,7 +40,7 @@
                 }
                 //Geolokalizacjia
                 if(response.Geolokalizacjia){
-                    $('#location').append(response.Geolokalizacjia)
+                    $('#location').append(response.Geolokalizacja)
                 }
                 else{
                     $('#location').append('Nie udało się pobrać lokalizacji')
