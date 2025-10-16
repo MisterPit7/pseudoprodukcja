@@ -7,10 +7,14 @@
     <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
 
     <label for="email">Email: </label><br>
-    <input type="email" name="email" required placeholder="Podaj email"><br><br>
-
+    <input type="email" name="email" required placeholder="Podaj email"><br>
+    <span id="info1"></span>
+    <br>
+    
     <label for="password">Hasło: </label><br>
-    <input type="password" name="password" required placeholder="Podaj hasło"><br><br>
+    <input type="password" name="password" required placeholder="Podaj hasło"><br>
+    <span id="info2"></span>
+    <br>
 
     <div style="display:flex;justify-content:center">
         <button type="submit">Zaloguj się</button>
@@ -33,6 +37,24 @@
                 success: function(response){
                     if (response.success && response.redirect) {
                         window.location.href = response.redirect;
+                    }
+                },
+                error: function(response){
+                    let error = response.responseJSON;
+                    let info1 = document.querySelector("#info1");
+                    let info2 = document.querySelector("#info2");
+
+                    console.log(error);
+
+                    if(error['message'] == "no account found"){
+                        info1.innerHTML = "Błędny email!"; 
+                    }else{
+                        info1.innerHTML = ""; 
+                    }
+                    if(error['message'] == "incorrect paswrd"){
+                        info2.innerHTML = "Błędne hasło!"; 
+                    }else{                                                
+                        info2.innerHTML = ""; 
                     }
                 }
 

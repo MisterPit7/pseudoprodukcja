@@ -1,8 +1,18 @@
+<script>
+    window.addEventListener('load',function(){
+       let loader = document.querySelector("#loader");
+       let main = document.querySelector("#mainContent");
+       loader.style.display="none";
+       main.style.display="block";
+    })
+</script>
+
 <style>
     <?php include MY_PLUGIN_PATH."assets/css/dashboard.css"?>
 </style>
+<div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
 <?php
-
+    
     global $wpdb;
     $table_name = $wpdb->prefix . 'zmarli';
 
@@ -15,7 +25,7 @@
 
     if($result){
         ?>
-
+<div id="mainContent" style="display:none;">
         <div id="dead-person-grid">
 
         <?php foreach($result as $person): ?>
@@ -40,6 +50,7 @@
         <button onclick="window.location.href='<?php echo esc_url( home_url( '/create-dead-person/' ) ); ?>'">Dodaj</button>
         <button id="logout">WYLOGUJ SIE</button>
     </div>
+</div>
     <script>
         jQuery(document).ready(function($){
             $("#logout").click(function(){
