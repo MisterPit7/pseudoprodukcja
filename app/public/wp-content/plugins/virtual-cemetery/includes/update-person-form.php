@@ -46,7 +46,7 @@ function update_dead_person_data($data){
     global $wpdb;
     $table_name = $wpdb->prefix . 'zmarli';
 
-    if($_FILES['photo']){
+    if($bytes){
         $wpdb->update(
             $table_name,
             array(
