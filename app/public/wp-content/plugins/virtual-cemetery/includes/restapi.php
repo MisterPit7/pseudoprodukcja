@@ -9,6 +9,7 @@ require_once(MY_PLUGIN_PATH."/includes/logout.php");
 require_once(MY_PLUGIN_PATH.'/includes/dashboard.php');
 require_once(MY_PLUGIN_PATH.'/includes/create-dead-person-form.php');
 require_once(MY_PLUGIN_PATH.'/includes/delete-single-person.php');
+require_once(MY_PLUGIN_PATH.'/includes/searchbar.php');
 
 
 function create_rest_endpoint(){
