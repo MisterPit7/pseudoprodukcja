@@ -52,6 +52,9 @@
     color: #F2F0E4;
     margin-top: 20px;
 }
+#create-dead-person-form button:hover,#back:hover{
+    scale: 1.05;
+}
 button#back{
     position: absolute;
     right: 30px;

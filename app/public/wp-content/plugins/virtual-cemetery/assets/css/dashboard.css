@@ -7,7 +7,7 @@
     padding: 30px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap:40px;
 }
 
 #dead-person{
@@ -27,11 +27,17 @@
     color:#586C51;
     text-align: center;
 }
-#btns button{
+#btns button,#dead-person button{
     background-color: #586C51;
     font-size: 1.25rem;
     color: #F2F0E4;
     margin-right: 15px;
+}
+#btns button:hover,#dead-person button:hover{
+    scale:1.05;
+}
+#dead-person button{
+    margin: 0;
 }
 #btns{
     display: flex;
@@ -39,4 +45,10 @@
 }
 #dead-person:hover{
     scale: 1.05;
+}
+
+@media only screen and (max-width:600px){
+    #dead-person-grid{
+        justify-content:center;
+    }
 }

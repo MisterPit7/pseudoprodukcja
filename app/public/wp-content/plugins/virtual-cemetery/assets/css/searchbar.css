@@ -1,0 +1,94 @@
+*{
+    font-size: 16px;
+}
+
+nav{
+    width: 100%;
+    background-color: #FBFAF6;
+    text-align: center;
+}
+#searchForm{
+    padding: 20px;
+}
+#searchForm input{
+    background-color: #F2F0E4; 
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 10px 0 0 10px;
+    margin: 0;
+    width: 60%;
+}
+#searchForm button{
+    padding: 10px;
+    padding-right: 20px;
+    background-color: #586C51;
+    margin: 0;
+    border-radius: 0 10px 10px 0;
+}
+#searchForm button:hover{
+    scale:1.05;
+}
+#searchForm button:active{
+    background-color: #F2F0E4; 
+}
+#searchForm button:active span{
+    color:#586C51;
+
+}
+#searchForm span{
+    font-size: 2rem;
+    color: #F2F0E4;
+
+}
+
+#mainGrid{
+    padding: 20px 50px;
+    width: 100%;
+    background-color: #F2F0E4;
+    display: flex;
+    gap:35px;
+    flex-wrap: wrap;
+}
+
+#dead-person{
+    width: 300px;
+    border-radius: 15px;
+    background-color: #586C51;
+    padding: 10px;
+    margin: 20px 0px;
+}
+
+#dead-person img{
+    width: 100%;
+    height: 300px;
+}
+#dead-person p{
+    font-size: 1.5rem;
+    color:#F2F0E4;
+    text-align: center;
+}
+#dead-person button{
+    background-color: #F2F0E4;
+    font-size: 1.25rem;
+    color: #586C51;
+    margin-right: 15px;
+}
+#dead-person button:hover{
+    scale:1.05;
+}
+#dead-person button{
+    margin: 0;
+}
+#dead-person:hover{
+    scale: 1.05;
+}
+@media only screen and (max-width:800px){
+    #mainGrid{
+        justify-content:center;
+    }
+}
+
+/* 
+ #586C51;
+ #FBFAF6;
+ #F2F0E4; */
