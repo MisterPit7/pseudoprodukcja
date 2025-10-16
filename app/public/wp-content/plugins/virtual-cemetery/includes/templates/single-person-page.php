@@ -1,24 +1,35 @@
+<script>
+    window.addEventListener('load',function(){
+       let loader = document.querySelector("#loader");
+       let main = document.querySelector("#mainContent");
+       loader.style.display="none";
+       main.style.display="block";
+    })
+</script>
 <style>
     <?php include MY_PLUGIN_PATH."assets/css/single-person.css"?>
 </style>
-<div id='container'>
-        <h1 id='header'>Ś.P. <span id="name"></span> <span id="surname"></span></h1>
-        <img id='profilePic'>
-        <hr>
-        <h2>
-            <div id='info'><span id="dateU"></span></div> <div style='padding-top:8px;font-size:3rem'>-</div> <div id='info'><span id="dateS"></span></div>
-        </h2>
-        <p id='para'><i>"<span id="description"></span>"</i></p>
-        <p id='para'><b>Spoczywa na <span id="location"></span></b></p>
-        <div id='data-viewer-comments'>
-            <h3>Komentarze</h3>
-            <label for='comment'>Wpisz komentarz</label>
-            <p style='width:100%;text-align:center'><input type='text' id='comment' placeholder='Byles/as dla mnie...'/></p>
-        
-           <div id='comment'><h4>Osoba 1</h4>tresc komentarza 1</span></div>
-           <div id='comment'><h4>Osoba 2</h4>tresc komentarza 2</span></div>
-        </div>
-</div>
+<div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
+
+<div id="mainContent" style="display: none;">
+    <div id='container'>
+            <h1 id='header'>Ś.P. <span id="name"></span> <span id="surname"></span></h1>
+            <img id='profilePic'>
+            <hr>
+            <h2>
+                <div id='info'><span id="dateU"></span></div> <div style='padding-top:8px;font-size:3rem'>-</div> <div id='info'><span id="dateS"></span></div>
+            </h2>
+            <p id='para'><i>"<span id="description"></span>"</i></p>
+            <p id='para'><b>Spoczywa na <span id="location"></span></b></p>
+            <div id='data-viewer-comments'>
+                <h3>Komentarze</h3>
+                <label for='comment'>Wpisz komentarz</label>
+                <p style='width:100%;text-align:center'><input type='text' id='comment' placeholder='Byles/as dla mnie...'/></p>
+            
+            <div id='comment'><h4>Osoba 1</h4>tresc komentarza 1</span></div>
+            <div id='comment'><h4>Osoba 2</h4>tresc komentarza 2</span></div>
+            </div>
+    </div>
 
 
 <?php
@@ -59,7 +70,7 @@
         </div>
     </form>
 
-
+</div>
 <?php endif ?>
 
 

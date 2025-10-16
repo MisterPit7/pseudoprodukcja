@@ -1,7 +1,17 @@
+<script>
+    window.addEventListener('load',function(){
+       let loader = document.querySelector("#loader");
+       let main = document.querySelector("#mainContent");
+       loader.style.display="none";
+       main.style.display="block";
+    })
+</script>
 <style>
     <?php include MY_PLUGIN_PATH."assets/css/update-dead-person-form.css" ?>
 </style>
+<div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
 
+<div id="mainContent" style="display: none;">
 <form id="update-dead-person-form" enctype="multipart/form-data">
     <h1>Tworzenie profilu</h1>    
     <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
@@ -44,7 +54,7 @@
 <div id="buttonDiv">
  <button id="back" onclick="window.location.href='<?php echo esc_url( home_url( '/dashboard/' ) ); ?>'">Powrót</button>
 </div>
-
+</div>
 <script>
     jQuery(document).ready(function(){
 
