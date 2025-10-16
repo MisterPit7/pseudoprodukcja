@@ -36,3 +36,7 @@
 #login-form button:hover{
     scale:1.05;
 }
+#login-form button:active{
+    background-color: #FBFAF6;
+    color: #586C51;
+}

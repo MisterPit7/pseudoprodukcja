@@ -36,6 +36,10 @@
 #btns button:hover,#dead-person button:hover{
     scale:1.05;
 }
+#btns button:active,#dead-person button:active{
+    background-color: #FBFAF6;
+    color: #586C51;
+}
 #dead-person button{
     margin: 0;
 }
