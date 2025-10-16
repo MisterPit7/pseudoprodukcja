@@ -91,6 +91,7 @@ div#container{
     font-size: 1.25rem;
     color: #F2F0E4;
     margin: 20px;
+    padding: 0.75rem 1.25rem;
 }
 #centerBtn button:hover,#delBtns button:hover{
     scale:1.05;
@@ -98,6 +99,12 @@ div#container{
 #centerBtn button:active,#delBtns button:active{
     background-color: #FBFAF6;
     color: #586C51;
+}
+#delProfile{
+    flex-grow: 0;
+}
+#update-person{
+    margin: 0;
 }
 
 #delete-person{

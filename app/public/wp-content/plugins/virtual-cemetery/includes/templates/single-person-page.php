@@ -19,26 +19,26 @@
            <div id='comment'><h4>Osoba 2</h4>tresc komentarza 2</span></div>
         </div>
 </div>
-<div id="centerBtn" style="display: flex;justify-content:center">
-    <button id="delProfile">Usuń profil</button>
+<div id="centerBtn" style="display: flex;justify-content:center;flex-grow:0;">
+
+    <form id="update-person">
+        <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
+        <input type="hidden" name="id" id="id-update">
+        <button type="submit">Zmień dane</button>
+    </form>
+
+    <button type="button" id="delProfile">Usuń profil</button>
 </div>
 
-
-<form id="delete-person" hidden="true">
-    <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
-    <input type="hidden" name="id" id="id-delete">
-    <input type="text" name="text" placeholder="Wpisz nazwisko z profilu, aby potwierdzić"><br>
-    <div id="delBtns">
-    <button type="button" id="cancel">Anuluj</button>
-    <button type="submit">Usuń</button>
-    </div>
-</form>
-
-<form id="update-person">
-    <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
-    <input type="hidden" name="id" id="id-update">
-    <button type="submit">Zmień dane</button>
-</form>
+    <form id="delete-person" hidden="true">
+        <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
+        <input type="hidden" name="id" id="id-delete">
+        <input type="text" name="text" placeholder="Wpisz nazwisko z profilu, aby potwierdzić"><br>
+        <div id="delBtns">
+            <button type="button" id="cancel">Anuluj</button>
+        <button type="submit">Usuń</button>
+        </div>
+    </form>
 
 
 <script>

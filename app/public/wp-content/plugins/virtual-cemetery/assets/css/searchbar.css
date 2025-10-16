@@ -76,6 +76,10 @@ nav{
 #dead-person button:hover{
     scale:1.05;
 }
+#dead-person button:active{
+    background-color: #586C51;
+    color: #F2F0E4;
+}
 #dead-person button{
     margin: 0;
 }
