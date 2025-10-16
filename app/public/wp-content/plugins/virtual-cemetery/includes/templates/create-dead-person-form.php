@@ -35,7 +35,7 @@
         </section>
     </div>
     <div style="display: flex;justify-content:center;">
-        <button type="submit">DODAJ</button>
+        <button id="add" type="submit">DODAJ</button>
     </div>
 </form>
 <div id="buttonDiv">
@@ -46,6 +46,7 @@
     jQuery(document).ready(function($){
     $("#create-dead-person-form").submit(function(event){
         event.preventDefault();
+        $('#add').attr('disabled',true);
 
         var formData = new FormData(this);
 
@@ -59,6 +60,10 @@
                 if(response.data){
                     window.location.href = response.data;
                 }
+            },
+            error: function(){
+                alert('złe dane');
+                $('#add').attr('disabled',false);
             }
            
         });
@@ -68,7 +73,7 @@
         var input = this;
         var url = $(this).val();
         var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-        if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) 
+        if (input.files && input.files[0] && ( ext == "png" || ext == "jpeg" || ext == "jpg" )) 
         {   
             var reader = new FileReader();
 

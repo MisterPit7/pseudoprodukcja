@@ -8,20 +8,28 @@
 
 <form id="delete-person">
     <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
-    <input type="hidden" name="id" id="id">
+    <input type="hidden" name="id" id="id-delete">
     <input type="text" name="text">
-    <button type="submit">usun</button>
+    <button type="submit">Usun</button>
+</form>
+
+<form id="update-person">
+    <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
+    <input type="hidden" name="id" id="id-update">
+    <button type="submit">Zmień dane</button>
 </form>
 
 
 <script>
 
     jQuery(document).ready(function($){
+        
         const url = new URL(window.location.href);
         const parts = url.toString().split('id=')[1].split('&')[0];         
         const id = parts;
         if(id === null) return;
-        $('#id').val(id);
+        $('#id-delete').val(id);
+        $('#id-update').val(id);
 
         $.ajax({
             type:'GET',
@@ -72,7 +80,8 @@
             }
         })
 
-        $('#delete-person').submit(function(){
+        $('#delete-person').submit(function(event){
+            event.preventDefault();
             form = $(this)
             $.ajax({
                 type: 'POST',
@@ -83,6 +92,24 @@
                         window.location.href = response.data
                     }
                 }
+            })
+        })
+
+        $('#update-person').submit(function(event){
+            event.preventDefault()
+
+            form = $(this)
+            
+            $.ajax({
+                type:'POST',
+                url: "<?php echo get_rest_url(null,'v1/redirect-update') ?>",
+                data:form.serialize(),
+                success:function(response){
+                    if(response.data){
+                        window.location.href = response.data + '?id=' + id;
+                    }
+                }
+
             })
         })
 
