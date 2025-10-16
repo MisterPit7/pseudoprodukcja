@@ -48,18 +48,21 @@
                     <?php if($row->Is_accepted == 0 && $owner == $user_id ):?>
 
                         <div id='comment'>
+                            <div style="width:95%;">
                             <h4>
                                 <?php echo $row->display_name?>
                             </h4>
                             <span>
                                 <?php echo $row->Tekst?>
                             </span>
+                            </div>
+                            <div>
                             <form class="comment-accept">
                                 <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
                                 <input type="hidden" name="person_id" value="<?php echo $_GET["id"]?>">
                                 <input type="hidden" name="id" value="<?echo $row->ID?>">
                                 <button type="submit" name='option' value='Accept'>
-                                    Accept
+                                    <span class="dashicons dashicons-yes"></span>
                                 </button>
                             </form>
                             <form class="comment-delete">
@@ -67,9 +70,10 @@
                                 <input type="hidden" name="person_id" value="<?php echo $_GET["id"]?>">
                                 <input type="hidden" name="id" value="<?echo $row->ID?>">
                                 <button type="submit" name='option' value="Delete">
-                                    Delete
+                                    <span class="dashicons dashicons-no"></span>
                                 </button>
                             </form>
+                            </div>
                         </div>
                     <?php 
                         continue;
@@ -78,12 +82,14 @@
                     <?if($row->Is_accepted != 0 || $row->ID_Klienta == get_current_user_id()):?>
 
                         <div id='comment'>
+                            <div>
                             <h4>
                                 <?php echo $row->display_name?>
                             </h4>
                             <span>
                                 <?php echo $row->Tekst?>
                             </span>
+                            </div>
                             <?php if($row->Is_accepted == 0 && $row->ID_Klienta == get_current_user_id()) echo "(Administrator jeszcze nie zaakceptował twojego komentarza)"?>
                         </div>
 
@@ -144,11 +150,10 @@
                         window.location.href = response.data
                     }
                 }
-                
             })
-
+        })
+        
         $(".comment-delete").submit(function(event){
-
             event.preventDefault()
             var formData = new FormData(this);
 
@@ -166,7 +171,7 @@
                 
             })
         })
-    })
+        
 
         $("#create-comment").submit(function(event){
             

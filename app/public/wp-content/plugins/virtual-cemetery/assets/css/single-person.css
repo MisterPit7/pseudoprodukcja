@@ -71,6 +71,7 @@ div#container{
     width: 100%;
     padding: 1rem 1.5rem;
     margin-bottom: 10px;
+    display: flex;
 }
 #data-viewer-comments div#comment h4{
     color: #586C51;
@@ -86,17 +87,35 @@ div#container{
 #imgGallery img{
     width: 30%;
 }
-#centerBtn button,#delBtns button{
+
+#create-comment{
+    width: 100%;
+    text-align: center;
+}
+
+.comment-accept button,.comment-delete button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.comment-accept button{
+    background-color: rgb(39, 170, 28);
+}
+.comment-delete button{
+    background-color: rgb(143, 17, 17);
+}
+
+#centerBtn button,#delBtns button,#create-comment button{
     background-color: #586C51;
     font-size: 1.25rem;
     color: #F2F0E4;
     margin: 20px;
     padding: 0.75rem 1.25rem;
 }
-#centerBtn button:hover,#delBtns button:hover{
+#centerBtn button:hover,#delBtns button:hover,#create-comment button:hover{
     scale:1.05;
 }
-#centerBtn button:active,#delBtns button:active{
+#centerBtn button:active,#delBtns button:active,#create-comment button:active{
     background-color: #FBFAF6;
     color: #586C51;
 }
