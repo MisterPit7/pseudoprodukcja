@@ -92,6 +92,9 @@ div#container{
     color: #F2F0E4;
     margin: 20px;
 }
+#centerBtn button:hover,#delBtns button:hover{
+    scale:1.05;
+}
 
 #delete-person{
     text-align: center;

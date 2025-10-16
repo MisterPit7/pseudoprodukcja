@@ -33,3 +33,6 @@
     font-size: 1.25rem;
     color: #F2F0E4;
 }
+#login-form button:hover{
+    scale:1.05;
+}
