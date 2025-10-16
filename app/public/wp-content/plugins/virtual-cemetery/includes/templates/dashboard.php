@@ -1,16 +1,16 @@
-<script>
+<!-- <script defer>
     window.addEventListener('load',function(){
        let loader = document.querySelector("#loader");
        let main = document.querySelector("#mainContent");
        loader.style.display="none";
        main.style.display="block";
     })
-</script>
+</script> -->
 
 <style>
     <?php include MY_PLUGIN_PATH."assets/css/dashboard.css"?>
 </style>
-<div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
+<!-- <div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div> -->
 <?php
     
     global $wpdb;
@@ -25,7 +25,7 @@
 
     if($result){
         ?>
-<div id="mainContent" style="display:none;">
+<div id="mainContent">
         <div id="dead-person-grid">
 
         <?php foreach($result as $person): ?>

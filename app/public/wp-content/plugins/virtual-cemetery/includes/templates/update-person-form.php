@@ -5,6 +5,7 @@
        loader.style.display="none";
        main.style.display="block";
     })
+
 </script>
 <style>
     <?php include MY_PLUGIN_PATH."assets/css/update-dead-person-form.css" ?>
@@ -51,6 +52,31 @@
         <button id="add" type="submit">Zmień</button>
     </div>
 </form>
+<form id="add-photo-form" enctype="multipart/form-data">
+    <h2>Dodaj zdjęcie</h2>
+    <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
+    <input type="file" name="photoGallery" id="photoInput" required>
+    <input type="hidden" name="id" id="id" value="<?php echo $_GET['id']?>">
+    <button type="submit">Dodaj</button>
+</form>
+ <section>
+        <?php
+        global $wpdb;
+            $table_name = $wpdb->prefix.'zdjecia';
+            $result = $wpdb->get_results(
+                $wpdb->prepare("SELECT * FROM $table_name WHERE ID_Zmarlego = %d",$_GET['id'] )
+            );
+        ?>
+        <?php foreach($result as $photo):?>
+            <form class="delete-photo">
+                <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
+                <img class='gallery' width="200px" height="100px" src='data:image/jpeg;base64,<?php echo base64_encode($photo->Zdjecie)?>'/>
+                <input type="hidden" name="photo-id" value="<?php echo $photo->ID?>"/>
+                <input type="hidden" name="id" id="id" value="<?php echo $_GET['id']?>">
+                <button type="submit">Usuń</button>
+            </form>
+        <?php endforeach?>
+    </section>
 <div id="buttonDiv">
  <button id="back" onclick="window.location.href='<?php echo esc_url( home_url( '/dashboard/' ) ); ?>'">Powrót</button>
 </div>
@@ -64,6 +90,54 @@
         if(id === null) return;
 
         $('#id').attr('value', id);
+
+        $("#add-photo-form").submit(function(event){
+            event.preventDefault()
+            
+            
+            var formData = new FormData(this);
+            formData.append('_wpnonce', jQuery(this).find('input[name="_wpnonce"]').val());
+            formData.append('id', id);
+            formData.append('photo', jQuery(this).find('input[name="photoGallery"]')[0].files[0]);
+
+            jQuery.ajax({
+                type:'POST',
+                url: "<?php echo get_rest_url( null, 'v1/update-photos' ) ?>",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success:function(response){
+                    if(response.data){
+                        window.location.href = response.data;
+                    }
+                },
+            })
+
+            
+
+        })
+
+        $(".delete-photo").submit(function(event){
+            event.preventDefault();
+            var form = $(this);
+            var formData = new FormData(this);
+            formData.append('_wpnonce', form.find('input[name="_wpnonce"]').val());
+            formData.append('photo-id', form.find('input[name="photo-id"]').val());
+            formData.append('id', form.find('input[name="id"]').val());
+
+            $.ajax({
+                type:'POST',
+                url: "<?php echo get_rest_url( null, 'v1/delete-person-photo' ) ?>",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success:function(response){
+                    if(response.data){
+                        window.location.href = response.data;
+                    }
+                },
+            })
+        })
 
         $.ajax({
             type: 'GET',

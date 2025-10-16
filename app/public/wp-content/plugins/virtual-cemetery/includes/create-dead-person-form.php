@@ -70,6 +70,23 @@ function create_dead_person($data){
         )
     );
 
+    $dead_id = $wpdb->insert_id;
+    $table_name = $wpdb->prefix . 'zdjecia';
+    $photos = $_FILES['gallery-photo']['tmp_name'];
+    $counter = 0;
+    foreach($photos as $photo){
+        $bytes = file_get_contents($photo);
+        $wpdb->insert(
+            $table_name,
+            array(
+               'ID_Zmarlego' => $dead_id,
+               'Zdjecie' => $bytes
+            )
+        );
+        $counter++;
+        if($counter == 6) break;
+    }
+
     return new WP_REST_Response([
         'succes'=>true,
         'data'=> home_url('/dashboard/')

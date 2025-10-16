@@ -26,6 +26,17 @@
         </h2>
         <p id='para'><i>"<span id="description"></span>"</i></p>
         <p id='para'><b>Spoczywa na <span id="location"></span></b></p>
+        <section>
+            <?php
+                $table_name = $wpdb->prefix.'zdjecia';
+                $result = $wpdb->get_results(
+                    $wpdb->prepare("SELECT * FROM $table_name WHERE ID_Zmarlego = %d",$_GET['id'] )
+                );
+            ?>
+            <?foreach($result as $photo):?>
+                <img class='gallery' width="200px" height="100px" src='data:image/jpeg;base64,<?php echo base64_encode($photo->Zdjecie)?>'>
+            <?php endforeach?>
+        </section>
         <div id='data-viewer-comments'>
             <h3>Komentarze</h3>
             <?php if(is_user_logged_in()):?>
@@ -39,8 +50,9 @@
             <?php endif?>
             <?php 
                 $table_name = $wpdb->prefix.'komentarze';
+                $join_table_name = $wpdb->prefix.'users';
                 $result = $wpdb->get_results(
-                    $wpdb->prepare("SELECT wp_komentarze.*,wp_users.display_name FROM wp_komentarze JOIN wp_users ON wp_users.ID = wp_komentarze.ID_Klienta WHERE ID_Zmarlego = %d",$_GET['id'] )
+                    $wpdb->prepare("SELECT $table_name.*,$join_table_name.display_name FROM $table_name JOIN $join_table_name ON $join_table_name.ID = $table_name.ID_Klienta WHERE ID_Zmarlego = %d",$_GET['id'] )
                 );
             ?>  
             <?php if($result):?>
