@@ -19,10 +19,28 @@
            <div id='comment'><h4>Osoba 2</h4>tresc komentarza 2</span></div>
         </div>
 </div>
+
+
+<?php
+
+    global $wpdb;
+    $table_name = $wpdb->prefix.'zmarli';
+    $dead_person_id = $_GET['id'];
+    $user_id = get_current_user_id();
+
+    $result = $wpdb->get_results(
+            $wpdb->prepare("SELECT * FROM $table_name WHERE ID = %s", $dead_person_id)
+    );
+
+
+
+?>
+
+<?php if($result[0]->ID_Klienta == $user_id): ?>
+
 <div id="centerBtn" style="display: flex;justify-content:center">
     <button id="delProfile">Usuń profil</button>
 </div>
-
 
 <form id="delete-person" hidden="true">
     <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
@@ -39,6 +57,9 @@
     <input type="hidden" name="id" id="id-update">
     <button type="submit">Zmień dane</button>
 </form>
+
+<?php endif ?>
+
 
 
 <script>
