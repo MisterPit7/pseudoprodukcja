@@ -27,7 +27,6 @@
                     <button>Pokaż Osobę</button>
                 </div>
             </div>
-                    
         </main>
     </div>
 </div>
