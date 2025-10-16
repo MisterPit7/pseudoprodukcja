@@ -1,5 +1,5 @@
 <style>
-    <?php include MY_PLUGIN_PATH."assets/css/create-dead-person-form.css" ?>
+    <?php include MY_PLUGIN_PATH."assets/css/update-dead-person-form.css" ?>
 </style>
 
 <form id="update-dead-person-form" enctype="multipart/form-data">
