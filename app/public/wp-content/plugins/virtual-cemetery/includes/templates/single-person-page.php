@@ -54,7 +54,7 @@
                             <span>
                                 <?php echo $row->Tekst?>
                             </span>
-                            <form id="comment-accept">
+                            <form class="comment-accept">
                                 <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
                                 <input type="hidden" name="person_id" value="<?php echo $_GET["id"]?>">
                                 <input type="hidden" name="id" value="<?echo $row->ID?>">
@@ -62,7 +62,7 @@
                                     Accept
                                 </button>
                             </form>
-                            <form id="comment-delete">
+                            <form class="comment-delete">
                                 <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
                                 <input type="hidden" name="person_id" value="<?php echo $_GET["id"]?>">
                                 <input type="hidden" name="id" value="<?echo $row->ID?>">
@@ -75,7 +75,7 @@
                         continue;
                         endif
                     ?>
-                    <?if($row->Is_accepted != 0):?>
+                    <?if($row->Is_accepted != 0 || $row->ID_Klienta == get_current_user_id()):?>
 
                         <div id='comment'>
                             <h4>
@@ -84,6 +84,7 @@
                             <span>
                                 <?php echo $row->Tekst?>
                             </span>
+                            <?php if($row->Is_accepted == 0 && $row->ID_Klienta == get_current_user_id()) echo "(Administrator jeszcze nie zaakceptował twojego komentarza)"?>
                         </div>
 
                     <?php endif?>
@@ -125,11 +126,12 @@
 <script>
 
     jQuery(document).ready(function($){
-
-        $("#comment-accept").submit(function(event){
-
-            var formData = new FormData(this);
+       
+        $(".comment-accept").submit(function(event){
+           
             event.preventDefault()
+            var formData = new FormData(this);
+            
 
             $.ajax({
                 type:'POST',
@@ -144,9 +146,8 @@
                 }
                 
             })
-        })
 
-        $("#comment-delete").submit(function(event){
+        $(".comment-delete").submit(function(event){
 
             event.preventDefault()
             var formData = new FormData(this);
@@ -165,7 +166,8 @@
                 
             })
         })
-        
+    })
+
         $("#create-comment").submit(function(event){
             
             var form = $(this)
