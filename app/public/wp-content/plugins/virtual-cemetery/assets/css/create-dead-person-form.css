@@ -55,10 +55,15 @@
 #create-dead-person-form button:hover,#back:hover{
     scale: 1.05;
 }
+#create-dead-person-form button:active,button#back:active{
+    background-color: #FBFAF6;
+    color: #586C51;
+}
 button#back{
     position: absolute;
     right: 30px;
 }
+
 #buttonDiv{
     width: 100%;
     position: relative;
