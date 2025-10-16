@@ -100,12 +100,14 @@
             event.preventDefault()
             
             
-            let form = $(this);
+            var formData = new FormData(this);
 
             $.ajax({
                 type:'POST',
                 url: "<?php echo get_rest_url( null, 'v1/update-single-person' ) ?>",
-                data: form.serialize(),
+                data: formData,
+                processData: false,
+                contentType: false,
                 success:function(response){
                     if(response.data){
                         window.location.href = response.data;
