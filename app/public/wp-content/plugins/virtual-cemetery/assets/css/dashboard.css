@@ -7,7 +7,7 @@
     padding: 30px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap:40px;
 }
 
 #dead-person{
@@ -42,4 +42,10 @@
 }
 #dead-person:hover{
     scale: 1.05;
+}
+
+@media only screen and (max-width:600px){
+    #dead-person-grid{
+        justify-content:center;
+    }
 }
