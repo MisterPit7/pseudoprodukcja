@@ -15,7 +15,8 @@
     <div>
         <nav>
             <form id="searchForm">
-                <input type="text" name="search" placeholder="Wyszukaj...">
+                <input type="text" name="name" placeholder="Wyszukaj imie...">
+                <input type="text" name="surname" placeholder="Wyszukaj nazwisko...">
                 <button type="submit"><span class="dashicons dashicons-search"></span></button>
             </form>
         </nav>
