@@ -1,3 +1,19 @@
+<?php
+
+    global $wpdb;
+    $table_name = $wpdb->prefix.'zmarli';
+    $dead_person_id = $_GET['id'];
+    $user_id = get_current_user_id();
+
+    $result = $wpdb->get_results(
+            $wpdb->prepare("SELECT * FROM $table_name WHERE ID = %s", $dead_person_id)
+    );
+
+    $owner = $result[0]->ID_Klienta;
+
+
+?>
+
 <style>
     <?php include MY_PLUGIN_PATH."assets/css/single-person.css"?>
 </style>
@@ -12,31 +28,73 @@
         <p id='para'><b>Spoczywa na <span id="location"></span></b></p>
         <div id='data-viewer-comments'>
             <h3>Komentarze</h3>
-            <label for='comment'>Wpisz komentarz</label>
-            <p style='width:100%;text-align:center'><input type='text' id='comment' placeholder='Byles/as dla mnie...'/></p>
-        
-           <div id='comment'><h4>Osoba 1</h4>tresc komentarza 1</span></div>
-           <div id='comment'><h4>Osoba 2</h4>tresc komentarza 2</span></div>
+            <?php if(is_user_logged_in()):?>
+            <form id="create-comment">
+                <?php wp_nonce_field('wp_rest', '_wpnonce')?>
+                <input type="hidden" name="id" value="<?php echo $_GET["id"]?>">
+                <label for='comment'>Wpisz komentarz</label> 
+                <p style='width:100%;text-align:center'><input type='text' id='comment' name="comment" placeholder='Byles/as dla mnie...'/></p>
+                <button  type='submit'>Opublikuj</button>
+            </form>
+            <?php endif?>
+            <?php 
+                $table_name = $wpdb->prefix.'komentarze';
+                $result = $wpdb->get_results(
+                    $wpdb->prepare("SELECT wp_komentarze.*,wp_users.display_name FROM wp_komentarze JOIN wp_users ON wp_users.ID = wp_komentarze.ID_Klienta WHERE ID_Zmarlego = %d",$_GET['id'] )
+                );
+            ?>  
+            <?php if($result):?>
+                <?php foreach($result as $row):?>
+                    <?php if($row->Is_accepted == 0 && $owner == $user_id ):?>
+
+                        <div id='comment'>
+                            <h4>
+                                <?php echo $row->display_name?>
+                            </h4>
+                            <span>
+                                <?php echo $row->Tekst?>
+                            </span>
+                            <form id="comment-accept">
+                                <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
+                                <input type="hidden" name="person_id" value="<?php echo $_GET["id"]?>">
+                                <input type="hidden" name="id" value="<?echo $row->ID?>">
+                                <button type="submit" name='option' value='Accept'>
+                                    Accept
+                                </button>
+                            </form>
+                            <form id="comment-delete">
+                                <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
+                                <input type="hidden" name="person_id" value="<?php echo $_GET["id"]?>">
+                                <input type="hidden" name="id" value="<?echo $row->ID?>">
+                                <button type="submit" name='option' value="Delete">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    <?php 
+                        continue;
+                        endif
+                    ?>
+                    <?if($row->Is_accepted != 0):?>
+
+                        <div id='comment'>
+                            <h4>
+                                <?php echo $row->display_name?>
+                            </h4>
+                            <span>
+                                <?php echo $row->Tekst?>
+                            </span>
+                        </div>
+
+                    <?php endif?>
+                <?php endforeach?>
+            <?php endif?>
         </div>
 </div>
 
 
-<?php
 
-    global $wpdb;
-    $table_name = $wpdb->prefix.'zmarli';
-    $dead_person_id = $_GET['id'];
-    $user_id = get_current_user_id();
-
-    $result = $wpdb->get_results(
-            $wpdb->prepare("SELECT * FROM $table_name WHERE ID = %s", $dead_person_id)
-    );
-
-
-
-?>
-
-<?php if($result[0]->ID_Klienta == $user_id): ?>
+<?php if($owner == $user_id): ?>
 
 <div id="centerBtn" style="display: flex;justify-content:center;flex-grow:0;">
 
@@ -67,7 +125,63 @@
 <script>
 
     jQuery(document).ready(function($){
+
+        $("#comment-accept").submit(function(event){
+
+            var formData = new FormData(this);
+            event.preventDefault()
+
+            $.ajax({
+                type:'POST',
+                url:'<?php echo get_rest_url(null,'v1/comment-accept')?>',
+                data:formData,
+                contentType:false,
+                processData:false,
+                success: function(response){
+                    if(response.data){
+                        window.location.href = response.data
+                    }
+                }
+                
+            })
+        })
+
+        $("#comment-delete").submit(function(event){
+
+            event.preventDefault()
+            var formData = new FormData(this);
+
+            $.ajax({
+                type:'POST',
+                url:'<?php echo get_rest_url(null,'v1/comment-delete')?>',
+                data:formData,
+                contentType:false,
+                processData:false,
+                success: function(response){
+                    if(response.data){
+                        window.location.href = response.data
+                    }
+                }
+                
+            })
+        })
         
+        $("#create-comment").submit(function(event){
+            
+            var form = $(this)
+
+            $.ajax({
+                type:'POST',
+                data:form.serialize(),
+                url:'<?php echo get_rest_url(null,'v1/create-comment')?>',
+                success: function(response){
+                    if(response.data){
+                        window.location.href = response.data
+                    }
+                }
+            })
+        })
+
         const url = new URL(window.location.href);
         const parts = url.toString().split('id=')[1].split('&')[0];         
         const id = parts;

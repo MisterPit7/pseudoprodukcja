@@ -71,6 +71,97 @@ function get_single_person(){
 
 }
 
+function create_comment($data){
+
+    $params = $data->get_params();
+
+    if( isset($params['_wpnonce']) && !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
+        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+    }
+
+    foreach($params as $param){
+        if(empty($param)){
+            return new WP_Error('invalid_value','one value not set',array('status'=>403));
+            exit;
+        }
+    }
+
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'komentarze';
+
+    $wpdb->insert($table_name,[
+        'Is_accepted'=>0,
+        'ID_Klienta'=>get_current_user_id(),
+        'ID_Zmarlego'=>$params['id'],
+        'Tekst'=>$params['comment']
+    ]);
+
+    return new WP_REST_Response([
+        'succes'=> true,
+        'data' => home_url('single-person').'?id='.$params['id']
+    ],200);    
+
+}
+
+function comment_accept($data){
+    
+    $params = $data->get_params();
+    global $wpdb;
+    $table_name = $wpdb->prefix. 'komentarze';
+
+    if( isset($params['_wpnonce']) && !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
+        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+    }
+
+    foreach($params as $param){
+        if(empty($param)){
+            return new WP_Error('invalid_value','one value not set',array('status'=>403));
+        }
+    }
+
+    $wpdb->update($table_name,[
+        'is_accepted' => 1,
+    ],
+    [
+        'ID'=>$params['id']
+    ]);
+
+    return new WP_REST_Response([
+        'succes'=> true,
+        'data' => home_url('single-person').'?id='.$params['person_id']
+    ],200);
+    
+
+}
+
+function comment_delete($data){
+    
+    $params = $data->get_params();
+    global $wpdb;
+    $table_name = $wpdb->prefix. 'komentarze';
+
+    if( isset($params['_wpnonce']) && !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
+        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+    }
+
+    foreach($params as $param){
+        if(empty($param)){
+            return new WP_Error('invalid_value','one value not set',array('status'=>403));
+        }
+    }
+
+    $wpdb->delete($table_name,[
+        'ID'=>$params['id']
+    ]);
+
+    return new WP_REST_Response([
+        'succes'=> true,
+        'data' => home_url('single-person').'?id='.$params['person_id']
+    ],200);
+    
+
+}
+
 function show_single_person_page(){
     
 

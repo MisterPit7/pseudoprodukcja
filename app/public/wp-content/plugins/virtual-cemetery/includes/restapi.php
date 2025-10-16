@@ -60,4 +60,20 @@ function create_rest_endpoint(){
         'callback' => 'update_dead_person_data'
     ));
 
+    register_rest_route( "v1", "create-comment",array(
+        'methods' => 'POST',
+        'callback' => 'create_comment'
+    ));
+
+    register_rest_route( "v1", "comment-accept",array(
+        'methods' => 'POST',
+        'callback' => 'comment_accept'
+    ));
+
+    register_rest_route( "v1", "comment-delete",array(
+        'methods' => 'POST',
+        'callback' => 'comment_delete'
+    ));
+
+
 }
