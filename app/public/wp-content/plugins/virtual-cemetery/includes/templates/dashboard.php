@@ -7,6 +7,7 @@
     })
 </script>
 
+
 <style>
     <?php include MY_PLUGIN_PATH."assets/css/dashboard.css"?>
 </style>
@@ -25,7 +26,7 @@
 
     if($result){
         ?>
-<div id="mainContent">
+<div id="mainContent" style="display: none;">
      <div id="btns">
         <button onclick="window.location.href='<?php echo esc_url( home_url( '/create-dead-person/' ) ); ?>'">Dodaj</button>
         <button id="logout">Wyloguj się</button>
@@ -51,7 +52,17 @@
 
     ?>
 </div>
+<button id="test">Test</button>
+<script>
+    <?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?>
+
+    document.querySelector('#test').addEventListener("click",()=>{
+        show_popup("test");
+    })
+</script>
     <script>
+        
+
         jQuery(document).ready(function($){
             $("#logout").click(function(){
                 $.ajax({
