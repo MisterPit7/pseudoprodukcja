@@ -52,7 +52,7 @@
 
     ?>
 </div>
-<button id="test">Test</button>
+<button id="test" style="display:none">Test</button> <!-- Dla pamietnych -->
 <script>
     <?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?>
 
