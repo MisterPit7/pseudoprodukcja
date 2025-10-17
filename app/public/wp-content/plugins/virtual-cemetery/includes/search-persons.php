@@ -8,14 +8,41 @@ function search_persons($data){
 
     
 
-    $enquiry="SELECT * FROM $table_name WHERE";
+    $name = trim($params['name']);
+    $surname = trim($params['surname']);
 
-    if(isset($params['name'])){
-        $enquiry+= "Imie = ". $params['name'];
+    if (!empty($name) && !empty($surname)) {
+    $result= $wpdb->get_results(
+        $wpdb->prepare("SELECT * FROM $table_name WHERE Imie = %s AND Nazwisko = %s", $name, $surname)
+    );
     }
 
-    if(!isset($params['name']) && !isset($params['surname'])){
-        return new WP_Error('invalid data','No data send found', array('status'=>403));
+
+    else if (!empty($name)) {
+        $result = $wpdb->get_results(
+            $wpdb->prepare("SELECT * FROM $table_name WHERE Imie = %s", $name)
+        );
     }
+
+
+    else if (!empty($surname)) {
+        $result = $wpdb->get_results(
+            $wpdb->prepare("SELECT * FROM $table_name WHERE Nazwisko = %s", $surname)
+        );
+    }
+
+    $json_data = array_map(function($row) {
+            return array(
+                "ID" => $row->ID,
+                "Imie" => $row->Imie,
+                "Nazwisko" => $row->Nazwisko,
+                "Profilowe" => base64_encode($row->Profilowe)
+            );
+        }, $result);
     
+    return new WP_REST_Response([
+        'succes' => true,
+        'data' => json_encode($json_data)
+    ],200);
+
 }

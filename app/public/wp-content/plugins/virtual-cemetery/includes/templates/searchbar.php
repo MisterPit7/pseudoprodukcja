@@ -21,13 +21,7 @@
             </form>
         </nav>
         <main id="mainGrid">
-            <div id="dead-person">
-                <img src="data:image/png;base64,<?php print(base64_encode(file_get_contents(MY_PLUGIN_PATH."assets\images\\no-image.jpg"))); ?>">
-                <p>Imie Nazwisko</p>
-                <div style="display: flex;justify-content:center;">
-                    <button>Pokaż Osobę</button>
-                </div>
-            </div>
+            <!-- TU BEDA DODAWANE OSOBY PO WYSZUKANIU -->
         </main>
     </div>
 </div>
@@ -38,10 +32,56 @@
             
             var form = $(this);
 
+            var main =  $('#mainGrid');
+            main.empty();
+
             $.ajax({
                 type: 'POST',
                 url: '<?php echo get_rest_url(null,"v1/search-persons") ?>',
-                data: form.serialize()
+                data: form.serialize(),
+                success: function (response){          
+                    if(response.data){
+                        response= JSON.parse(response.data);            
+                        response.forEach((element)=>{  
+                            
+                            var main2 = document.getElementById('mainGrid');
+                            
+                            var div = document.createElement('div')
+                            div.id = 'dead-person'
+
+                            var img = document.createElement('img')
+                            img.src = "data:image/png;base64,"+element.Profilowe
+
+                            var p = document.createElement('p')
+                            p.textContent = element.Imie + " " + element.Nazwisko
+
+                            var div2 = document.createElement('div')
+                            div2.style.display = "flex";
+                            div2.style.justifyContent = "center";
+
+                            var button = document.createElement('button');
+                            button.textContent = "Pokaż osobę"
+
+                            var id = document.createElement('input')
+                            id.type = "hidden"
+                            id.value = element.ID
+
+                            button.addEventListener('click', ()=>{
+                               window.location.href = "<?php echo home_url('/single-person'); ?>?id=" + element.ID;
+                            })
+
+                            div.appendChild(id)
+                            div.appendChild(img)
+                            div.appendChild(p)
+                            div2.appendChild(button)
+                            div.appendChild(div2)
+                            main2.appendChild(div)
+
+                            
+
+                        })
+                    }
+                }
             })
 
 
