@@ -21,9 +21,8 @@
             return new WP_Error('invalid_id','it is not your dead person',array('status'=>403));
         }
 
-
         if($result[0]->ID_Klienta != $user_id){
-            return new WP_Error('invalid_id','it is not your dead person2',array('status'=>403));
+            return new WP_Error('invalid_id','it is not your dead person',array('status'=>403));
         }
 
         if($result[0]->Nazwisko != $params['text']){
