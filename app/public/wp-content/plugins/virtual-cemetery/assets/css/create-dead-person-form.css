@@ -14,10 +14,12 @@
 #create-dead-person-form #container{
     display: flex;
     gap:30px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #create-dead-person-form section{
-    width: 50%;
+    width: 47%;
 }
 
 #create-dead-person-form h1{
@@ -68,4 +70,33 @@ button#back{
     width: 100%;
     position: relative;
     height: 60px;
+}
+
+section#sectionGall{
+    margin: 0 auto;
+    width: calc(47% * 2 + 30px);
+}
+#gallery{
+    margin: 0 auto;
+    margin-top: 20px;
+    display: flex;
+    gap:30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#gallery img{
+    height: 350px;
+    width: 100%;
+}
+
+#right{
+    display: flex;
+    justify-content: right;
+}
+
+@media screen and (max-width: 800px){
+    #create-dead-person-form section{
+        width: 100%;
+    }
 }

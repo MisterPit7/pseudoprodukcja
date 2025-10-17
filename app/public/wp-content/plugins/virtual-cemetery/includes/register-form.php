@@ -6,7 +6,7 @@ function register_user($data){
     
     $params = $data->get_params();
 
-    if(!preg_match("/^[a-zA-Z]{5,50}$/", $params['nickname'])){
+    if(!preg_match("/^[a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{5,50}$/", $params['nickname'])){
     return new WP_Error('invalid_value','wrong nickname',['status'=>403]);
     }
 

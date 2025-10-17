@@ -13,7 +13,8 @@
 <div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
 
 <div id="mainContent" style="display: none;">
-<form id="update-dead-person-form" enctype="multipart/form-data">
+<div id="update-dead-person-form">
+<form enctype="multipart/form-data">
     <h1>Tworzenie profilu</h1>    
     <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
     <div id="container">
@@ -57,9 +58,9 @@
     <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
     <input type="file" name="photoGallery" id="photoInput" required>
     <input type="hidden" name="id" id="id" value="<?php echo $_GET['id']?>">
-    <button type="submit">Dodaj</button>
+    <div style="display: flex;justify-content:center"><button type="submit">Dodaj</button></div>
 </form>
- <section>
+ <section id="photoGallery">
         <?php
         global $wpdb;
             $table_name = $wpdb->prefix.'zdjecia';
@@ -73,10 +74,11 @@
                 <img class='gallery' width="200px" height="100px" src='data:image/jpeg;base64,<?php echo base64_encode($photo->Zdjecie)?>'/>
                 <input type="hidden" name="photo-id" value="<?php echo $photo->ID?>"/>
                 <input type="hidden" name="id" id="id" value="<?php echo $_GET['id']?>">
-                <button type="submit">Usuń</button>
+                <div id="right"><button type="submit">Usuń</button></div>
             </form>
         <?php endforeach?>
     </section>
+</div>
 <div id="buttonDiv">
  <button id="back" onclick="window.location.href='<?php echo esc_url( home_url( '/dashboard/' ) ); ?>'">Powrót</button>
 </div>
