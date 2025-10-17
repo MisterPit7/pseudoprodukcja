@@ -14,7 +14,7 @@ function create_dead_person($data){
         || !preg_match("/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŻŹ]{2,50}$/", $params['surname']) 
         || !preg_match("/^[0-9-]{10}$/", $params['birth-date']) 
         || !preg_match("/^[0-9-]{10}$/", $params['death-date'])
-        || !preg_match("/^[a-zA-Z0-9.,-\/ ]{2,50}$/", $params['localization'])
+        || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['localization'])
     ){
     return new WP_Error('invalid_value','wrong value',['status'=>403]);
     }

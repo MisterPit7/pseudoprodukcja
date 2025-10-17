@@ -13,7 +13,7 @@
 <div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
 <div id="mainContent" style="display:none">
     <div>
-        <nav>
+        <nav id="mein">
             <form id="searchForm">
                 <input type="text" name="name" placeholder="Wyszukaj imie...">
                 <input type="text" name="surname" placeholder="Wyszukaj nazwisko...">

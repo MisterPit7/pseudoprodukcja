@@ -2,7 +2,7 @@
     font-size: 16px;
 }
 
-nav{
+nav#mein{
     width: 100%;
     background-color: #FBFAF6;
     text-align: center;
@@ -53,6 +53,7 @@ nav{
     display: flex;
     gap:35px;
     flex-wrap: wrap;
+    min-height: 450px;
 }
 
 #dead-person{
