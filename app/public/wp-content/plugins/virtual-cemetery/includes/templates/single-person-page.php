@@ -146,6 +146,7 @@
                 }
                 
             })
+        })
 
         $(".comment-delete").submit(function(event){
 
@@ -166,7 +167,7 @@
                 
             })
         })
-    })
+
 
         $("#create-comment").submit(function(event){
             
