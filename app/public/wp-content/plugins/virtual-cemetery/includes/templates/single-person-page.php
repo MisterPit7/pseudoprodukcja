@@ -26,6 +26,17 @@
         </h2>
         <p id='para'><i>"<span id="description"></span>"</i></p>
         <p id='para'><b>Spoczywa na <span id="location"></span></b></p>
+        <section>
+            <?php
+                $table_name = $wpdb->prefix.'zdjecia';
+                $result = $wpdb->get_results(
+                    $wpdb->prepare("SELECT * FROM $table_name WHERE ID_Zmarlego = %d",$_GET['id'] )
+                );
+            ?>
+            <?foreach($result as $photo):?>
+                <img class='gallery' width="200px" height="100px" src='data:image/jpeg;base64,<?php echo base64_encode($photo->Zdjecie)?>'>
+            <?php endforeach?>
+        </section>
         <div id='data-viewer-comments'>
             <h3>Komentarze</h3>
             <?php if(is_user_logged_in()):?>
@@ -39,8 +50,9 @@
             <?php endif?>
             <?php 
                 $table_name = $wpdb->prefix.'komentarze';
+                $join_table_name = $wpdb->prefix.'users';
                 $result = $wpdb->get_results(
-                    $wpdb->prepare("SELECT wp_komentarze.*,wp_users.display_name FROM wp_komentarze JOIN wp_users ON wp_users.ID = wp_komentarze.ID_Klienta WHERE ID_Zmarlego = %d",$_GET['id'] )
+                    $wpdb->prepare("SELECT $table_name.*,$join_table_name.display_name FROM $table_name JOIN $join_table_name ON $join_table_name.ID = $table_name.ID_Klienta WHERE ID_Zmarlego = %d",$_GET['id'] )
                 );
             ?>  
             <?php if($result):?>
@@ -48,18 +60,21 @@
                     <?php if($row->Is_accepted == 0 && $owner == $user_id ):?>
 
                         <div id='comment'>
+                            <div style="width:95%;">
                             <h4>
                                 <?php echo $row->display_name?>
                             </h4>
                             <span>
                                 <?php echo $row->Tekst?>
                             </span>
+                            </div>
+                            <div>
                             <form class="comment-accept">
                                 <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
                                 <input type="hidden" name="person_id" value="<?php echo $_GET["id"]?>">
                                 <input type="hidden" name="id" value="<?echo $row->ID?>">
                                 <button type="submit" name='option' value='Accept'>
-                                    Accept
+                                    <span class="dashicons dashicons-yes"></span>
                                 </button>
                             </form>
                             <form class="comment-delete">
@@ -67,9 +82,10 @@
                                 <input type="hidden" name="person_id" value="<?php echo $_GET["id"]?>">
                                 <input type="hidden" name="id" value="<?echo $row->ID?>">
                                 <button type="submit" name='option' value="Delete">
-                                    Delete
+                                    <span class="dashicons dashicons-no"></span>
                                 </button>
                             </form>
+                            </div>
                         </div>
                     <?php 
                         continue;
@@ -78,12 +94,14 @@
                     <?if($row->Is_accepted != 0 || $row->ID_Klienta == get_current_user_id()):?>
 
                         <div id='comment'>
+                            <div>
                             <h4>
                                 <?php echo $row->display_name?>
                             </h4>
                             <span>
                                 <?php echo $row->Tekst?>
                             </span>
+                            </div>
                             <?php if($row->Is_accepted == 0 && $row->ID_Klienta == get_current_user_id()) echo "(Administrator jeszcze nie zaakceptował twojego komentarza)"?>
                         </div>
 
@@ -144,12 +162,9 @@
                         window.location.href = response.data
                     }
                 }
-                
             })
         })
-
         $(".comment-delete").submit(function(event){
-
             event.preventDefault()
             var formData = new FormData(this);
 
@@ -167,7 +182,6 @@
                 
             })
         })
-
 
         $("#create-comment").submit(function(event){
             

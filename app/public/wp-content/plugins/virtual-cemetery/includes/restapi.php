@@ -15,6 +15,17 @@ require_once(MY_PLUGIN_PATH.'/includes/search-persons.php');
 
 
 function create_rest_endpoint(){
+
+    register_rest_route( "v1", "delete-person-photo",array(
+        'methods' => 'POST',
+        'callback' => 'delete_person_photo'
+    ));
+
+    register_rest_route( "v1", "update-photos",array(
+        'methods' => 'POST',
+        'callback' => 'update_photos'
+    ));
+
     register_rest_route( "v1", "register",array(
         'methods' => 'POST',
         'callback' => 'register_user'

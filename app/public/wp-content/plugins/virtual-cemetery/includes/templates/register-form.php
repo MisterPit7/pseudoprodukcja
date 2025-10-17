@@ -28,6 +28,8 @@
 <script>
     jQuery(document).ready(function($){
         $("#register-form").submit(function(event){
+
+            
            
             var form = $(this);  
             
