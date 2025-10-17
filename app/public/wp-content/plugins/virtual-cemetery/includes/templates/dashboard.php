@@ -2,6 +2,7 @@
     window.addEventListener('load',function(){
        let loader = document.querySelector("#loader");
        let main = document.querySelector("#mainContent");
+       console.log(main);
        loader.style.display="none";
        main.style.display="block";
     })
@@ -23,17 +24,15 @@
     $result = $wpdb->get_results(
         $wpdb->prepare("SELECT * FROM $table_name WHERE ID_Klienta = %d", $user->ID)
     );
-
-        ?>
+?>
 <div id="mainContent" style="display: none;">
      <div id="btns">
         <button onclick="window.location.href='<?php echo esc_url( home_url( '/create-dead-person/' ) ); ?>'">Dodaj</button>
         <button id="logout">Wyloguj się</button>
     </div>
         <div id="dead-person-grid">
-
-    
-        <?php foreach($result as $person): ?>
+        <? if($result): ?>
+            <?php foreach($result as $person): ?>
 
             <div id="dead-person">
                 <img src="data:image/jpeg;base64,<?php echo base64_encode($person->Profilowe); ?>" width="200px" height="200px">
@@ -43,16 +42,16 @@
                 </div>
             </div>
 
-        <?php endforeach;?>
-        
-
+             <?php endforeach;?>
+        <?php endif ?>
         </div>
 
         <?php
+    
 
     ?>
 </div>
-<button id="test" style="display:none">Test</button> <!-- Dla pamietnych -->
+<button id="test" style="display:none;">Test</button> <!-- Dla pamietnych -->
 <script>
     <?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?>
 

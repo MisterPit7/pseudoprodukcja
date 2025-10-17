@@ -17,6 +17,8 @@
     $result = $wpdb->get_results(
             $wpdb->prepare("SELECT * FROM $table_name WHERE ID = %s", $dead_person_id)
     );
+    $is_user = false;
+    if($result) $is_user = true;
 
     if($result){
         $owner = $result[0]->ID_Klienta;
@@ -42,8 +44,7 @@
         <p id='para'><b>Spoczywa na <span id="location"><?php esc_html_e($result[0]->Geolokalizacja) ?></span></b></p>
 
         <form id="getQrCode">
-            <img id="qrCode">
-            <button type="submit">pokaz qr code</button>
+            <button type="submit" id="showQR">Pokaż QR code</button>
         </form>
 
         <section id="imgGallery">
@@ -132,14 +133,16 @@
         </div>
 </div>
 <?php endif ?>
-<?php if(!$result): ?>
+<?php if(!$is_user): ?>
 
+    <!-- </?php print_r($result)?>
+    </?php echo count($result)?> -->
     <div id="container">Brak takiego uztkownika</div>
 
 <?php endif ?>
 
 
-<?php if($owner == $user_id): ?>
+<?php if( $is_user&& $owner == $user_id): ?>
 
 <div id="centerBtn" style="display: flex;justify-content:center;flex-grow:0;">
 
@@ -165,6 +168,11 @@
 </div>
 <?php endif ?>
 
+<div id="QRCodeDiv" style="display: none;">
+    <img id="qrCode">
+    <button id="closeQR">X</button>
+</div>
+
 <script>
 
     jQuery(document).ready(function($){
@@ -183,7 +191,10 @@
                 data: {copyurl},
                 success: function(response){
                     if(response.data){
-                        $("#qrCode").attr("src","data:image/png;base64," +response.data)
+                        $("#qrCode").attr("src","data:image/png;base64," +response.data);
+                        $("#QRCodeDiv").css("display","flex");
+                        $("#container").css("filter","blur(100px)");
+                        $("#centerBtn").css("filter","blur(100px)");
                     }
                 }
             })
@@ -291,6 +302,13 @@
 
         $("#cancel").click(function(){
             $("#delete-person").attr('hidden',true);
+        })
+
+        $("#closeQR").click(function(){
+            $("#QRCodeDiv").css("display","none");
+            $("#container").css("filter","blur(0px)");
+            $("#centerBtn").css("filter","blur(0px)");
+            $("body").css("filter","blur(0px)")
         })
 
     })

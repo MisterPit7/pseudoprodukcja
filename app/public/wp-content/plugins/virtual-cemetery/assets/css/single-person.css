@@ -106,17 +106,17 @@ div#container{
     background-color: rgb(143, 17, 17);
 }
 
-#centerBtn button,#delBtns button,#create-comment button{
+#centerBtn button,#delBtns button,#create-comment button,#showQR{
     background-color: #586C51;
     font-size: 1.25rem;
     color: #F2F0E4;
     margin: 20px;
     padding: 0.75rem 1.25rem;
 }
-#centerBtn button:hover,#delBtns button:hover,#create-comment button:hover{
+#centerBtn button:hover,#delBtns button:hover,#create-comment button:hover,#showQR:hover{
     scale:1.05;
 }
-#centerBtn button:active,#delBtns button:active,#create-comment button:active{
+#centerBtn button:active,#delBtns button:active,#create-comment button:active,#showQR:active{
     background-color: #FBFAF6;
     color: #586C51;
 }
@@ -150,6 +150,40 @@ div#container{
 #delBtns{
     display: flex;
     justify-content: space-between;
+}
+
+#QRCodeDiv{
+    width: 300px;
+    height: 300px;
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    background-color: #F2F0E4;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+#qrcode{
+    width: 250px;
+    height: 250px;
+    background-color: #586C51;
+}
+#closeQR{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 40px;
+    height: 40px;
+    color: #586C51;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    background: none;
 }
 
 @media only screen and (max-width:730px) {
