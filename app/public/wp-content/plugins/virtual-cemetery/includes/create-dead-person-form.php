@@ -108,5 +108,11 @@ function create_dead_person($data){
 
 
 function show_create_dead_person_form(){
+
+    if (!is_user_logged_in()) {
+       echo "<script>window.location.href ='"  . home_url('/login/') . "'</script>";
+       exit;
+    }
+
     include_once MY_PLUGIN_PATH . '/includes/templates/create-dead-person-form.php';
 }

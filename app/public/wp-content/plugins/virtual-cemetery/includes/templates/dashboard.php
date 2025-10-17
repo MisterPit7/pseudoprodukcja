@@ -24,7 +24,6 @@
         $wpdb->prepare("SELECT * FROM $table_name WHERE ID_Klienta = %d", $user->ID)
     );
 
-    if($result){
         ?>
 <div id="mainContent" style="display: none;">
      <div id="btns">
@@ -33,6 +32,7 @@
     </div>
         <div id="dead-person-grid">
 
+    
         <?php foreach($result as $person): ?>
 
             <div id="dead-person">
@@ -44,11 +44,11 @@
             </div>
 
         <?php endforeach;?>
+        
 
         </div>
 
         <?php
-    }
 
     ?>
 </div>
