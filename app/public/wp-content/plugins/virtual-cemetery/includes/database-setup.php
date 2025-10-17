@@ -15,7 +15,7 @@ require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
    Tabela: Zmarli
 ============================== */
 $table_name = $wpdb->prefix . 'zmarli';
-$tmp_table_name = $wpdb->prefix . 'klienci';
+$tmp_table_name = $wpdb->prefix . 'users';
 
 $sql = "CREATE TABLE $table_name (
     ID int(11) NOT NULL AUTO_INCREMENT,
@@ -26,8 +26,9 @@ $sql = "CREATE TABLE $table_name (
     Data_smierci date NOT NULL,
     Opis varchar(200),
     Geolokalizacja varchar(200),
+    Numer_grobu varchar(50),
     Is_payed boolean DEFAULT 0,
-    ID_Klienta int(11) NOT NULL,
+    ID_Klienta bigint(11) UNSIGNED NOT NULL,
     PRIMARY KEY (ID),
 ) $charset_collate ENGINE=InnoDB;";
 

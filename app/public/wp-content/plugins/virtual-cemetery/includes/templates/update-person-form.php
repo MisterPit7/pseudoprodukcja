@@ -13,8 +13,8 @@
 <div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
 
 <div id="mainContent" style="display: none;">
-<div id="update-dead-person-form">
-<form enctype="multipart/form-data">
+<div id="update-dead-person">
+<form enctype="multipart/form-data" id="update-dead-person-form">
     <h1>Tworzenie profilu</h1>    
     <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
     <div id="container">
@@ -184,6 +184,9 @@
                     if(response.Geolokalizacja){
                         $('input[name="localization"]').val(response.Geolokalizacja)
                     }
+                    if(response.Numer_grobu){
+                        $('input[name="graveID"]').val(response.Numer_grobu)
+                    }
 
                 }
                     
@@ -195,6 +198,16 @@
             
             
             var formData = new FormData(this);
+            formData.append('_wpnonce', jQuery(this).find('input[name="_wpnonce"]').val());
+            formData.append('id', jQuery(this).find('input[name="id"]').val());
+            formData.append('photo', jQuery(this).find('input[name="photo"]')[0].files[0]);
+            formData.append('name', jQuery(this).find('input[name="name"]').val());
+            formData.append('surname', jQuery(this).find('input[name="surname"]').val());
+            formData.append('birth-date', jQuery(this).find('input[name="birth-date"]').val());
+            formData.append('death-date', jQuery(this).find('input[name="death-date"]').val());
+            formData.append('description', jQuery(this).find('textarea[name="description"]').val());
+            formData.append('localization', jQuery(this).find('input[name="localization"]').val());
+            formData.append('graveID', jQuery(this).find('input[name="graveID"]').val());
 
             $.ajax({
                 type:'POST',

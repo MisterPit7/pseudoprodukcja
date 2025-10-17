@@ -110,6 +110,7 @@ function get_single_person(){
         "Geolokalizacja"=>$result[0]->Geolokalizacja,
         "Data_urodzenia"=>$result[0]->Data_urodzenia,
         "Data_smierci"=>$result[0]->Data_smierci,
+        "Numer_grobu"=>$result[0]->Numer_grobu
     );
 
     return new WP_REST_Response([
