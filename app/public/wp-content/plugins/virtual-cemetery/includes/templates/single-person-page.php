@@ -1,3 +1,12 @@
+<script defer>
+    window.addEventListener('load',function(){
+       let loader = document.querySelector("#loader");
+       let main = document.querySelector("#mainContent");
+       loader.style.display="none";
+       main.style.display="block";
+    })
+</script>
+
 <?php
 
     global $wpdb;
@@ -16,21 +25,23 @@
 <style>
     <?php include MY_PLUGIN_PATH."assets/css/single-person.css"?>
 </style>
+<div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
+<div id="mainContent" style="display: none;">
 <div id='container'>
-        <h1 id='header'>Ś.P. <span id="name"></span> <span id="surname"></span></h1>
-        <img id='profilePic'>
+        <h1 id='header'>Ś.P. <span id="name"><?php esc_html_e($result[0]->Imie) ?></span> <span id="surname"><?php esc_html_e($result[0]->Nazwisko) ?></span></h1>
+        <img id='profilePic' src="data:image/png;base64,<?php echo base64_encode($result[0]->Profilowe)?>">
         <hr>
         <h2>
-            <div id='info'><span id="dateU"></span></div> <div style='padding-top:8px;font-size:3rem'>-</div> <div id='info'><span id="dateS"></span></div>
+            <div id='info'><span id="dateU"><?php esc_html_e($result[0]->Data_urodzenia) ?></span></div> <div style='padding-top:8px;font-size:3rem'>-</div> <div id='info'><span id="dateS"><?php esc_html_e($result[0]->Data_smierci) ?></span></div>
         </h2>
-        <p id='para'><i>"<span id="description"></span>"</i></p>
-        <p id='para'><b>Spoczywa na <span id="location"></span></b></p>
+        <p id='para'><i>"<span id="description"><?php esc_html_e($result[0]->Opis) ?></span>"</i></p>
+        <p id='para'><b>Spoczywa na <span id="location"><?php esc_html_e($result[0]->Geolokalizacja) ?></span></b></p>
 
         <form id="getQrCode">
             <img id="qrCode">
             <button type="submit">pokaz qr code</button>
         </form>
-        
+
         <section id="imgGallery">
             <?php
                 $table_name = $wpdb->prefix.'zdjecia';
@@ -68,25 +79,25 @@
                         <div id='comment'>
                             <div style="width:95%;">
                             <h4>
-                                <?php echo $row->display_name?>
+                                <?php esc_html_e($row->display_name) ?>
                             </h4>
                             <span>
-                                <?php echo $row->Tekst?>
+                                <?php esc_html_e($row->Tekst) ?>
                             </span>
                             </div>
                             <div>
                             <form class="comment-accept">
                                 <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
-                                <input type="hidden" name="person_id" value="<?php echo $_GET["id"]?>">
-                                <input type="hidden" name="id" value="<?echo $row->ID?>">
+                                <input type="hidden" name="person_id" value="<?= $_GET["id"]?>">
+                                <input type="hidden" name="id" value="<?=$row->ID?>">
                                 <button type="submit" name='option' value='Accept'>
                                     <span class="dashicons dashicons-yes"></span>
                                 </button>
                             </form>
                             <form class="comment-delete">
                                 <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
-                                <input type="hidden" name="person_id" value="<?php echo $_GET["id"]?>">
-                                <input type="hidden" name="id" value="<?echo $row->ID?>">
+                                <input type="hidden" name="person_id" value="<?= $_GET["id"]?>">
+                                <input type="hidden" name="id" value="<?= $row->ID?>">
                                 <button type="submit" name='option' value="Delete">
                                     <span class="dashicons dashicons-no"></span>
                                 </button>
@@ -102,13 +113,13 @@
                         <div id='comment'>
                             <div>
                             <h4>
-                                <?php echo $row->display_name?>
+                                <?php esc_html_e($row->display_name) ?>
                             </h4>
                             <span>
-                                <?php echo $row->Tekst?>
+                                <?php esc_html_e($row->Tekst) ?>
                             </span>
                             </div>
-                            <?php if($row->Is_accepted == 0 && $row->ID_Klienta == get_current_user_id()) echo "(Administrator jeszcze nie zaakceptował twojego komentarza)"?>
+                            <?php if($row->Is_accepted == 0 && $row->ID_Klienta == get_current_user_id()) esc_html_e("(Administrator jeszcze nie zaakceptował twojego komentarza)") ?>
                         </div>
 
                     <?php endif?>
@@ -131,7 +142,7 @@
 
     <button type="button" id="delProfile">Usuń profil</button>
 </div>
-
+<div>
     <form id="delete-person" hidden="true">
         <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
         <input type="hidden" name="id" id="id-delete">
@@ -231,65 +242,7 @@
         $('#id-delete').val(id);
         $('#id-update').val(id);
 
-        $.ajax({
-            type:'GET',
-            url:"<?php echo get_rest_url(null, 'v1/get-single-person')?>?id="+id,
-            dataType: 'json',
-            success: function(response){
-                //Imie
-                response= JSON.parse(response.data);
-                if(response.Imie){
-                    $('#name').append(response.Imie)
-                }
-                else{
-                    $('#name').append('Nie udało się pobrać imienia')
-                }
-                //Nazwisko
-                if(response.Nazwisko){
-                    $('#surname').append(response.Nazwisko)
-                }
-                else{
-                    $('#surname').append('Nie udało się pobrać nazwiska')
-                }
-                //Opis
-                if(response.Opis){
-                    $('#description').append(response.Opis)
-                }
-                else{
-                    $('#description').append('Nie udało się pobrać opisu')
-                }
-                //Geolokalizacja
-                if(response.Geolokalizacja){
-                    $('#location').append(response.Geolokalizacja)
-                }
-                else{
-                    $('#location').append('Nie udało się pobrać lokalizacji')
-                }
-                //Daty
-                if(response.Data_urodzenia){
-                    $('#dateU').append(convertDate(response.Data_urodzenia))
-
-                }
-                else{
-                    $('#dateU').append('Nie udało się pobrać daty urodzenia')
-                }
-                if(response.Data_smierci){
-                    $('#dateS').append(convertDate(response.Data_smierci))
-                }
-                else{
-                    $('#dateS').append('Nie udało się pobrać daty śmierci')
-                }
-                //Profilowe
-                if(response.Profilowe){
-                    $('#profilePic').attr('src','data:image/jpeg;base64,'+response.Profilowe)
-                }else{
-                    $('#profilePic').attr('src','https://i.pinimg.com/736x/1d/ec/e2/1dece2c8357bdd7cee3b15036344faf5.jpg');
-                }
-
-            }
-        })
-
-        $('#delete-person').submit(function(event){
+          $('#delete-person').submit(function(event){
             event.preventDefault();
             form = $(this)
             $.ajax({
@@ -332,6 +285,67 @@
         })
 
     })
+
+        //Wersja 0.9
+        // $.ajax({
+        //     type:'GET',
+            // url:"<?php // echo get_rest_url(null, 'v1/get-single-person')?>?id="+id,
+        //     dataType: 'json',
+        //     success: function(response){
+        //         //Imie
+        //         response= JSON.parse(response.data);
+        //         if(response.Imie){
+        //             $('#name').append(response.Imie)
+        //         }
+        //         else{
+        //             $('#name').append('Nie udało się pobrać imienia')
+        //         }
+        //         //Nazwisko
+        //         if(response.Nazwisko){
+        //             $('#surname').append(response.Nazwisko)
+        //         }
+        //         else{
+        //             $('#surname').append('Nie udało się pobrać nazwiska')
+        //         }
+        //         //Opis
+        //         if(response.Opis){
+        //             $('#description').append(response.Opis)
+        //         }
+        //         else{
+        //             $('#description').append('Nie udało się pobrać opisu')
+        //         }
+        //         //Geolokalizacja
+        //         if(response.Geolokalizacja){
+        //             $('#location').append(response.Geolokalizacja)
+        //         }
+        //         else{
+        //             $('#location').append('Nie udało się pobrać lokalizacji')
+        //         }
+        //         //Daty
+        //         if(response.Data_urodzenia){
+        //             $('#dateU').append(convertDate(response.Data_urodzenia))
+
+        //         }
+        //         else{
+        //             $('#dateU').append('Nie udało się pobrać daty urodzenia')
+        //         }
+        //         if(response.Data_smierci){
+        //             $('#dateS').append(convertDate(response.Data_smierci))
+        //         }
+        //         else{
+        //             $('#dateS').append('Nie udało się pobrać daty śmierci')
+        //         }
+        //         //Profilowe
+        //         if(response.Profilowe){
+        //             $('#profilePic').attr('src','data:image/jpeg;base64,'+response.Profilowe)
+        //         }else{
+        //             $('#profilePic').attr('src','https://i.pinimg.com/736x/1d/ec/e2/1dece2c8357bdd7cee3b15036344faf5.jpg');
+        //         }
+
+        //     }
+        // })
+
+      
     function convertDate(date){
         let arr = date.split('-');
         return arr[2] +"-"+arr[1]+"-"+arr[0];
