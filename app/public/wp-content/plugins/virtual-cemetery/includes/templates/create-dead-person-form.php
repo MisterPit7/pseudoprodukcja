@@ -52,9 +52,6 @@
         <button type="button" id="add-photo" value="XD">
             Dodaj
         </button>
-        <button type="button" id="debug">
-            Debug
-        </button>
     </section>
     <div style="display: flex;justify-content:center;">
         <button id="add" type="submit">DODAJ</button>
@@ -155,9 +152,6 @@
         }
     });
 
-    $("#debug").click(function(){
-        console.log(formData.getAll('gallery-photo[]'));
-    });
 });
 
 
