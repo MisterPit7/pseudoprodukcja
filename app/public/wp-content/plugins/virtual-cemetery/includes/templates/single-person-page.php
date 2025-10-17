@@ -37,6 +37,7 @@
                 <img class='gallery' width="200px" height="100px" src='data:image/jpeg;base64,<?php echo base64_encode($photo->Zdjecie)?>'>
             <?php endforeach?>
         </section>
+
         <div id='data-viewer-comments'>
             <h3>Komentarze</h3>
             <?php if(is_user_logged_in()):?>
@@ -139,11 +140,10 @@
 </div>
 <?php endif ?>
 
-
-
 <script>
 
     jQuery(document).ready(function($){
+
        
         $(".comment-accept").submit(function(event){
            
