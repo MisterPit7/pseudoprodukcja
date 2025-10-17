@@ -56,11 +56,11 @@ dbDelta($sql);
 ============================== */
 $table_name = $wpdb->prefix . 'komentarze';
 $tmp_zmarli = $wpdb->prefix . 'zmarli';
-$tmp_klienci = $wpdb->prefix . 'klienci';
+$tmp_klienci = $wpdb->prefix . 'users';
 
 $sql = "CREATE TABLE $table_name (
     ID int(11) NOT NULL AUTO_INCREMENT,
-    ID_Klienta int(11),
+    ID_Klienta BIGINT(11) UNSIGNED NOT NULL,
     ID_Zmarlego int(11),
     Tekst text NOT NULL,
     Is_accepted boolean DEFAULT 0,

@@ -11,6 +11,7 @@ require_once(MY_PLUGIN_PATH.'/includes/create-dead-person-form.php');
 require_once(MY_PLUGIN_PATH.'/includes/delete-single-person.php');
 require_once(MY_PLUGIN_PATH.'/includes/update-person-form.php');
 require_once(MY_PLUGIN_PATH.'/includes/searchbar.php');
+require_once(MY_PLUGIN_PATH.'/includes/search-persons.php');
 
 
 function create_rest_endpoint(){
@@ -86,5 +87,9 @@ function create_rest_endpoint(){
         'callback' => 'comment_delete'
     ));
 
+     register_rest_route( "v1", "search-persons",array(
+        'methods' => 'POST',
+        'callback' => 'search_persons'
+    ));
 
 }
