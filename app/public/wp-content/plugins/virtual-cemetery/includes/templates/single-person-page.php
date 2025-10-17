@@ -17,12 +17,10 @@
     $result = $wpdb->get_results(
             $wpdb->prepare("SELECT * FROM $table_name WHERE ID = %s", $dead_person_id)
     );
+    $is_user = false;
+    if($result) $is_user = true;
 
-    if(!$result){
-
-    }
-
-    $owner = $result[0]->ID_Klienta;
+    if($result)$owner = $result[0]->ID_Klienta;
 
 ?>
 
@@ -133,14 +131,16 @@
         </div>
 </div>
 <?php endif ?>
-<?php if(!$result): ?>
+<?php if(!$is_user): ?>
 
+    <!-- </?php print_r($result)?>
+    </?php echo count($result)?> -->
     <div id="container">Brak takiego uztkownika</div>
 
 <?php endif ?>
 
 
-<?php if($owner == $user_id): ?>
+<?php if( $is_user&& $owner == $user_id): ?>
 
 <div id="centerBtn" style="display: flex;justify-content:center;flex-grow:0;">
 
