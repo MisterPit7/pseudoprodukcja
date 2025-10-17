@@ -35,6 +35,16 @@
     jQuery(document).ready(function($){
         $("#searchForm").submit(function(event){
             event.preventDefault();
+            
+            var form = $(this);
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo get_rest_url(null,"v1/search-persons") ?>',
+                data: form.serialize()
+            })
+
+
         })
             
     })
