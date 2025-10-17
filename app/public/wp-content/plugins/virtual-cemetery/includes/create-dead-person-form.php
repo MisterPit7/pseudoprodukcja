@@ -72,6 +72,15 @@ function create_dead_person($data){
 
     $dead_id = $wpdb->insert_id;
     $table_name = $wpdb->prefix . 'zdjecia';
+
+    if(empty($_FILES['gallery-photo']['tmp_name'][0])){
+        return new WP_REST_Response([
+            'succes'=>true,
+            'data'=> home_url('/dashboard/')
+        ],200);
+        exit;
+    }
+
     $photos = $_FILES['gallery-photo']['tmp_name'];
     $counter = 0;
     foreach($photos as $photo){

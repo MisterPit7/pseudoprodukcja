@@ -7,7 +7,7 @@
             return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
         }
 
-        $user_id =  wp_get_current_user();
+        $user_id =  get_current_user_id();
         $dead_person_id = $params['id'];
 
         global $wpdb;
@@ -21,7 +21,7 @@
             return new WP_Error('invalid_id','it is not your dead person',array('status'=>403));
         }
 
-        if($result->ID_Klienta != $user_id){
+        if($result[0]->ID_Klienta != $user_id){
             return new WP_Error('invalid_id','it is not your dead person',array('status'=>403));
         }
 
