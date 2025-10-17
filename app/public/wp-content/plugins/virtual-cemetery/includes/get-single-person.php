@@ -213,6 +213,10 @@ function comment_delete($data){
 
 function show_single_person_page(){
     
+    if (!is_user_logged_in()) {
+       echo "<script>window.location.href ='"  . home_url('/login/') . "'</script>";
+       exit;
+    }
 
     include_once(MY_PLUGIN_PATH.'includes/templates/single-person-page.php');
 }

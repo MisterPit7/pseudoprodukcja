@@ -63,5 +63,8 @@ function register_user($data){
 }
 
 function show_register_form(){
+
+    
+
     include MY_PLUGIN_PATH."/includes/templates/register-form.php";
 }
