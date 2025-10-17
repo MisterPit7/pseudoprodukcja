@@ -40,9 +40,17 @@
 
             <label for="description">Opis:</label><br>
             <textarea name="description" rows="8" autocapitalize="sentences" style="resize:none"></textarea> <br>
-
-            <label for="localization">Położenie grobu:</label><br>
-            <input type="text" name="localization"><br>
+            
+            <div id="daneGrobu">
+                <section class="grob">
+                    <label for="localization">Położenie grobu:</label><br>
+                    <input type="text" name="localization"><br>
+                </section>
+                <section class="grob">
+                    <label for="graveId">Numer grobu:</label><br>
+                    <input type="text" name="graveID"><br>
+                </section>
+            </div>
         </section>
     </div>
     <section id="sectionGall">
@@ -117,6 +125,7 @@
         formData.set('description', $('textarea[name="description"]').val());
         formData.set('localization', $('input[name="localization"]').val());
         formData.set('photo', $('input[name="photo"]')[0].files[0]);
+        formData.set('graveID', $('input[name="graveID"]').val());
 
         $.ajax({
             type: "POST",

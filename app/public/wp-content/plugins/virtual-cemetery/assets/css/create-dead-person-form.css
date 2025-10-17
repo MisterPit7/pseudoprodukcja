@@ -95,8 +95,17 @@ section#sectionGall{
     justify-content: right;
 }
 
+#daneGrobu{
+    display: flex;
+    width: 100%;
+    gap:30px;
+}
+
 @media screen and (max-width: 800px){
     #create-dead-person-form section{
         width: 100%;
+    }
+    #daneGrobu{
+        display: block;
     }
 }

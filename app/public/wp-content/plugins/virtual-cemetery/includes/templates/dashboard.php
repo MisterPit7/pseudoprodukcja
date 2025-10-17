@@ -7,6 +7,7 @@
     })
 </script>
 
+
 <style>
     <?php include MY_PLUGIN_PATH."assets/css/dashboard.css"?>
 </style>
@@ -51,7 +52,17 @@
 
     ?>
 </div>
+<button id="test" style="display:none">Test</button> <!-- Dla pamietnych -->
+<script>
+    <?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?>
+
+    document.querySelector('#test').addEventListener("click",()=>{
+        show_popup("test");
+    })
+</script>
     <script>
+        
+
         jQuery(document).ready(function($){
             $("#logout").click(function(){
                 $.ajax({

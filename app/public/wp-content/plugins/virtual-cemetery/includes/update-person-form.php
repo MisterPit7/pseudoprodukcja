@@ -15,6 +15,8 @@ function update_dead_person_data($data){
         || !preg_match("/^[0-9-]{10}$/", $params['birth-date']) 
         || !preg_match("/^[0-9-]{10}$/", $params['death-date'])
         || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['localization'])
+        || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{0,500}$/", $params['description'])
+        || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['graveID'])
     ){
     return new WP_Error('invalid_value','wrong value',['status'=>403]);
     }
@@ -56,7 +58,8 @@ function update_dead_person_data($data){
                 'Data_urodzenia' => $params['birth-date'],
                 'Data_smierci' => $params['death-date'],
                 'Opis' => $params['description'],
-                'Geolokalizacja' => $params['localization']
+                'Geolokalizacja' => $params['localization'],
+                'Numer_grobu' => $params['graveID']
             ),
             array(
                 'ID'=>$dead_person_id,
@@ -73,7 +76,8 @@ function update_dead_person_data($data){
                 'Data_urodzenia' => $params['birth-date'],
                 'Data_smierci' => $params['death-date'],
                 'Opis' => $params['description'],
-                'Geolokalizacja' => $params['localization']
+                'Geolokalizacja' => $params['localization'],
+                'Numer_grobu' => $params['graveID']
             ),
             array(
                 'ID'=>$dead_person_id,
