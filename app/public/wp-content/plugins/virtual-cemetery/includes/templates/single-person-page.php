@@ -27,8 +27,7 @@
         <p id='para'><b>Spoczywa na <span id="location"></span></b></p>
 
         <form id="getQrCode">
-            <img id="qrCode">
-            <button type="submit">pokaz qr code</button>
+            <button type="submit" id="showQR">Pokaż QR code</button>
         </form>
         
         <section id="imgGallery">
@@ -145,6 +144,11 @@
 </div>
 <?php endif ?>
 
+<div id="QRCodeDiv" style="display: none;">
+    <img id="qrCode">
+    <button id="closeQR">X</button>
+</div>
+
 <script>
 
     jQuery(document).ready(function($){
@@ -163,7 +167,10 @@
                 data: {copyurl},
                 success: function(response){
                     if(response.data){
-                        $("#qrCode").attr("src","data:image/png;base64," +response.data)
+                        $("#qrCode").attr("src","data:image/png;base64," +response.data);
+                        $("#QRCodeDiv").css("display","flex");
+                        $("#container").css("filter","blur(100px)");
+                        $("#centerBtn").css("filter","blur(100px)");
                     }
                 }
             })
@@ -329,6 +336,13 @@
 
         $("#cancel").click(function(){
             $("#delete-person").attr('hidden',true);
+        })
+
+        $("#closeQR").click(function(){
+            $("#QRCodeDiv").css("display","none");
+            $("#container").css("filter","blur(0px)");
+            $("#centerBtn").css("filter","blur(0px)");
+            $("body").css("filter","blur(0px)")
         })
 
     })

@@ -89,7 +89,7 @@ function update_dead_person_data($data){
 
     return new WP_REST_Response([
         'success' => true,
-        'data' => home_url('/single-person').'?id='.$dead_person_id
+        'data' => home_url('/update-person-form').'?id='.$dead_person_id
     ],200);
    
 }

@@ -1,7 +1,7 @@
 <?php
 
 
-require MY_PLUGIN_PATH . "/includes/vendor/autoload.php";
+require_once MY_PLUGIN_PATH . "/includes/vendor/autoload.php";
 
 use BcMath\Number;
 use Endroid\QrCode\Builder\Builder;
@@ -16,7 +16,7 @@ function get_qr_code($data){
     $params = $data->get_params();
 
     $url = $params['copyurl'];
-
+    
     $actual_url = $url;
     $logo = MY_PLUGIN_PATH . "/assets/images/logo.jpg";
 

@@ -13,9 +13,9 @@
 <div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
 
 <div id="mainContent" style="display: none;">
-<div id="update-dead-person">
+<div class="update-dead-person">
 <form enctype="multipart/form-data" id="update-dead-person-form">
-    <h1>Tworzenie profilu</h1>    
+    <h1>Modyfikacja profilu</h1>    
     <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
     <div id="container">
     <section>
@@ -61,6 +61,8 @@
         <button id="add" type="submit">Zmień</button>
     </div>
 </form>
+</div>
+<div class="update-dead-person" style="margin-top:30px;">
 <form id="add-photo-form" enctype="multipart/form-data">
     <h2>Dodaj zdjęcie</h2>
     <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
@@ -88,7 +90,7 @@
     </section>
 </div>
 <div id="buttonDiv">
- <button id="back" onclick="window.location.href='<?php echo esc_url( home_url( '/dashboard/' ) ); ?>'">Powrót</button>
+ <button id="back" onclick="window.location.href='<?php echo home_url('/single-person?id=').$_GET['id']; ?>'">Powrót</button>
 </div>
 </div>
 <script>
