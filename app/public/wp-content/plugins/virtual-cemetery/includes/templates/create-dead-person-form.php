@@ -125,6 +125,7 @@
         formData.set('description', $('textarea[name="description"]').val());
         formData.set('localization', $('input[name="localization"]').val());
         formData.set('photo', $('input[name="photo"]')[0].files[0]);
+        formData.set('graveID', $('input[name="graveID"]').val());
 
         $.ajax({
             type: "POST",
