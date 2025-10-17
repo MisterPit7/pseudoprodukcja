@@ -45,16 +45,16 @@
             <input type="text" name="localization"><br>
         </section>
     </div>
-    <section>
-        <div id="gallery"></div>
-        <label for="galery-photo">Zdjęcie do galeri</label>
+    <section id="sectionGall">
+        <label for="galery-photo">Zdjęcia do galeri</label>
         <input type="file" name="gallery-photo">
-        <button type="button" id="add-photo" value="XD">
-            Dodaj
-        </button>
+        <div id="right">
+        <button type="button" id="add-photo" value="XD">Dodaj zdjęcie</button>
+        </div>
+        <div id="gallery"></div>
     </section>
     <div style="display: flex;justify-content:center;">
-        <button id="add" type="submit">DODAJ</button>
+        <button id="add" type="submit">Dodaj</button>
     </div>
 </form>
 <div id="buttonDiv">
@@ -71,7 +71,7 @@
         console.log('click');
         let val = $(this).val();
         formData.delete('gallery-photo[]', formData.getAll('gallery-photo[]')[val]);
-        $(this).parent().remove();
+        $(this).parent().parent().remove();
         document.querySelectorAll('.remove').forEach((btn, index) => {
             btn.value = index;
         });
@@ -85,18 +85,23 @@
             
             formData.append('gallery-photo[]', photoFile);
             var sec = document.createElement('section');
+            sec.id="secImg";
             var img = document.createElement('img');
             img.src = URL.createObjectURL(photoFile);
             sec.appendChild(img);
+            var div = document.createElement('div');
             var button = document.createElement('button');
+            div.id = "right";
             button.type="button";
             button.value=formData.getAll('gallery-photo[]').length - 1
-            button.innerText="Usuń";
+            button.innerText="Usuń zdjęcie";
+            div.appendChild(button);
             button.addEventListener('click', delete_image);
             button.className = "remove";
-            sec.appendChild(button);
+            sec.appendChild(div);
             document.querySelector("#gallery").append(sec);
-        }   
+        }
+        document.querySelector('input[name="gallery-photo"').value=null;
     });
 
 

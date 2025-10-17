@@ -26,7 +26,7 @@
         </h2>
         <p id='para'><i>"<span id="description"></span>"</i></p>
         <p id='para'><b>Spoczywa na <span id="location"></span></b></p>
-        <section>
+        <section id="imgGallery">
             <?php
                 $table_name = $wpdb->prefix.'zdjecia';
                 $result = $wpdb->get_results(
