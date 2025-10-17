@@ -18,12 +18,9 @@
             $wpdb->prepare("SELECT * FROM $table_name WHERE ID = %s", $dead_person_id)
     );
 
-    if(!$result){
-
+    if($result){
+        $owner = $result[0]->ID_Klienta;
     }
-
-    $owner = $result[0]->ID_Klienta;
-
 ?>
 
 <style>
@@ -31,6 +28,8 @@
 </style>
 <div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
 <?php if($result): ?>
+    
+    
 <div id="mainContent" style="display: none;">
 <div id='container'>
         <h1 id='header'>Ś.P. <span id="name"><?php esc_html_e($result[0]->Imie) ?></span> <span id="surname"><?php esc_html_e($result[0]->Nazwisko) ?></span></h1>
