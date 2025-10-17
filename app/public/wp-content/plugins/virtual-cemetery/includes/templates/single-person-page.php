@@ -11,7 +11,6 @@
 
     $owner = $result[0]->ID_Klienta;
 
-
 ?>
 
 <style>
@@ -26,6 +25,12 @@
         </h2>
         <p id='para'><i>"<span id="description"></span>"</i></p>
         <p id='para'><b>Spoczywa na <span id="location"></span></b></p>
+
+        <form id="getQrCode">
+            <img id="qrCode">
+            <button type="submit">pokaz qr code</button>
+        </form>
+
         <section>
             <?php
                 $table_name = $wpdb->prefix.'zdjecia';
@@ -144,6 +149,27 @@
 <script>
 
     jQuery(document).ready(function($){
+
+        $('#getQrCode').submit(function(event){
+            event.preventDefault();
+            const url = new URL(window.location.href);
+            const copyurl = url.href.toString();
+            const parts = url.toString().split('id=')[1].split('&')[0];         
+            const id = parts;
+            if(id === null) return;
+
+            $.ajax({
+                type: "POST",
+                url: '<?php echo get_rest_url(null,'v1/get-qr-code')?>',
+                data: {copyurl},
+                success: function(response){
+                    if(response.data){
+                        $("#qrCode").attr("src","data:image/png;base64," +response.data)
+                    }
+                }
+            })
+
+        })
        
         $(".comment-accept").submit(function(event){
            

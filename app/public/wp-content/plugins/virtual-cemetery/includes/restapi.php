@@ -92,4 +92,9 @@ function create_rest_endpoint(){
         'callback' => 'search_persons'
     ));
 
+    register_rest_route( "v1", "get-qr-code",array(
+        'methods' => 'POST',
+        'callback' => 'get_qr_code'
+    ));
+
 }

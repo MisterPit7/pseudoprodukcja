@@ -1,8 +1,57 @@
 <?php
 
+
+require MY_PLUGIN_PATH . "/includes/vendor/autoload.php";
+
 use BcMath\Number;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\Writer\PngWriter;
+use claviska\SimpleImage;
 
 add_shortcode("single_person_page","show_single_person_page");
+
+function get_qr_code($data){
+    $params = $data->get_params();
+
+    $url = $params['copyurl'];
+
+    $actual_url = $url;
+    $logo = MY_PLUGIN_PATH . "/assets/images/logo.jpg";
+
+    $logoImageReader = new SimpleImage();
+    $logoImageReader
+        ->fromFile($logo)
+        ->bestFit(100, 100);
+
+    $logoImageBuilder = new SimpleImage();
+    $logoImageBuilder
+        ->fromNew(110, 110)
+        ->roundedRectangle(0, 0, 110, 110, 10, 'white', 'filled')
+        ->overlay($logoImageReader);
+
+    $logoData = $logoImageBuilder->toDataUri('image/png', 100);
+
+    $qrCode = Builder::create()
+        ->writer(new PngWriter())
+        ->writerOptions([])
+        ->data($actual_url)
+        ->logoPath($logoData)
+        ->logoResizeToWidth(100)
+        ->encoding(new Encoding('ISO-8859-1'))
+        ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
+        ->build()
+        ->getString();
+
+    $base64 = base64_encode($qrCode);
+
+    return new WP_REST_Response([
+        'succes' => true,
+        'data' => $base64
+    ],200);
+
+}
 
 function redirect_update($data){
    
@@ -41,7 +90,6 @@ function redirect_update($data){
 function get_single_person(){
 
     $id = $_GET['id'];
-    
 
     global $wpdb;
     $table_name = $wpdb->prefix . 'zmarli';
