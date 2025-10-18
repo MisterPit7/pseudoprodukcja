@@ -83,16 +83,29 @@ section#sectionGall{
     gap:30px;
     flex-wrap: wrap;
     justify-content: center;
+    
+}
+
+section#secImg{
+    width: 30%;
+    background-color: #FBFAF6;
+    border-radius: 20px;
+    padding: 10px;
 }
 
 #gallery img{
-    height: 350px;
+    height: 250px;
     width: 100%;
+    border-radius: 20px;
 }
 
 #right{
     display: flex;
     justify-content: right;
+}
+
+.remove{
+    font-weight: 700;
 }
 
 #daneGrobu{

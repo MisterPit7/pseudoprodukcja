@@ -21,7 +21,7 @@
             <div id="imageDiv">
                 <img src="data:image/png;base64,<?php print(base64_encode(file_get_contents(MY_PLUGIN_PATH."assets\images\\no-image.jpg"))); ?>" id="image" width="200px">
             </div>
-            <label for="photo">Zdjecie</label><br>
+            <label for="photo">Zdjęcie profilowe</label><br>
             <input type="file" name="photo" id="imageFile"><br>
 
             <label for="name">Imię:</label><br>
@@ -33,9 +33,9 @@
         </section>
         <section>
             <label for="birth-date">Data narodzin:</label><br>
-            <input type="date" name="birth-date"><br>
+            <input type="date" name="birth-date" max="<?= date("Y-m-d")?>"><br>
 
-            <label for="death-date">Data zgonu:</label><br>
+            <label for="death-date">Data śmierci:</label><br>
             <input type="date" name="death-date" max="<?= date('Y-m-d'); ?>"><br>
 
             <label for="description">Opis:</label><br>
@@ -54,7 +54,7 @@
         </section>
     </div>
     <section id="sectionGall">
-        <label for="galery-photo">Zdjęcia do galeri</label>
+        <label for="galery-photo">Zdjęcia do galerii</label>
         <input type="file" name="gallery-photo">
         <div id="right">
         <button type="button" id="add-photo" value="XD">Dodaj zdjęcie</button>
