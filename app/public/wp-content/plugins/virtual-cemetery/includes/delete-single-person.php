@@ -35,6 +35,12 @@
             return new WP_Error('invalid_id','could not delete that person',array('status'=>403));
         }
 
+        $table_name = $wpdb->prefix . "komentarze";
+        $delete = $wpdb->delete($table_name , array('ID_Zmarlego' => $dead_person_id) , array('%d'));
+
+        $table_name = $wpdb->prefix . "zdjecia";
+        $delete = $wpdb->delete($table_name , array('ID_Zmarlego' => $dead_person_id) , array('%d'));
+
          return new WP_REST_Response([
             'success' => true,
             'data' => home_url('/dashboard/')

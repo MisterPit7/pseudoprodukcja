@@ -34,10 +34,10 @@
         </section>
         <section>
             <label for="birth-date">Data narodzin:</label><br>
-            <input type="date" name="birth-date"><br>
+            <input type="date" name="birth-date" max="<?= date('Y-m-d'); ?>"><br>
 
             <label for="death-date">Data zgonu:</label><br>
-            <input type="date" name="death-date"><br>
+            <input type="date" name="death-date" max="<?= date('Y-m-d'); ?>"><br>
 
             <label for="description">Opis:</label><br>
             <textarea name="description" rows="8" autocapitalize="sentences" style="resize:none"></textarea> <br>
