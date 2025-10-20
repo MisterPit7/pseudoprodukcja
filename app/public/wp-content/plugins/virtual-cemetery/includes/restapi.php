@@ -123,7 +123,7 @@ function create_rest_endpoint(){
             '/v1/search-persons'       => [10, 60],            
             '/v1/get-profiles'         => [15, 60],     
             '/v1/get-single-person'    => [15, 60],      
-            '/v1/get-qr-code'          => [15, 60],
+            '/v1/get-qr-code'          => [1, 15],
         ];
 
         foreach ($limits as $endpoint => $rule) {
