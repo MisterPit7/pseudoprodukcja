@@ -148,7 +148,7 @@ function update_photos($data){
     }
 
     if(empty($_FILES['photo']['tmp_name'])){
-        return new WP_Error('invalid_value','brak zdjecia',array('status'=>403));
+        return new WP_Error('invalid_value','Brak zdjecia',array('status'=>403));
     }
     $bytes = file_get_contents($_FILES['photo']['tmp_name']);
     
