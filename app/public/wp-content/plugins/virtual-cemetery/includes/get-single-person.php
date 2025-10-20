@@ -58,7 +58,7 @@ function redirect_update($data){
     $params = $data->get_params();
 
     if( isset($params['_wpnonce']) && !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+        return new WP_Error('invalid_nonce','Niepoprawna wartość nonce',array('status'=>403));
     }
 
     $dead_person_id = $params['id'];
@@ -71,11 +71,11 @@ function redirect_update($data){
    );
 
     if(!$result){
-        return new WP_Error('invalid_value','it is not your dead person',array('status'=>403));
+        return new WP_Error('invalid_value','Nieznaleziono takiej osoby',array('status'=>403));
     }
 
     if($result[0]->ID_Klienta != $user_id){
-        return new WP_Error('invalid_id','it is not your dead person2',array('status'=>403));
+        return new WP_Error('invalid_id','Ta osoby nie nalzy do ciebie',array('status'=>403));
     }
     
     return new WP_REST_Response([
@@ -97,7 +97,7 @@ function get_single_person(){
     );
     
     if(!$result){
-        return new WP_Error('invalid_value','no account found',array('status'=>403));
+        return new WP_Error('invalid_value','Nie znaleziono takiej osoby',array('status'=>403));
     }
 
     $json_data = array(
@@ -123,12 +123,12 @@ function create_comment($data){
     $params = $data->get_params();
 
     if( isset($params['_wpnonce']) && !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+        return new WP_Error('invalid_nonce','Niepoprawna wartość nonce',array('status'=>403));
     }
 
     foreach($params as $param){
         if(empty($param)){
-            return new WP_Error('invalid_value','one value not set',array('status'=>403));
+            return new WP_Error('invalid_value','Nie wpisano jednej wartości',array('status'=>403));
             exit;
         }
     }
@@ -157,12 +157,12 @@ function comment_accept($data){
     $table_name = $wpdb->prefix. 'komentarze';
 
     if( isset($params['_wpnonce']) && !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+        return new WP_Error('invalid_nonce','Niepoprawna wartość nonce',array('status'=>403));
     }
 
     foreach($params as $param){
         if(empty($param)){
-            return new WP_Error('invalid_value','one value not set',array('status'=>403));
+            return new WP_Error('invalid_value','Nie wpisano którejś wartości',array('status'=>403));
         }
     }
 
@@ -188,12 +188,12 @@ function comment_delete($data){
     $table_name = $wpdb->prefix. 'komentarze';
 
     if( isset($params['_wpnonce']) && !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+        return new WP_Error('invalid_nonce','Niepoprawna wartość nonce',array('status'=>403));
     }
 
     foreach($params as $param){
         if(empty($param)){
-            return new WP_Error('invalid_value','one value not set',array('status'=>403));
+            return new WP_Error('invalid_value','Nie wpisano którejś wartości',array('status'=>403));
         }
     }
 

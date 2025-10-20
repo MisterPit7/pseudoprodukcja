@@ -6,21 +6,21 @@ function register_user($data){
     
     $params = $data->get_params();
 
+    if( isset($params['_wpnonce']) &&!wp_verify_nonce($params['_wpnonce'],'wp_rest')){
+        return new WP_Error('invalid_nonce','Niepoprawna wartość nonce',array('status'=>403));
+    }
+
     if(!preg_match("/^[a-zA-Z0-9ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{5,50}$/", $params['nickname'])){
-    return new WP_Error('invalid_value','wrong nickname',['status'=>403]);
+    return new WP_Error('invalid_value','Niepoprawna nazwa użytkownika',['status'=>403]);
     }
 
     if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/", $params['password'])){
-        return new WP_Error('weak_value','paswrd is too weak',['status'=>403]);
-    }
-
-    if( isset($params['_wpnonce']) && !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+        return new WP_Error('invalid_value','Hasło jest za słabe',['status'=>403]);
     }
 
     foreach($params as $param){
         if(!isset($param)){
-            return new WP_Error('invalid_value','one value not set',array('status'=>403));
+            return new WP_Error('invalid_value','Niewpisano którejś wartości',array('status'=>403));
         }
     }
 
@@ -38,11 +38,11 @@ function register_user($data){
     );
 
     if( count($result2) !== 0 ){
-        return new WP_Error('invalid_value','email is already used',array('status'=>403));
+        return new WP_Error('invalid_value','Email jest już zajęty',array('status'=>403));
     }
 
     if( count($result) !== 0 ){
-        return new WP_Error('invalid_value','nickname is already used',array('status'=>403));
+        return new WP_Error('invalid_value','Nazwa uzytkownika jest już zajęta',array('status'=>403));
     }
 
 
