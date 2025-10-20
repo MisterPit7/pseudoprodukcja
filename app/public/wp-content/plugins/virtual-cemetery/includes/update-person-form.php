@@ -6,8 +6,8 @@ function update_dead_person_data($data){
         
     $params = $data->get_params();
 
-    if( empty($params['_wpnonce']) || !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+    if( isset($params['_wpnonce']) &&!wp_verify_nonce($params['_wpnonce'],'wp_rest')){
+        return new WP_Error('invalid_nonce','Niepoprawna wartość nonce',array('status'=>403));
     }
 
     if(!preg_match("/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŻŹ]{2,50}$/", $params['name']) 
@@ -18,7 +18,7 @@ function update_dead_person_data($data){
         || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{0,500}$/", $params['description'])
         || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['graveID'])
     ){
-    return new WP_Error('invalid_value','wrong value',['status'=>403]);
+    return new WP_Error('invalid_value','Niepoprawna wartość',['status'=>403]);
     }
 
     if(!empty($_FILES['photo']['tmp_name'])){
@@ -38,7 +38,7 @@ function update_dead_person_data($data){
 
     foreach($params as $param){
         if(!isset($param)){
-            return new WP_Error('invalid_value','one value not set',array('status'=>403));
+            return new WP_Error('invalid_value','Niewpisano którejś wartości',array('status'=>403));
         }
     }
 
@@ -96,15 +96,15 @@ function update_dead_person_data($data){
 
 function delete_person_photo($data){
     $params = $data->get_params();
-    if( empty($params['_wpnonce']) || !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+    if( isset($params['_wpnonce']) &&!wp_verify_nonce($params['_wpnonce'],'wp_rest')){
+        return new WP_Error('invalid_nonce','Niepoprawna wartość nonce',array('status'=>403));
     }
     if(!isset($params['id'])){
-        return new WP_Error('invalid_value','id not set',array('status'=>403));
+        return new WP_Error('invalid_value','Niepoprawna wartość ID',array('status'=>403));
     }
 
     if(!isset($params['photo-id'])){
-        return new WP_Error('invalid_value','photo-id not set',array('status'=>403));
+        return new WP_Error('invalid_value','Niepoprawna wartość id zdjecia',array('status'=>403));
     }
 
     global $wpdb;
@@ -126,12 +126,12 @@ function delete_person_photo($data){
 function update_photos($data){
     $params = $data->get_params();
     
-    if( empty($params['_wpnonce']) || !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+    if( isset($params['_wpnonce']) &&!wp_verify_nonce($params['_wpnonce'],'wp_rest')){
+        return new WP_Error('invalid_nonce','Niepoprawna wartość nonce',array('status'=>403));
     }
 
     if(!isset($params['id'])){
-        return new WP_Error('invalid_value','id not set',array('status'=>403));
+        return new WP_Error('invalid_value','Niepoprawna wartość ID',array('status'=>403));
     }
 
     global $wpdb;
@@ -144,11 +144,11 @@ function update_photos($data){
     );
 
     if($wpdb->num_rows >= 6){
-        return new WP_Error('limit_exceeded','You can upload max 5 photos',array('status'=>403));
+        return new WP_Error('limit_exceeded','Możesz wstawić makymalnie 5 zdjęć',array('status'=>403));
     }
 
     if(empty($_FILES['photo']['tmp_name'])){
-        return new WP_Error('invalid_value','no file provided',array('status'=>403));
+        return new WP_Error('invalid_value','brak zdjecia',array('status'=>403));
     }
     $bytes = file_get_contents($_FILES['photo']['tmp_name']);
     

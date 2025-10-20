@@ -7,12 +7,12 @@ function login_user($data){
     $params = $data->get_params();
 
     if( isset($params['_wpnonce']) &&!wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+        return new WP_Error('invalid_nonce','Niepoprawna wartość nonce',array('status'=>403));
     }
 
     foreach($params as $param){
         if(!isset($param)){
-            return new WP_Error('invalid_value','one value not set',array('status'=>403));
+            return new WP_Error('invalid_value','Nie wpisano którejś wartości',array('status'=>403));
         }
     }
 
@@ -28,11 +28,11 @@ function login_user($data){
     
 
     if(!$result){
-        return new WP_Error('invalid_value','no account found',array('status'=>403));
+        return new WP_Error('invalid_value','Nie znaleziono takiej osoby',array('status'=>403));
     }
 
     if(!password_verify($password, $result[0]->user_pass)){
-        return new WP_Error('invalid_value','incorrect paswrd',array('status'=>403));
+        return new WP_Error('invalid_value','Niepoprawne hasło',array('status'=>403));
     }
 
     wp_set_current_user($result[0]->ID);
