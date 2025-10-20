@@ -4,7 +4,7 @@
          $params = $data->get_params();
 
         if( isset($params['_wpnonce']) &&!wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-            return new WP_Error('invalid_nonce','wartość nonce jest niepoprawna',array('status'=>403));
+            return new WP_Error('invalid_nonce','Wartość nonce jest niepoprawna',array('status'=>403));
         }
 
         $user_id =  get_current_user_id();
@@ -26,7 +26,7 @@
         }
 
         if (empty($params['text']) || strtolower(trim($result->Nazwisko)) !== strtolower(trim($params['text']))) {
-            return new WP_Error('invalid_value', 'Niepoprawne text potwierdzający', ['status' => 403]);
+            return new WP_Error('invalid_value', 'Niepoprawny tekst potwierdzający usunięcie', ['status' => 403]);
         }
 
         $delete = $wpdb->delete($table_name , array('ID' => $dead_person_id) , array('%d'));

@@ -162,7 +162,7 @@ function comment_accept($data){
 
     foreach($params as $param){
         if(empty($param)){
-            return new WP_Error('invalid_value','Nie wpisano którejś wartości',array('status'=>403));
+            return new WP_Error('invalid_value','Nie wpisano jednej wartości',array('status'=>403));
         }
     }
 
@@ -193,7 +193,7 @@ function comment_delete($data){
 
     foreach($params as $param){
         if(empty($param)){
-            return new WP_Error('invalid_value','Nie wpisano którejś wartości',array('status'=>403));
+            return new WP_Error('invalid_value','Nie wpisano jednej wartości',array('status'=>403));
         }
     }
 

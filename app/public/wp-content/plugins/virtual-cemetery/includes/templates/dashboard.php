@@ -72,6 +72,9 @@
                         if(response.data){
                             window.location.href = response.data;  
                         }
+                    },error:function(response){
+                        let error = response.responseJSON;
+                        if(error['code'] != "invalid_nonce") show_popup(error['message']);
                     }
                 })
             })

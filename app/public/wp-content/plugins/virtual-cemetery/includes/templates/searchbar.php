@@ -25,6 +25,7 @@
         </main>
     </div>
 </div>
+<script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 <script>
     jQuery(document).ready(function($){
         $("#searchForm").submit(function(event){

@@ -144,7 +144,7 @@ function update_photos($data){
     );
 
     if($wpdb->num_rows >= 6){
-        return new WP_Error('limit_exceeded','Możesz wstawić makymalnie 5 zdjęć',array('status'=>403));
+        return new WP_Error('limit_exceeded','Możesz wstawić makymalnie 6 zdjęć',array('status'=>403));
     }
 
     if(empty($_FILES['photo']['tmp_name'])){

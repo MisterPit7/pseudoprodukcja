@@ -93,6 +93,7 @@
  <button id="back" onclick="window.location.href='<?php echo home_url('/single-person?id=').$_GET['id']; ?>';this.disabled=true">Powrót</button>
 </div>
 </div>
+<script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 <script>
     jQuery(document).ready(function(){
 
@@ -124,9 +125,7 @@
                     }
                 },error:function(response){
                     let error = response.responseJSON;
-                    if(error['message'] == ""){
-
-                    }
+                    if(error['code'] != "invalid_nonce") show_popup(error['message']);
                 }
             })
 
@@ -152,7 +151,10 @@
                     if(response.data){
                         window.location.href = response.data;
                     }
-                },
+                },error:function(response){
+                    let error = response.responseJSON;
+                    if(error['code'] != "invalid_nonce") show_popup(error['message']);
+                }
             })
         })
 
@@ -197,7 +199,10 @@
 
                 }
                     
-            }
+            },error:function(response){
+                    let error = response.responseJSON;
+                    if(error['code'] != "invalid_nonce") show_popup(error['message']);
+                }
         })
 
         $("#update-dead-person-form").submit(function(event){
@@ -226,7 +231,10 @@
                     if(response.data){
                         window.location.href = response.data;
                     }
-                },
+                },error:function(response){
+                    let error = response.responseJSON;
+                    if(error['code'] != "invalid_nonce") show_popup(error['message']);
+                }
             })
 
             

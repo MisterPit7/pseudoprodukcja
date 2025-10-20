@@ -69,6 +69,7 @@
  <button id="back" onclick="window.location.href='<?php echo esc_url( home_url( '/dashboard/' ) ); ?>';this.disabled=true">Powrót</button>
 </div>
 </div>
+<script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 <script>
 
     jQuery(document).ready(function($){
@@ -138,8 +139,9 @@
                     window.location.href = response.data;
                 }
             },
-            error: function(){
-                alert('złe dane');
+            error: function(response){
+                let error = response.responseJSON;
+                if(error['code'] != "invalid_nonce") show_popup(error['message']);
                 $('#add').attr('disabled',false);
             }
            

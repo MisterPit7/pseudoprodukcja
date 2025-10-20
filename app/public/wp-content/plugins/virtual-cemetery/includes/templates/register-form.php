@@ -24,7 +24,7 @@
         <button type="submit">Zarejestruj się</button>
     </div>
 </form>
-
+<script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 <script>
     jQuery(document).ready(function($){
         $("#register-form").submit(function(event){

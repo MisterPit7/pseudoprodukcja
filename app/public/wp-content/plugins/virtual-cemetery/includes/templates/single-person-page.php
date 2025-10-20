@@ -181,7 +181,7 @@
     <img id="qrCode">
     <button id="closeQR">X</button>
 </div>
-
+<script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 <script>
 
     jQuery(document).ready(function($){
@@ -228,6 +228,9 @@
                     if(response.data){
                         window.location.href = response.data
                     }
+                },error:function(response){
+                    let error = response.responseJSON;
+                    if(error['code'] != "invalid_nonce") show_popup(error['message']);
                 }
             })
         })
@@ -245,6 +248,9 @@
                     if(response.data){
                         window.location.href = response.data
                     }
+                },error:function(response){
+                    let error = response.responseJSON;
+                    if(error['code'] != "invalid_nonce") show_popup(error['message']);
                 }
                 
             })
@@ -262,6 +268,9 @@
                     if(response.data){
                         window.location.href = response.data
                     }
+                },error:function(response){
+                    let error = response.responseJSON;
+                    if(error['code'] != "invalid_nonce") show_popup(error['message']);
                 }
             })
         })
@@ -285,6 +294,9 @@
                     if(response.data){
                         window.location.href = response.data
                     }
+                },error:function(response){
+                    let error = response.responseJSON;
+                    if(error['code'] != "invalid_nonce") show_popup(error['message']);
                 }
             })
         })
@@ -303,6 +315,9 @@
                     if(response.data){
                         window.location.href = response.data + '?id=' + id;
                     }
+                },error:function(response){
+                    let error = response.responseJSON;
+                    if(error['code'] != "invalid_nonce") show_popup(error['message']);
                 }
 
             })

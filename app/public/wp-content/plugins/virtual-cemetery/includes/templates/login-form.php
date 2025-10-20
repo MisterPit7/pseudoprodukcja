@@ -20,7 +20,7 @@
         <button type="submit">Zaloguj się</button>
     </div>
 </form>
-
+<script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 <script>
 
     
@@ -43,8 +43,6 @@
                     let error = response.responseJSON;
                     let info1 = document.querySelector("#info1");
                     let info2 = document.querySelector("#info2");
-
-                    console.log(error);
 
                     if(error['message'] == "no account found"){
                         info1.innerHTML = "Błędny email!"; 

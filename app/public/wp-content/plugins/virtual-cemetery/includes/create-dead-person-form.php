@@ -10,16 +10,44 @@ function create_dead_person($data){
         return new WP_Error('invalid_nonce','wartość nonce jest niepoprawna',array('status'=>403));
     }
 
-    if(!preg_match("/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŻŹ]{2,50}$/", $params['name']) 
-        || !preg_match("/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŻŹ]{2,50}$/", $params['surname']) 
-        || !preg_match("/^[0-9-]{10}$/", $params['birth-date']) 
-        || !preg_match("/^[0-9-]{10}$/", $params['death-date'])
-        || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['localization'])
-        || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['graveID'])
-        || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{0,500}$/", $params['description'])
-    ){
-    return new WP_Error('invalid_value','niepoprawna wartość',['status'=>403]);
+    if(!preg_match("/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŻŹ]{2,50}$/", $params['name'])){
+        return new WP_Error('invalid_value','Niepoprawna wartość imienia',['status'=>403]);
     }
+
+    if(!preg_match("/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŻŹ]{2,50}$/", $params['surname']) ){
+        return new WP_Error('invalid_value','Niepoprawna wartość nazwiska',['status'=>403]);
+    }
+
+    if(!preg_match("/^[0-9-]{10}$/", $params['birth-date']) ){
+        return new WP_Error('invalid_value','Niepoprawna wartość daty urodzenia',['status'=>403]);
+    }
+
+    if(!preg_match("/^[0-9-]{10}$/", $params['death-date'])){
+        return new WP_Error('invalid_value','Niepoprawna wartość daty śmierci',['status'=>403]);
+    }
+
+    if(!preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['localization'])){
+        return new WP_Error('invalid_value','Niepoprawna wartość lokalizacji grobu',['status'=>403]);
+    }
+
+    if(!preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['graveID'])){
+        return new WP_Error('invalid_value','Niepoprawna wartość numeru grobu',['status'=>403]);
+    }   
+
+    if(!preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{0,500}$/", $params['description'])){
+        return new WP_Error('invalid_value','Niepoprawna wartość opisu',['status'=>403]);
+    }
+
+    // if(!preg_match("/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŻŹ]{2,50}$/", $params['name']) 
+    //     || !preg_match("/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŻŹ]{2,50}$/", $params['surname']) 
+    //     || !preg_match("/^[0-9-]{10}$/", $params['birth-date']) 
+    //     || !preg_match("/^[0-9-]{10}$/", $params['death-date'])
+    //     || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['localization'])
+    //     || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['graveID'])
+    //     || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{0,500}$/", $params['description'])
+    // ){
+    // return new WP_Error('invalid_value','Niepoprawna wartość',['status'=>403]);
+    // }
 
     if(!empty($_FILES['photo']['tmp_name'])){
         $bytes = file_get_contents($_FILES['photo']['tmp_name']);
@@ -33,7 +61,7 @@ function create_dead_person($data){
             if (in_array($mime_type, $allowed)) {
                 
             } else {
-                return new WP_Error('invalid_value','niepoprawne rozszerzenie',['status'=>403]);
+                return new WP_Error('invalid_value','Niepoprawne rozszerzenie zdjęcia',['status'=>403]);
             }
 
         } else{
@@ -41,12 +69,12 @@ function create_dead_person($data){
         }
 
     }else{
-        return new WP_Error('invalid_value','błąd przesłania obrazu',['status'=>403]);
+        return new WP_Error('invalid_value','Błąd przesłania obrazu',['status'=>403]);
     }
 
     foreach($params as $param){
         if(!isset($param)){
-            return new WP_Error('invalid_value','brak jednej wartości',array('status'=>403));
+            return new WP_Error('invalid_value','Brak jednej wartości',array('status'=>403));
         }
     }
 

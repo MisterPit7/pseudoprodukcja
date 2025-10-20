@@ -20,7 +20,7 @@ function register_user($data){
 
     foreach($params as $param){
         if(!isset($param)){
-            return new WP_Error('invalid_value','Niewpisano którejś wartości',array('status'=>403));
+            return new WP_Error('invalid_value','Niewpisano jednej wartości',array('status'=>403));
         }
     }
 
