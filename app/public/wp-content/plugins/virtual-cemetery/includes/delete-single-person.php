@@ -4,7 +4,7 @@
          $params = $data->get_params();
 
         if( isset($params['_wpnonce']) &&!wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-            return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+            return new WP_Error('invalid_nonce','wartość nonce jest niepoprawna',array('status'=>403));
         }
 
         $user_id =  get_current_user_id();
@@ -18,21 +18,21 @@
         );
 
         if(!$result){
-            return new WP_Error('invalid_id','it is not your dead person',array('status'=>403));
+            return new WP_Error('invalid_value','Nie znaleziono takiej osoby',array('status'=>403));
         }
 
         if($result[0]->ID_Klienta != $user_id){
-            return new WP_Error('invalid_id','it is not your dead person',array('status'=>403));
+            return new WP_Error('invalid_value','Ta osoba nie należy do ciebie',array('status'=>403));
         }
 
-        if($result[0]->Nazwisko != $params['text']){
-            return new WP_Error('invalid_text','could not delete that person',array('status'=>403));
+        if (empty($params['text']) || strtolower(trim($result->Nazwisko)) !== strtolower(trim($params['text']))) {
+            return new WP_Error('invalid_value', 'Niepoprawne text potwierdzający', ['status' => 403]);
         }
 
         $delete = $wpdb->delete($table_name , array('ID' => $dead_person_id) , array('%d'));
 
         if(!$delete){
-            return new WP_Error('invalid_id','could not delete that person',array('status'=>403));
+            return new WP_Error('db_error','Nie udało się usunąć osoby',array('status'=>403));
         }
 
         $table_name = $wpdb->prefix . "komentarze";
