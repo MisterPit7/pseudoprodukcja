@@ -31,6 +31,10 @@ function search_persons($data){
         );
     }
 
+    if(empty($result)){
+        return new WP_Error('no_person_found','there is no perosn with that name or surname',array('status'=>403));
+    }
+
     $json_data = array_map(function($row) {
             return array(
                 "ID" => $row->ID,

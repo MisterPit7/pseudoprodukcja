@@ -13,6 +13,8 @@ require_once(MY_PLUGIN_PATH.'/includes/update-person-form.php');
 require_once(MY_PLUGIN_PATH.'/includes/searchbar.php');
 require_once(MY_PLUGIN_PATH.'/includes/search-persons.php');
 
+require_once(MY_PLUGIN_PATH . '/includes/rate-limiter.php');
+
 
 function create_rest_endpoint(){
 
@@ -96,5 +98,53 @@ function create_rest_endpoint(){
         'methods' => 'POST',
         'callback' => 'get_qr_code'
     ));
+
+
+    add_filter('rest_pre_dispatch', function ($result, $server, $request) {
+
+        $route = $request->get_route();
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $method = $request->get_method();
+
+       
+        $limits = [
+            '/v1/register'             => [5, 60],      
+            '/v1/login'                => [10, 60],       
+            '/v1/logout'               => [10, 60],              
+            '/v1/create-dead-person'   => [10, 60],      
+            '/v1/update-single-person' => [10, 60],     
+            '/v1/delete-single-person' => [10, 60],     
+            '/v1/redirect-update'      => [10, 60],     
+            '/v1/update-photos'        => [10, 60],      
+            '/v1/delete-person-photo'  => [10, 60],           
+            '/v1/create-comment'       => [10, 60],     
+            '/v1/comment-accept'       => [15, 60],      
+            '/v1/comment-delete'       => [15, 60],      
+            '/v1/search-persons'       => [10, 60],            
+            '/v1/get-profiles'         => [15, 60],     
+            '/v1/get-single-person'    => [15, 60],      
+            '/v1/get-qr-code'          => [1, 15],
+        ];
+
+        foreach ($limits as $endpoint => $rule) {
+            if (strpos($route, $endpoint) !== false) {
+                [$max, $seconds] = $rule;
+                $key = "{$ip}_{$endpoint}";
+                
+                if (!RateLimiter::check($key, $max, $seconds)) {
+                    return new WP_Error(
+                        'too_many_requests',
+                        'Zbyt wiele żądań. Spróbuj ponownie za chwilę.',
+                        [
+                            'status' => 429,
+                            'retry_after' => $seconds
+                        ]
+                    );
+                }
+            }
+        }
+
+        return $result;
+    }, 10, 3);
 
 }

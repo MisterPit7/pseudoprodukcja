@@ -81,6 +81,12 @@
 
                         })
                     }
+                },
+                error: function(){
+                    var main2 = document.getElementById('mainGrid');
+                    var p = document.createElement('p')
+                    p.textContent = "Nie znaleziono takiej osoby"
+                    main2.appendChild(p)
                 }
             })
 

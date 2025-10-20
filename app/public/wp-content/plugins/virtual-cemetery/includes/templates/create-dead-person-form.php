@@ -33,7 +33,7 @@
         </section>
         <section>
             <label for="birth-date">Data narodzin:</label><br>
-            <input type="date" name="birth-date" max="<?= date("Y-m-d")?>"><br>
+            <input type="date" name="birth-date" max="<?= date('Y-m-d'); ?>"><br>
 
             <label for="death-date">Data śmierci:</label><br>
             <input type="date" name="death-date" max="<?= date('Y-m-d'); ?>"><br>
