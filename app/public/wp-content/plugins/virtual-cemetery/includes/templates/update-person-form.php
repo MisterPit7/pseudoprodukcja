@@ -22,7 +22,7 @@
             <div id="imageDiv">
                 <img src="data:image/png;base64,<?php print(base64_encode(file_get_contents(MY_PLUGIN_PATH."assets\images\\no-image.jpg"))); ?>" id="image" width="200px">
             </div>
-            <label for="photo">Zdjecie</label><br>
+            <label for="photo">Zdjecie profilowe</label><br>
             <input type="file" name="photo" id="imageFile"><br>
 
             <label for="name">Imię:</label><br>
@@ -36,7 +36,7 @@
             <label for="birth-date">Data narodzin:</label><br>
             <input type="date" name="birth-date"><br>
 
-            <label for="death-date">Data zgonu:</label><br>
+            <label for="death-date">Data śmierci:</label><br>
             <input type="date" name="death-date"><br>
 
             <label for="description">Opis:</label><br>
@@ -64,7 +64,7 @@
 </div>
 <div class="update-dead-person" style="margin-top:30px;">
 <form id="add-photo-form" enctype="multipart/form-data">
-    <h2>Dodaj zdjęcie</h2>
+    <h2>Dodaj zdjęcie do galerii</h2>
     <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
     <input type="file" name="photoGallery" id="photoInput" required>
     <input type="hidden" name="id" id="id" value="<?php echo $_GET['id']?>">
@@ -79,12 +79,12 @@
             );
         ?>
         <?php foreach($result as $photo):?>
-            <form class="delete-photo">
+            <form class="delete-photo" style="margin-bottom: 0px">
                 <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
                 <img class='gallery' width="200px" height="100px" src='data:image/jpeg;base64,<?php echo base64_encode($photo->Zdjecie)?>'/>
                 <input type="hidden" name="photo-id" value="<?php echo $photo->ID?>"/>
                 <input type="hidden" name="id" id="id" value="<?php echo $_GET['id']?>">
-                <div id="right"><button type="submit">Usuń</button></div>
+                <div id="right"><button type="submit" style="font-weight: 600;">Usuń zdjęcie</button></div>
             </form>
         <?php endforeach?>
     </section>

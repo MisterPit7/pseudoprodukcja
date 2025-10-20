@@ -4,6 +4,11 @@
        let main = document.querySelector("#mainContent");
        loader.style.display="none";
        main.style.display="block";
+
+       let dateU = document.querySelector("#dateU");
+       dateU.innerHTML = convertDate(dateU.innerHTML);
+       let dateS = document.querySelector("#dateS");
+       dateS.innerHTML = convertDate(dateS.innerHTML);
     })
 </script>
 
@@ -41,10 +46,10 @@
             <div id='info'><span id="dateU"><?php esc_html_e($result[0]->Data_urodzenia) ?></span></div> <div style='padding-top:8px;font-size:3rem'>-</div> <div id='info'><span id="dateS"><?php esc_html_e($result[0]->Data_smierci) ?></span></div>
         </h2>
         <p id='para'><i>"<span id="description"><?php esc_html_e($result[0]->Opis) ?></span>"</i></p>
-        <p id='para'><b>Spoczywa na <span id="location"><?php esc_html_e($result[0]->Geolokalizacja) ?></span></b></p>
+        <p id='para'><b>Spoczywa na <span id="location"><?php esc_html_e($result[0]->Geolokalizacja) ?>, Numer grobu: <?php esc_html_e($result[0]->Numer_grobu) ?></span></b></p>
 
         <form id="getQrCode">
-            <button type="submit" id="showQR">Pokaż QR code</button>
+            <button type="submit" id="showQR">Pokaż kod QR</button>
         </form>
 
         <section id="imgGallery">
@@ -137,8 +142,12 @@
 
     <!-- </?php print_r($result)?>
     </?php echo count($result)?> -->
-    <div id="container">Brak takiego uztkownika</div>
-
+    <div id="container">
+        <div id="notFound">
+            <img src="data:image/png;base64,<?php print(base64_encode(file_get_contents(MY_PLUGIN_PATH."assets\images\\404face.png")))?>">
+            <h3 style="color:#586C51">Brak takiego użytkownika</h3>
+        </div>
+    </div>
 <?php endif ?>
 
 
