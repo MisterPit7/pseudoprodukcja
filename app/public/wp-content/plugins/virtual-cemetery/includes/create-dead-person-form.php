@@ -7,7 +7,7 @@ function create_dead_person($data){
     $params = $data->get_params();
 
     if( empty($params['_wpnonce']) || !wp_verify_nonce($params['_wpnonce'],'wp_rest')){
-        return new WP_Error('invalid_nonce','Nonce value cannot be verified',array('status'=>403));
+        return new WP_Error('invalid_nonce','wartość nonce jest niepoprawna',array('status'=>403));
     }
 
     if(!preg_match("/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŻŹ]{2,50}$/", $params['name']) 
@@ -18,7 +18,7 @@ function create_dead_person($data){
         || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['graveID'])
         || !preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{0,500}$/", $params['description'])
     ){
-    return new WP_Error('invalid_value','wrong value',['status'=>403]);
+    return new WP_Error('invalid_value','niepoprawna wartość',['status'=>403]);
     }
 
     if(!empty($_FILES['photo']['tmp_name'])){
@@ -33,20 +33,20 @@ function create_dead_person($data){
             if (in_array($mime_type, $allowed)) {
                 
             } else {
-                return new WP_Error('invalid_value','wrong extension',['status'=>403]);
+                return new WP_Error('invalid_value','niepoprawne rozszerzenie',['status'=>403]);
             }
 
         } else{
-            return new WP_Error('invalid_value','wrong extension2',['status'=>403]);
+            return new WP_Error('invalid_value','Nie udało się odczytać informacji o obrazie',['status'=>403]);
         }
 
     }else{
-        return new WP_Error('invalid_value','wrong extension3',['status'=>403]);
+        return new WP_Error('invalid_value','błąd przesłania obrazu',['status'=>403]);
     }
 
     foreach($params as $param){
         if(!isset($param)){
-            return new WP_Error('invalid_value','one value not set',array('status'=>403));
+            return new WP_Error('invalid_value','brak jednej wartości',array('status'=>403));
         }
     }
 
