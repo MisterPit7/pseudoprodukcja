@@ -27,7 +27,7 @@
 ?>
 <div id="mainContent" style="display: none;">
      <div id="btns">
-        <button onclick="window.location.href='<?php echo esc_url( home_url( '/create-dead-person/' ) ); ?>'">Dodaj</button>
+        <button id="add" onclick="window.location.href='<?php echo esc_url( home_url( '/create-dead-person/' ) ); ?>';document.querySelector('#add').disabled=true;">Dodaj</button>
         <button id="logout">Wyloguj się</button>
     </div>
         <div id="dead-person-grid">
@@ -38,7 +38,7 @@
                 <img src="data:image/jpeg;base64,<?php echo base64_encode($person->Profilowe); ?>" width="200px" height="200px">
                 <p> <?php esc_html_e($person->Imie) ?> <?php esc_html_e($person->Nazwisko) ?></p>
                 <div style="display: flex;justify-content:center;">
-                    <button onclick="window.location.href = '<?php echo home_url('/single-person?id=').$person->ID; ?>'">Pokaż osobe</button>
+                    <button class="show" onclick="window.location.href = '<?php echo home_url('/single-person?id=').$person->ID; ?>'">Pokaż osobe</button>
                 </div>
             </div>
 
@@ -64,6 +64,7 @@
 
         jQuery(document).ready(function($){
             $("#logout").click(function(){
+                $("#logout").attr("disabled",true);
                 $.ajax({
                     type: "GET",
                     url: "<?php echo get_rest_url(null, 'v1/logout') ?>",

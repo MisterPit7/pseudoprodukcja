@@ -84,13 +84,13 @@
                 <img class='gallery' width="200px" height="100px" src='data:image/jpeg;base64,<?php echo base64_encode($photo->Zdjecie)?>'/>
                 <input type="hidden" name="photo-id" value="<?php echo $photo->ID?>"/>
                 <input type="hidden" name="id" id="id" value="<?php echo $_GET['id']?>">
-                <div id="right"><button type="submit" style="font-weight: 600;">Usuń zdjęcie</button></div>
+                <div id="right"><button type="submit" style="font-weight: 600;" >Usuń zdjęcie</button></div>
             </form>
         <?php endforeach?>
     </section>
 </div>
 <div id="buttonDiv">
- <button id="back" onclick="window.location.href='<?php echo home_url('/single-person?id=').$_GET['id']; ?>'">Powrót</button>
+ <button id="back" onclick="window.location.href='<?php echo home_url('/single-person?id=').$_GET['id']; ?>';this.disabled=true">Powrót</button>
 </div>
 </div>
 <script>
