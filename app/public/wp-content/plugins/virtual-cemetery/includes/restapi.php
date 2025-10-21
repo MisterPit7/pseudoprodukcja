@@ -13,6 +13,7 @@ require_once(MY_PLUGIN_PATH.'/includes/update-person-form.php');
 require_once(MY_PLUGIN_PATH.'/includes/searchbar.php');
 require_once(MY_PLUGIN_PATH.'/includes/search-persons.php');
 
+
 require_once(MY_PLUGIN_PATH . '/includes/rate-limiter.php');
 
 
@@ -98,6 +99,7 @@ function create_rest_endpoint(){
         'methods' => 'POST',
         'callback' => 'get_qr_code'
     ));
+
 
 
     add_filter('rest_pre_dispatch', function ($result, $server, $request) {
