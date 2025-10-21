@@ -12,6 +12,7 @@ require_once(MY_PLUGIN_PATH.'/includes/delete-single-person.php');
 require_once(MY_PLUGIN_PATH.'/includes/update-person-form.php');
 require_once(MY_PLUGIN_PATH.'/includes/searchbar.php');
 require_once(MY_PLUGIN_PATH.'/includes/search-persons.php');
+require_once(MY_PLUGIN_PATH.'/includes/payment-form.php');
 
 
 require_once(MY_PLUGIN_PATH . '/includes/rate-limiter.php');
@@ -98,6 +99,11 @@ function create_rest_endpoint(){
     register_rest_route( "v1", "get-qr-code",array(
         'methods' => 'POST',
         'callback' => 'get_qr_code'
+    ));
+
+    register_rest_route( "v1", "payment-form",array(
+        'methods' => 'POST',
+        'callback' => 'payment_form'
     ));
 
 
