@@ -34,8 +34,25 @@
     <?php include MY_PLUGIN_PATH."assets/css/single-person.css"?>
 </style>
 <div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
+
+<?php if(!$result[0]->Is_payed): ?>
+
+    <style>
+        #container{
+            filter: blur(30px);
+            -webkit-filter: blur(50px);
+        }
+    </style>
+
+    <?php foreach ($result[0] as $key => &$value) {
+                if($key != 'Is_payed' ){
+                    $value = "";
+                }
+        }
+        unset($value); ?>
+
+<?php endif?>
 <?php if($result): ?>
-    
     
 <div id="mainContent" style="display: none;">
 <div id='container'>
@@ -47,6 +64,8 @@
         </h2>
         <p id='para'><i>"<span id="description"><?php esc_html_e($result[0]->Opis) ?></span>"</i></p>
         <p id='para'><b>Spoczywa na <span id="location"><?php esc_html_e($result[0]->Geolokalizacja) ?>, Numer grobu: <?php esc_html_e($result[0]->Numer_grobu) ?></span></b></p>
+
+        <?php if($result[0]->Is_payed == 1): ?>
 
         <form id="getQrCode">
             <button type="submit" id="showQR">Pokaż kod QR</button>
@@ -63,6 +82,8 @@
                 <img class='gallery' width="200px" height="100px" src='data:image/jpeg;base64,<?php echo base64_encode($photo->Zdjecie)?>'>
             <?php endforeach?>
         </section>
+
+        
 
         <div id='data-viewer-comments'>
             <h3>Komentarze</h3>
@@ -136,12 +157,12 @@
                 <?php endforeach?>
             <?php endif?>
         </div>
+        <?php endif ?>
 </div>
 <?php endif ?>
+
 <?php if(!$is_user): ?>
 
-    <!-- </?php print_r($result)?>
-    </?php echo count($result)?> -->
     <div id="container">
         <div id="notFound">
             <img src="data:image/png;base64,<?php print(base64_encode(file_get_contents(MY_PLUGIN_PATH."assets\images\\404face.png")))?>">
@@ -151,7 +172,7 @@
 <?php endif ?>
 
 
-<?php if( $is_user&& $owner == $user_id): ?>
+<?php if( $is_user&& $owner == $user_id && $result[0]->Is_payed == 1): ?>
 
 <div id="centerBtn" style="display: flex;justify-content:center;flex-grow:0;">
 
@@ -182,6 +203,12 @@
     <button id="closeQR">X</button>
 </div>
 <script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
+
+<?php if(!$result[0]->Is_payed): ?>
+    <button type="button" onclick="window.location.href='<?= home_url('/payment-form')?>?id=<?= $dead_person_id ?>'">Wykup ponownie</button>
+<?php endif ?>
+
+
 <script>
 
     jQuery(document).ready(function($){

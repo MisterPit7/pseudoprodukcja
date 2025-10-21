@@ -100,6 +100,10 @@ function get_single_person(){
         return new WP_Error('invalid_value','Nie znaleziono takiej osoby',array('status'=>403));
     }
 
+    if($result[0]->Is_payed == 0){
+        return new WP_Error('invalid_payment','Nie opłacono osoby',array('status'=>403));
+    }
+
     $json_data = array(
         "Imie"=> $result[0]->Imie,
         "Nazwisko"=> $result[0]->Nazwisko,

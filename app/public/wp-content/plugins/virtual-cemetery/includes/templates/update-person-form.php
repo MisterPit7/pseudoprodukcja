@@ -200,9 +200,13 @@
                 }
                     
             },error:function(response){
+                if(response.responseJSON['code'] == 'invalid_payment'){
+                    $('#mainContent').remove();
+                }
                     let error = response.responseJSON;
                     if(error['code'] != "invalid_nonce") show_popup(error['message']);
                 }
+            
         })
 
         $("#update-dead-person-form").submit(function(event){
