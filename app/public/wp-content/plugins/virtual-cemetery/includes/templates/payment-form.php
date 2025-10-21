@@ -1,38 +1,45 @@
-<form id="payment_form">
+<style>
+    <?php include MY_PLUGIN_PATH."assets/css/payment-form.css" ?>
+</style>
+<form id="payment-form">
+    <h1>Adres rozliczeniowy</h1>
+    <div id="inputDiv">
+    <label for="name">Imie:</label><br>
+    <input type="text" name="name" required><br>
 
-    <label for="name">Imie:</label>
-    <input type="text" name="name"><br>
+    <label for="surname">Nazwisko:</label><br>
+    <input type="text" name="surname" required><br>
 
-    <label for="surname">Nazwisko:</label>
-    <input type="text" name="surname"><br>
+    <label for="email">Email:</label><br>
+    <input type="email" name="email" required><br>
 
-    <label for="email">Email:</label>
-    <input type="email" name="email"><br>
+    <label for="phone">Numer telefonu:</label><br>
+    <input type="tel" name="phone" required><br>
 
-    <label for="phone">Numer telefonu:</label>
-    <input type="tel" name="phone"><br>
+    <label for="address_1">Adres:</label><br>
+    <input type="text" name="address_1" required><br>
 
-    <label for="address_1">Adres:</label>
-    <input type="text" name="address_1"><br>
+    <label for="city">Miejscowość:</label><br>
+    <input type="text" name="city" required><br>
 
-    <label for="city">Miejscowość:</label>
-    <input type="text" name="city"><br>
+    <label for="post_code">Kod pocztowy:</label><br>
+    <input type="text" name="post_code" required><br>
 
-    <label for="post_code">Kod pocztowy:</label>
-    <input type="text" name="post_code"><br>
+    <label for="country">Kraj:</label><br>
+    <input type="text" name="country" required><br>
 
-    <label for="country">Kraj:</label>
-    <input type="text" name="country"><br>
-
-    <button type="submit">Prześlij</button>
-
+    <input type="hidden" value="<?= get_current_user_id() ?>" name="user_id">
+    </div>
+    <div id="buttonDiv">
+        <button type="submit">Prześlij</button>
+    </div>
 </form>
 
 
 <script>
 
     jQuery(document).ready(function($){
-        $('#payment_form').submit(function(event){
+        $('#payment-form').submit(function(event){
 
             event.preventDefault()
             var form = $(this)
@@ -40,8 +47,13 @@
 
             $.ajax({
                 type: 'POST',
-                url: "<?php echo get_rest_url(null, 'v1/payment-form') ?>",
-                data: form.serialize()
+                url: "<?php echo get_rest_url(null, 'v1/make-order') ?>",
+                data: form.serialize(),
+                success:function(response){
+                    if(response.data){
+                        window.location.href=response.data;
+                    }
+                }
             })
 
         })

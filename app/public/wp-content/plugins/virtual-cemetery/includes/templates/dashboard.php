@@ -8,7 +8,6 @@
     })
 </script>
 
-
 <style>
     <?php include MY_PLUGIN_PATH."assets/css/dashboard.css"?>
 </style>
@@ -27,7 +26,7 @@
 ?>
 <div id="mainContent" style="display: none;">
      <div id="btns">
-        <button id="add" onclick="window.location.href='<?php echo esc_url( home_url( '/create-dead-person/' ) ); ?>';document.querySelector('#add').disabled=true;">Dodaj</button>
+        <button id="add" onclick="window.location.href='<?php echo esc_url( home_url( '/payment-form/' ) ); ?>';document.querySelector('#add').disabled=true;">Dodaj</button>
         <button id="logout">Wyloguj się</button>
     </div>
         <div id="dead-person-grid">

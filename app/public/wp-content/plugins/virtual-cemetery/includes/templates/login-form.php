@@ -15,8 +15,8 @@
     <label for="password">Hasło: </label><br>
     <input type="password" name="password" required placeholder="Podaj hasło"><br>
     <span id="info2"></span>
-    <br>
-        <div class="g-recaptcha" data-sitekey="6Lc2v_ArAAAAAHfeltN6JiN8AT06Y_hw3MfRPAhC"></div>
+    <!-- <br>
+        <div class="g-recaptcha" data-sitekey="6Lc2v_ArAAAAAHfeltN6JiN8AT06Y_hw3MfRPAhC"></div> -->
       <br/>
     <div style="display:flex;justify-content:center">
         <button type="submit">Zaloguj się</button>
