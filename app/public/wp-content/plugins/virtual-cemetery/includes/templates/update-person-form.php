@@ -197,6 +197,11 @@
 
                 }
                     
+            },
+            error: function(response){
+                if(response.responseJSON['code'] == 'invalid_payment'){
+                    $('#mainContent').remove();
+                }
             }
         })
 
