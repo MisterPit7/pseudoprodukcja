@@ -29,7 +29,7 @@ $sql = "CREATE TABLE $table_name (
     Numer_grobu varchar(50),
     Is_payed boolean DEFAULT 0,
     ID_Klienta bigint(11) UNSIGNED NOT NULL,
-    Data_opłaty date NOT NULL,
+    Data_wygasniecia date NOT NULL,
     PRIMARY KEY (ID),
 ) $charset_collate ENGINE=InnoDB;";
 

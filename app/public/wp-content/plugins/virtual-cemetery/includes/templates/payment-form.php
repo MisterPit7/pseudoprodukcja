@@ -28,7 +28,17 @@
     <label for="country">Kraj:</label><br>
     <input type="text" name="country" required><br>
 
+    <label for="country">Okres profilu:</label><br>
+    <select name="howLong" id="howLong">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+    </select><br>
+
     <input type="hidden" value="<?= get_current_user_id() ?>" name="user_id">
+    <?php if(isset($_GET['id'])):?>
+    <input type="hidden" value="<?= $_GET['id'] ?>" name="dead_id">
+    <?php endif ?>
     </div>
     <div id="buttonDiv">
         <button type="submit">Prześlij</button>

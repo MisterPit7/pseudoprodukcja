@@ -87,9 +87,8 @@ if(!class_exists('VirtualCemetery')){
     if ( $order->is_paid() ) {
 
      $my_value = $order->get_meta( 'isProfileExisting', true );
-
-?><script>console.log("<?php $order->get_meta_data();?>")</script> <?php
-        if ( $my_value ) {
+     $expireDate = $order->get_meta('expireDate',true);
+        if ($my_value  == -1) {
             global $wpdb;
             $table_name = $wpdb->prefix . 'zmarli';
 
@@ -104,11 +103,26 @@ if(!class_exists('VirtualCemetery')){
                     'Opis'             => 'Opis',
                     'Geolokalizacja'   => '[Lokalizacja grobu]',
                     'ID_Klienta'       => $order->get_customer_id(),
-                    'Numer_grobu'      => '[Number Grobu]'
+                    'Numer_grobu'      => '[Number Grobu]',
+                    'Is_payed'         => true,
+                    'Data_wygasniecia' => $expireDate,
+
                 )
             );
         }else{
-            
+            global $wpdb;
+            $table_name = $wpdb->prefix . 'zmarli';
+            $wpdb->update(
+                $table_name,
+                [
+                    "Is_payed" => true,
+                    'Data_wygasniecia' => $expireDate,
+                ],
+                [
+                    "ID"=>$my_value,
+                ]
+                );
+
         }
         wp_safe_redirect( home_url( '/dashboard/' ) );
         exit;

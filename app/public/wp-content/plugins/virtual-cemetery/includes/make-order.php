@@ -6,11 +6,31 @@
         $order = wc_create_order([
             'customer_id' => $user_id 
         ]);
+        $isProfileExisting = -1;
+        if(isset($params['dead_id'])) {
+            $isProfileExisting = $params['dead_id'];
+        }
 
-        $order->update_meta_data( 'isProfileExisting', false);
+        $numberOfDays = $params['howLong'] * 365;
+        $date = date("Y-m-d",strtotime("+" . $numberOfDays ."days"));
+
+        $order->update_meta_data("expireDate",$date);        
+        $order->update_meta_data( 'isProfileExisting', $isProfileExisting);
         $order->save();
+    
+        switch($params['howLong']){
+            case '5':
+                $product_id = 116;
+                break;
+            case '10':
+                $product_id = 159;
+                break;
+            case '20':
+                $product_id = 160;
+                break;
+        }
 
-        $order->add_product(wc_get_product(116),1);
+        $order->add_product(wc_get_product($product_id),1);
 
         $address = [
             'first_name' => $params['name'],
