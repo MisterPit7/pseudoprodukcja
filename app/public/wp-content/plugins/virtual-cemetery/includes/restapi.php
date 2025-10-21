@@ -100,6 +100,10 @@ function create_rest_endpoint(){
         'callback' => 'get_qr_code'
     ));
 
+     register_rest_route( "v1", "make-order",array(
+        'methods' => 'POST',
+        'callback' => 'make_order'
+    )); 
 
 
     add_filter('rest_pre_dispatch', function ($result, $server, $request) {

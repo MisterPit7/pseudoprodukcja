@@ -116,7 +116,7 @@
 
     $("#create-dead-person-form").submit(function(event){
         event.preventDefault();
-        $('#add').attr('disabled',true);
+       // $('#add').attr('disabled',true);
 
         formData.set('_wpnonce', $('input[name="_wpnonce"]').val());
         formData.set('name', $('input[name="name"]').val());

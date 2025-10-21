@@ -1,4 +1,7 @@
 <?
+
+use WC_P24\Gateways\Card\Gateway;
+
 add_shortcode('create_dead_person_form','show_create_dead_person_form');
 
 
@@ -30,7 +33,7 @@ function create_dead_person($data){
         return new WP_Error('invalid_value','Niepoprawna wartość lokalizacji grobu',['status'=>403]);
     }
 
-    if(!preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,50}$/", $params['graveID'])){
+    if(!preg_match("/^[a-zA-Z0-9.,-\/ ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{1,50}$/", $params['graveID'])){
         return new WP_Error('invalid_value','Niepoprawna wartość numeru grobu',['status'=>403]);
     }   
 
@@ -77,8 +80,6 @@ function create_dead_person($data){
             return new WP_Error('invalid_value','Brak jednej wartości',array('status'=>403));
         }
     }
-
-   
 
     global $wpdb;
     $table_name = $wpdb->prefix . 'zmarli';
