@@ -87,6 +87,7 @@ div#container{
 }
 #imgGallery img{
     width: 30%;
+    height: 250px;
     border-radius: 15px;
 }
 

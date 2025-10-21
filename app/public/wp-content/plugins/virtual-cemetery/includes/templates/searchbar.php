@@ -17,7 +17,7 @@
             <form id="searchForm">
                 <input type="text" name="name" placeholder="Wyszukaj imie...">
                 <input type="text" name="surname" placeholder="Wyszukaj nazwisko...">
-                <button type="submit"><span class="dashicons dashicons-search"></span></button>
+                <button type="submit" id="btn"><span class="dashicons dashicons-search"></span></button>
             </form>
         </nav>
         <main id="mainGrid">
@@ -28,6 +28,7 @@
 <script>
     jQuery(document).ready(function($){
         $("#searchForm").submit(function(event){
+            $("#btn").attr("disabled","dubidubiduba");
             event.preventDefault();
             
             var form = $(this);
@@ -68,6 +69,7 @@
 
                             button.addEventListener('click', ()=>{
                                window.location.href = "<?php echo home_url('/single-person'); ?>?id=" + element.ID;
+                               button.disabled = true;
                             })
 
                             div.appendChild(id)
@@ -85,12 +87,17 @@
                 error: function(){
                     var main2 = document.getElementById('mainGrid');
                     var p = document.createElement('p')
+                    p.style.textAlign="center";
+                    p.style.width = "100%";
+                    p.style.marginTop = "50px";
+                    p.style.fontSize = "2rem";
                     p.textContent = "Nie znaleziono takiej osoby"
                     main2.appendChild(p)
+                    
                 }
             })
-
-
+            $("#btn").attr("disabled",false);
+            
         })
             
     })

@@ -66,7 +66,7 @@
     </div>
 </form>
 <div id="buttonDiv">
- <button id="back" onclick="window.location.href='<?php echo esc_url( home_url( '/dashboard/' ) ); ?>'">Powrót</button>
+ <button id="back" onclick="window.location.href='<?php echo esc_url( home_url( '/dashboard/' ) ); ?>';this.disabled=true">Powrót</button>
 </div>
 </div>
 <script>

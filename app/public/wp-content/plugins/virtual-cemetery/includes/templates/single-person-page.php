@@ -158,7 +158,7 @@
     <form id="update-person">
         <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
         <input type="hidden" name="id" id="id-update">
-        <button type="submit">Zmień dane</button>
+        <button id="update" type="submit">Zmień dane</button>
     </form>
 
     <button type="button" id="delProfile">Usuń profil</button>
@@ -170,7 +170,7 @@
         <input type="text" name="text" placeholder="Wpisz nazwisko z profilu, aby potwierdzić"><br>
         <div id="delBtns">
             <button type="button" id="cancel">Anuluj</button>
-        <button type="submit">Usuń</button>
+        <button id="delBtn" type="submit">Usuń</button>
         </div>
     </form>
 
@@ -187,6 +187,7 @@
     jQuery(document).ready(function($){
 
         $('#getQrCode').submit(function(event){
+            $("#showQR").attr("disabled",true);
             event.preventDefault();
             const url = new URL(window.location.href);
             const copyurl = url.href.toString();
@@ -207,6 +208,7 @@
                     }
                 }
             })
+            $("#showQR").attr("disabled",false);
 
         })
        
@@ -272,6 +274,7 @@
         $('#id-update').val(id);
 
           $('#delete-person').submit(function(event){
+            $("#delBtn").attr("disabled",true);
             event.preventDefault();
             form = $(this)
             $.ajax({
@@ -287,6 +290,7 @@
         })
 
         $('#update-person').submit(function(event){
+            $("#update").attr("disabled",true);
             event.preventDefault()
 
             form = $(this)
