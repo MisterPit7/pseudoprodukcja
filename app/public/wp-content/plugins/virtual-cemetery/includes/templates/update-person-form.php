@@ -200,12 +200,11 @@
                 }
                     
             },error:function(response){
-                if(response.responseJSON['code'] == 'invalid_payment'){
-                    $('#mainContent').remove();
+                if(response){
+                    window.location.href = "<?= home_url('dashboard') ?>"
                 }
-                    let error = response.responseJSON;
-                    if(error['code'] != "invalid_nonce") show_popup(error['message']);
-                }
+
+            }
             
         })
 
