@@ -17,6 +17,10 @@
             $wpdb->prepare("SELECT * FROM $table_name WHERE ID = %s", $dead_person_id)
         );
 
+        if($result[0]->Is_payed == 0){
+            return new WP_Error('invalid_payment','Nie opłacono osoby',array('status'=>403));
+        }
+
         if(!$result){
             return new WP_Error('invalid_value','Nie znaleziono takiej osoby',array('status'=>403));
         }

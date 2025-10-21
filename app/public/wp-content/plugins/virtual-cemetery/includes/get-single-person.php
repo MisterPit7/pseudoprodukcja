@@ -96,7 +96,7 @@ function get_single_person(){
         $wpdb->prepare("SELECT * FROM $table_name WHERE ID = %d", $id)
     );
     
-    if(!$result){
+    if(count($result)==0){
         return new WP_Error('invalid_value','Nie znaleziono takiej osoby',array('status'=>403));
     }
 
