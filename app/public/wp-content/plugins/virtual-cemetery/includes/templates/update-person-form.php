@@ -122,7 +122,12 @@
                     if(response.data){
                         window.location.href = response.data;
                     }
-                },
+                },error:function(response){
+                    let error = response.responseJSON;
+                    if(error['message'] == ""){
+
+                    }
+                }
             })
 
             
