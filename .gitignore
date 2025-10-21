@@ -1,2 +1,6 @@
 *.log
 local.sql
+woo-przelewy24/
+woocommerce/
+wc-logs/
+woocommerce_uploads/
