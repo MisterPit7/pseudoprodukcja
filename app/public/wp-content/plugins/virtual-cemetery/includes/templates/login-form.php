@@ -4,9 +4,6 @@
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <form id="login-form">
 
-    <!-- <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-    <input type="hidden" name="action" value="validate_captcha"> -->
-
     <h1>Zaloguj się</h1>
     <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
 
