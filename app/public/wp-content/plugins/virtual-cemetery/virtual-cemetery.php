@@ -18,6 +18,8 @@ if(!class_exists('VirtualCemetery')){
         public function __construct()
         {
             define('MY_PLUGIN_PATH', plugin_dir_path(__FILE__) );
+            define('CaptchaKey','6Lc2v_ArAAAAAHfeltN6JiN8AT06Y_hw3MfRPAhC');
+            define('CaptchaSecretKey','6Lc2v_ArAAAAAOLAlYz2qNSM0TkJK1seRCZ5kVvw');
         }
 
         public function initialize(){
