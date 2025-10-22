@@ -25,7 +25,7 @@
 
     if($result[0]->Is_payed == 1 && $result[0]->Data_wygasniecia < date('Y-m-d', time())){
         $wpdb->update($table_name,['Is_payed'=>false],['ID'=>$dead_person_id]);
-        header("Refresh:0");
+        echo "<script>window.location.reload();</script>";
     }
 
     
