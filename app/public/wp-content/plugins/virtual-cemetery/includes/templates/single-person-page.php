@@ -11,6 +11,7 @@
        dateS.innerHTML = convertDate(dateS.innerHTML);
     })
 </script>
+<script> <?php echo file_get_contents("https://maps.googleapis.com/maps/api/js?key=AIzaSyAVhrX7Y5AUPp6EJ5RBXMK38cNPXNuseuk")?></script>
 
 <?php
 
@@ -50,6 +51,8 @@
             filter: blur(30px);
             -webkit-filter: blur(50px);
         }
+
+       
     </style>
 
     <?php foreach ($result[0] as $key => &$value) {
@@ -216,6 +219,14 @@
     <img id="qrCode">
     <button id="closeQR">X</button>
 </div>
+
+
+<div id="getLocalization">
+    <div id="map">t</div>
+    <button id="getLocalizationButton" type="submit">lokalizacja</button>
+</div>
+
+
 <script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 
 <?php if($result[0]->Is_payed == 0 && $result[0]->ID_Klienta == $user_id): ?>
@@ -226,6 +237,25 @@
 <script>
 
     jQuery(document).ready(function($){
+
+        $('#getLocalizationButton').on('click', function(e) {
+
+        var lat = <?= $result[0]->Szerokosc_geograficzna; ?>;
+        var lng = <?= $result[0]->Wysokosc_geograficzna; ?>;
+      
+        initMap(lat,lng);
+
+        function initMap(lat, lng) {
+        var location = { lat: lat, lng: lng };
+        
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: location
+        });
+        new google.maps.Marker({ position: location, map: map, title: "Tutaj jesteś" });
+        }
+
+    });
 
         $('#getQrCode').submit(function(event){
             $("#showQR").attr("disabled",true);

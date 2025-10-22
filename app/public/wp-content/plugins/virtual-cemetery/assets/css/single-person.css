@@ -2,6 +2,9 @@
     margin: 0px;
     padding: 0px;
 }
+
+
+
 h1#header{
     margin-top: 20px;
     
@@ -357,3 +360,8 @@ div#container{
     }
 
 }
+
+ #getLocalization #map {
+            width: 1000px;      
+            height: 400px;    
+        }

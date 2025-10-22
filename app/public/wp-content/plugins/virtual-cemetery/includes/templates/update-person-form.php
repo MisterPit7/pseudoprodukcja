@@ -92,6 +92,7 @@
 <div id="buttonDiv">
  <button id="back" onclick="window.location.href='<?php echo home_url('/single-person?id=').$_GET['id']; ?>';this.disabled=true">Powrót</button>
 </div>
+<button id="updateLocalizationButton" style="position:absolute;top:900px">Lokalizacja</button>
 </div>
 <script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 <script>
@@ -103,6 +104,27 @@
         if(id === null) return;
 
         $('#id').attr('value', id);
+
+        $('#updateLocalizationButton').on('click', function() {
+        
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo get_rest_url(null,'v1/update-localization') ?>",
+                        data: { lat: lat, lng: lng, id: id }
+                    })
+
+                    }
+                );
+        } 
+            
+    
+        });
 
         $("#add-photo-form").submit(function(event){
             event.preventDefault()

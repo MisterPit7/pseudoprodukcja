@@ -14,6 +14,7 @@ require_once(MY_PLUGIN_PATH.'/includes/searchbar.php');
 require_once(MY_PLUGIN_PATH.'/includes/search-persons.php');
 require_once(MY_PLUGIN_PATH.'/includes/payment-form.php');
 require_once(MY_PLUGIN_PATH.'/includes/make-order.php');
+require_once(MY_PLUGIN_PATH.'/includes/update-localization.php');
 
 
 require_once(MY_PLUGIN_PATH . '/includes/rate-limiter.php');
@@ -106,9 +107,15 @@ function create_rest_endpoint(){
         'methods' => 'POST',
         'callback' => 'make_order'
     )); 
+
     register_rest_route( "v1", "payment-form",array(
         'methods' => 'POST',
         'callback' => 'payment_form'
+    ));
+
+    register_rest_route( "v1", "update-localization",array(
+        'methods' => 'POST',
+        'callback' => 'update_localization'
     ));
 
 
