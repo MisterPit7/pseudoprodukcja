@@ -53,15 +53,16 @@
     </style>
 
     <?php foreach ($result[0] as $key => &$value) {
-                if($key != 'Is_payed' ){
+                if($key != 'Is_payed' && $key != 'ID_Klienta' && $key != "ID"){
                     $value = "";
                 }
         }
         unset($value); ?>
 
-<?php endif?>
+<?php endif;?>
+
 <?php if($result): ?>
-    
+
 <div id="mainContent" style="display: none;">
 <div id='container'>
         <h1 id='header'>Ś.P. <span id="name"><?php esc_html_e($result[0]->Imie) ?></span> <span id="surname"><?php esc_html_e($result[0]->Nazwisko) ?></span></h1>
@@ -167,7 +168,7 @@
         </div>
         <?php endif ?>
 </div>
-<?php endif ?>
+<?php endif; ?>
 
 <?php if(!$is_user): ?>
 
@@ -177,7 +178,7 @@
             <h3 style="color:#586C51">Brak takiego użytkownika</h3>
         </div>
     </div>
-<?php endif ?>
+<?php endif; ?>
 
 
 <?php if( $is_user&& $owner == $user_id && $result[0]->Is_payed == 1): ?>
@@ -204,7 +205,7 @@
     </form>
 
 </div>
-<?php endif ?>
+<?php endif; ?>
 
 <div id="QRCodeDiv" style="display: none;">
     <img id="qrCode">
@@ -213,7 +214,7 @@
 <script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 
 <?php if($result[0]->Is_payed == 0 && $result[0]->ID_Klienta == $user_id): ?>
-    <button type="button" onclick="window.location.href='<?= home_url('/payment-form')?>?id=<?= $dead_person_id ?>'">Wykup ponownie</button>
+    <button type="button" id="buyAgain" onclick="window.location.href='<?= home_url('/payment-form')?>?id=<?= $dead_person_id ?>'">Wykup ponownie</button>
 <?php endif ?>
 
 

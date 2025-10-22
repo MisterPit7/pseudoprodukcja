@@ -80,9 +80,8 @@
                             div.appendChild(div2)
                             main2.appendChild(div)
 
-                            
-
                         })
+                         $("#btn").attr("disabled",false);
                     }
                 },
                 error: function(){
@@ -94,10 +93,9 @@
                     p.style.fontSize = "2rem";
                     p.textContent = "Nie znaleziono takiej osoby"
                     main2.appendChild(p)
-                    
+                     $("#btn").attr("disabled",false);
                 }
             })
-            $("#btn").attr("disabled",false);
             
         })
             
