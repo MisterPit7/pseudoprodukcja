@@ -212,7 +212,7 @@
 </div>
 <script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 
-<?php if(!$result[0]->Is_payed): ?>
+<?php if($result[0]->Is_payed == 0 && $result[0]->ID_Klienta == $user_id): ?>
     <button type="button" onclick="window.location.href='<?= home_url('/payment-form')?>?id=<?= $dead_person_id ?>'">Wykup ponownie</button>
 <?php endif ?>
 
