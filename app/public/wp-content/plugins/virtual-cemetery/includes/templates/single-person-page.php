@@ -31,9 +31,9 @@
     
 
     $is_user = false;
-    if($result) $is_user = true;
 
     if($result){
+        $is_user = true;
         $owner = $result[0]->ID_Klienta;
     }
 ?>
@@ -65,14 +65,16 @@
 
 <div id="mainContent" style="display: none;">
 <div id='container'>
-        <h1 id='header'>Ś.P. <span id="name"><?php esc_html_e($result[0]->Imie) ?></span> <span id="surname"><?php esc_html_e($result[0]->Nazwisko) ?></span></h1>
+        <div id="background"> 
+            <img src="data:image/png;base64,<?php print(base64_encode(file_get_contents(MY_PLUGIN_PATH."assets\images\obramowka2.png"))); ?>">
+        </div>
+        <h1 id='header'><span id="name">Ś.P. <?php esc_html_e($result[0]->Imie) ?></span> <span id="surname"><?php esc_html_e($result[0]->Nazwisko) ?></span></h1>
+        <div id="info">Żył/a w latach</div>
+        <div id='info'><span id="dateU"><?php esc_html_e($result[0]->Data_urodzenia) ?></span> - <span id="dateS"><?php esc_html_e($result[0]->Data_smierci) ?></span></div>
         <img id='profilePic' src="data:image/png;base64,<?php echo base64_encode($result[0]->Profilowe)?>">
         <hr>
-        <h2>
-            <div id='info'><span id="dateU"><?php esc_html_e($result[0]->Data_urodzenia) ?></span></div> <div style='padding-top:8px;font-size:3rem'>-</div> <div id='info'><span id="dateS"><?php esc_html_e($result[0]->Data_smierci) ?></span></div>
-        </h2>
-        <p id='para'><i>"<span id="description"><?php esc_html_e($result[0]->Opis) ?></span>"</i></p>
-        <p id='para'><b>Spoczywa na <span id="location"><?php esc_html_e($result[0]->Geolokalizacja) ?>, Numer grobu: <?php esc_html_e($result[0]->Numer_grobu) ?></span></b></p>
+        <h3 id="qoute"><i>"Na zawsze pozostanie w naszej pamięci"</i></h3>
+        <h4 id="description"><?php esc_html_e($result[0]->Opis) ?></h4>
 
         <?php if($result[0]->Is_payed == 1): ?>
 
@@ -80,91 +82,94 @@
             <button type="submit" id="showQR">Pokaż kod QR</button>
         </form>
 
-        <section id="imgGallery">
-            <?php
-                $table_name = $wpdb->prefix.'zdjecia';
-                $result = $wpdb->get_results(
-                    $wpdb->prepare("SELECT * FROM $table_name WHERE ID_Zmarlego = %d",$_GET['id'] )
-                );
-            ?>
-            <?foreach($result as $photo):?>
-                <img class='gallery' width="200px" height="100px" src='data:image/jpeg;base64,<?php echo base64_encode($photo->Zdjecie)?>'>
-            <?php endforeach?>
-        </section>
-
         
-
-        <div id='data-viewer-comments'>
-            <h3>Komentarze</h3>
-            <?php if(is_user_logged_in()):?>
-            <form id="create-comment">
-                <?php wp_nonce_field('wp_rest', '_wpnonce')?>
-                <input type="hidden" name="id" value="<?php echo $_GET["id"]?>">
-                <label for='comment'>Wpisz komentarz</label> 
-                <p style='width:100%;text-align:center'><input type='text' id='comment' name="comment" placeholder='Byles/as dla mnie...'/></p>
-                <button  type='submit'>Opublikuj</button>
-            </form>
-            <?php endif?>
-            <?php 
-                $table_name = $wpdb->prefix.'komentarze';
-                $join_table_name = $wpdb->prefix.'users';
-                $result = $wpdb->get_results(
-                    $wpdb->prepare("SELECT $table_name.*,$join_table_name.display_name FROM $table_name JOIN $join_table_name ON $join_table_name.ID = $table_name.ID_Klienta WHERE ID_Zmarlego = %d",$_GET['id'] )
-                );
-            ?>  
-            <?php if($result):?>
-                <?php foreach($result as $row):?>
-                    <?php if($row->Is_accepted == 0 && $owner == $user_id ):?>
-
-                        <div id='comment'>
-                            <div style="width:95%;">
-                            <h4>
-                                <?php esc_html_e($row->display_name) ?>
-                            </h4>
-                            <span>
-                                <?php esc_html_e($row->Tekst) ?>
-                            </span>
-                            </div>
-                            <div>
-                            <form class="comment-accept">
-                                <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
-                                <input type="hidden" name="person_id" value="<?= $_GET["id"]?>">
-                                <input type="hidden" name="id" value="<?=$row->ID?>">
-                                <button type="submit" name='option' value='Accept'>
-                                    <span class="dashicons dashicons-yes"></span>
-                                </button>
-                            </form>
-                            <form class="comment-delete">
-                                <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
-                                <input type="hidden" name="person_id" value="<?= $_GET["id"]?>">
-                                <input type="hidden" name="id" value="<?= $row->ID?>">
-                                <button type="submit" name='option' value="Delete">
-                                    <span class="dashicons dashicons-no"></span>
-                                </button>
-                            </form>
-                            </div>
-                        </div>
-                    <?php 
-                        continue;
-                        endif
-                    ?>
-                    <?if($row->Is_accepted != 0 || $row->ID_Klienta == get_current_user_id()):?>
-
-                        <div id='comment'>
-                            <div>
-                            <h4>
-                                <?php esc_html_e($row->display_name) ?>
-                            </h4>
-                            <span>
-                                <?php esc_html_e($row->Tekst) ?>
-                            </span>
-                            </div>
-                            <?php if($row->Is_accepted == 0 && $row->ID_Klienta == get_current_user_id()) esc_html_e("(Administrator jeszcze nie zaakceptował twojego komentarza)") ?>
-                        </div>
-
-                    <?php endif?>
+        <div id="underSection">
+            <div id="the-other-under-section">    
+                <p id='para'><b>Spoczywa na <span id="location"><?php esc_html_e($result[0]->Geolokalizacja) ?>, Numer grobu: <?php esc_html_e($result[0]->Numer_grobu) ?></span></b></p>
+                <div id="imgGalleryDiv">
+                <section id="imgGallery">
+                <?php
+                    $table_name = $wpdb->prefix.'zdjecia';
+                    $result2 = $wpdb->get_results(
+                        $wpdb->prepare("SELECT * FROM $table_name WHERE ID_Zmarlego = %d",$_GET['id'] )
+                    );
+                ?>
+                <?foreach($result2 as $photo):?>
+                     <img class='gallery' width="200px" height="100px" src='data:image/jpeg;base64,<?php echo base64_encode($photo->Zdjecie)?>'>
                 <?php endforeach?>
-            <?php endif?>
+                </section>
+                </div>
+            </div>
+            <div id='data-viewer-comments'>
+                <h3>Kondolencje</h3>
+                <?php if(is_user_logged_in()):?>
+                <form id="create-comment">
+                    <?php wp_nonce_field('wp_rest', '_wpnonce')?>
+                    <input type="hidden" name="id" value="<?php echo $_GET["id"]?>">
+                    <p id="paraComments"><input type='text' id='comment' name="comment" placeholder='Byles/as dla mnie...'/><button  type='submit' >Opublikuj</button></p>
+                </form>
+                <?php endif?>
+                <?php 
+                    $table_name = $wpdb->prefix.'komentarze';
+                    $join_table_name = $wpdb->prefix.'users';
+                    $result1 = $wpdb->get_results(
+                        $wpdb->prepare("SELECT $table_name.*,$join_table_name.display_name FROM $table_name JOIN $join_table_name ON $join_table_name.ID = $table_name.ID_Klienta WHERE ID_Zmarlego = %d",$_GET['id'] )
+                    );
+                ?>  
+                <?php if($result1):?>
+                    <?php foreach($result1 as $row):?>
+                        <?php if($row->Is_accepted == 0 && $owner == $user_id ):?>
+
+                            <div id='comment'>
+                                <div style="width:95%;">
+                                <h4>
+                                    <?php esc_html_e($row->display_name) ?>
+                                </h4>
+                                <span>
+                                    <?php esc_html_e($row->Tekst) ?>
+                                </span>
+                                </div>
+                                <div id="commentBtns">
+                                <form class="comment-accept">
+                                    <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
+                                    <input type="hidden" name="person_id" value="<?= $_GET["id"]?>">
+                                    <input type="hidden" name="id" value="<?=$row->ID?>">
+                                    <button type="submit" name='option' value='Accept'>
+                                        <span class="dashicons dashicons-yes"></span>
+                                    </button>
+                                </form>
+                                <form class="comment-delete">
+                                    <?php echo wp_nonce_field('wp_rest', '_wpnonce')?>
+                                    <input type="hidden" name="person_id" value="<?= $_GET["id"]?>">
+                                    <input type="hidden" name="id" value="<?= $row->ID?>">
+                                    <button type="submit" name='option' value="Delete">
+                                        <span class="dashicons dashicons-no"></span>
+                                    </button>
+                                </form>
+                                </div>
+                            </div>
+                        <?php 
+                            continue;
+                            endif
+                        ?>
+                        <?if($row->Is_accepted != 0 || $row->ID_Klienta == get_current_user_id()):?>
+
+                            <div id='comment'>
+                                <div>
+                                <h4>
+                                    <?php esc_html_e($row->display_name) ?>
+                                </h4>
+                                <span>
+                                    <?php esc_html_e($row->Tekst) ?>
+                                </span>
+                                </div>
+                                <?php if($row->Is_accepted == 0 && $row->ID_Klienta == get_current_user_id()) esc_html_e("(Administrator jeszcze nie zaakceptował twojego komentarza)") ?>
+                            </div>
+
+                        <?php endif?>
+                    <?php endforeach?>
+                <?php endif?>
+            </div>
         </div>
         <?php endif ?>
 </div>
@@ -181,8 +186,8 @@
 <?php endif; ?>
 
 
-<?php if( $is_user&& $owner == $user_id && $result[0]->Is_payed == 1): ?>
-
+<?php if($is_user && $owner == $user_id && $result[0]->Is_payed == 1): ?>
+ 
 <div id="centerBtn" style="display: flex;justify-content:center;flex-grow:0;">
 
     <form id="update-person">
@@ -439,7 +444,7 @@
       
     function convertDate(date){
         let arr = date.split('-');
-        return arr[2] +"-"+arr[1]+"-"+arr[0];
+        return arr[0] ;
     }
 
     

@@ -3,8 +3,8 @@
     padding: 0px;
 }
 h1#header{
-      color:#586C51;
-      margin-top: 20px;
+    margin-top: 20px;
+    
 }
 div#container{
     margin: 0 auto;
@@ -13,14 +13,15 @@ div#container{
     flex-direction: column;
     align-items: center;
     background-color: #F2F0E4;
-    border-radius: 10px;
 }
 #container img#profilePic{
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 300px;
     border-radius: 50%;
     background-color: aliceblue;
     margin: 15px;
+    padding: 3px;
+    border: 4px solid #586C51 /* #C0A067*/;
 }
 #container hr{
     background-color:#586C51;
@@ -28,69 +29,129 @@ div#container{
     width: 90%;
     margin-bottom: 16px;
 }
-#container h2 #info{
-    border-radius: 10px;
-    padding: 1rem 1.5rem;
-    background-color: #FBFAF6;
-    width: 45%;
-    margin: 10px;
-    text-align: center;
-    border: 2px solid #586C51;
-}
-#container h2{
-    margin: 0;
-    display: flex;
-    width: 90%;
-    justify-content: center;
-    flex-wrap: wrap;
+
+#container #info{
+    font-size: 1.5rem;
 }
 #container p i{
     color:gray;
     padding: 1.5rem 2rem;
 }
 #container #para{
-    width:70%;
+    margin: 20px;
+    width:95%;
     text-align: center;
-    color:#586C51;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #586C51;
+    padding-bottom: 10px;
 }
-#data-viewer-comments{
-    background-color: #FBFAF6;
+
+#underSection{
     width: 100%;
-    border-radius: 0 0 10px 10px;
+    display: flex;
+    margin: 15px;
+}
+
+#data-viewer-comments{
+    width: 50%;
     display: flex;
     flex-direction: column;
     place-items: center;
+    margin: 10px;
+    padding: 10px;
 }
 #data-viewer-comments p input[type='text']{
     border-radius: none;
     border: none;
-    margin-bottom: 10px;
     width: 80%;
 }
 #data-viewer-comments div#comment{
-    background-color: #F2F0E4;
+    background-color: #586c51;
     width: 100%;
     padding: 1rem 1.5rem;
     margin-bottom: 10px;
     display: flex;
+    position: relative;
+    color: #F2F0E4;
+}
+#paraComments{
+    width: 100%;
+    text-align: center;
 }
 #data-viewer-comments div#comment h4{
-    color: #586C51;
-}
-#imgGallery{
-    display: flex;
-    width: 95%;
-    gap:30px;
-    justify-content: center;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-#imgGallery img{
-    width: 30%;
-    height: 250px;
-    border-radius: 15px;
+    color: #F2F0E4;
 }
 
+#data-viewer-comments #commentBtns{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap:20px;
+}
+
+#the-other-under-section{
+    width: 50%;
+    border-right: 2px solid #586C51;
+}
+
+#imgGallery{
+    display: flex;
+    gap:5px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: calc(25% + 32% * 2 + 10px);
+}
+#imgGallery img{
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #586C51;
+    height: 150px;
+}
+
+#imgGallery img:nth-child(1){
+    width: 25%;
+}
+#imgGallery img:nth-child(2){
+    width: 32%;
+}
+#imgGallery img:nth-child(3){
+    width: 32%;
+}
+#imgGallery img:nth-child(4){
+    width: 32%;
+}
+#imgGallery img:nth-child(5){
+    width: 32%;
+}
+#imgGallery img:nth-child(6){
+    width: 25%;
+}
+
+#background{
+    position: absolute;
+    top:0;
+    width: 100%;
+    height: 400px;
+    text-align: center;
+}
+#background img{
+    width: 100%;
+    height: 100%;
+}
+
+#qoute{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+#description{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: 400;
+}
 #create-comment{
     width: 100%;
     text-align: center;
@@ -214,14 +275,85 @@ div#container{
 }
 
 
-@media only screen and (max-width:730px) {
-    #conatiner h2{
-        width: 100px;
-    }
-    #container h2 #info{
-    width: 100%;
-    }
+@media only screen and (max-width:800px) {
+    /* Ipad*/
     #imgGallery img{
         width: 100%;
     }
+    #container #para{
+        width: 95%;
+    }
+    #underSection{
+        display: block;
+    }
+    #the-other-under-section{
+        width: 95%;
+        border: none;
+        border-bottom: 2px solid #586C51;
+        margin: 0 auto;
+        padding-bottom: 20px;
+    }
+    #data-viewer-comments{
+        width: 100%;
+    }
+    #imgGallery img:nth-child(1){
+        width: 47%;
+    }
+    #imgGallery img:nth-child(2){
+        width: 47%;
+    }
+    #imgGallery img:nth-child(3){
+        width: 47%;
+    }
+    #imgGallery img:nth-child(4){
+        width: 47%;
+    }
+    #imgGallery img:nth-child(5){
+        width: 47%;
+    }
+    #imgGallery img:nth-child(6){
+        width: 47%;
+    }
+    #data-viewer-comments{
+     width: 100%;
+        margin: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #data-viewer-comments div#comment{
+    margin: 0;
+    margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width:500px) {
+    /* Telefon */
+    #imgGallery img:nth-child(1){
+        width: 100%;
+    }
+    #imgGallery img:nth-child(2){
+        width: 100%;
+    }
+    #imgGallery img:nth-child(3){
+        width: 100%;
+    }
+    #imgGallery img:nth-child(4){
+        width: 100%;
+    }
+    #imgGallery img:nth-child(5){
+        width: 100%;
+    }
+    #imgGallery img:nth-child(6){
+        width: 100%;
+    }
+    #data-viewer-comments{
+    width: 100%;
+    }
+    #background{
+        height: 170px;
+    }
+    #container #para{
+        width: 90%;
+    }
+
 }
