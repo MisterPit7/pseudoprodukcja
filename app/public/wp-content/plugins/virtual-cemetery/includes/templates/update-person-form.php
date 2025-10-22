@@ -92,7 +92,7 @@
 <div id="buttonDiv">
  <button id="back" onclick="window.location.href='<?php echo home_url('/single-person?id=').$_GET['id']; ?>';this.disabled=true">Powrót</button>
 </div>
-<button id="updateLocatizationButton" style="position:absolute;top:900px">Lokalizacja</button>
+<button id="updateLocalizationButton" style="position:absolute;top:900px">Lokalizacja</button>
 </div>
 <script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 <script>

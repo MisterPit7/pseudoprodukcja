@@ -44,18 +44,15 @@
 </style>
 <div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
 
-<?php //if(!$result[0]->Is_payed): ?>
+<?php if(!$result[0]->Is_payed): ?>
 
     <style>
-        /* #container{
+        #container{
             filter: blur(30px);
             -webkit-filter: blur(50px);
-        } */
-
-        #getLocalization #map {
-            width: 100%;      
-            height: 400px;    
         }
+
+       
     </style>
 
     <?php foreach ($result[0] as $key => &$value) {
@@ -89,11 +86,11 @@
         <section id="imgGallery">
             <?php
                 $table_name = $wpdb->prefix.'zdjecia';
-                $result = $wpdb->get_results(
+                $result1 = $wpdb->get_results(
                     $wpdb->prepare("SELECT * FROM $table_name WHERE ID_Zmarlego = %d",$_GET['id'] )
                 );
             ?>
-            <?foreach($result as $photo):?>
+            <?foreach($result1 as $photo):?>
                 <img class='gallery' width="200px" height="100px" src='data:image/jpeg;base64,<?php echo base64_encode($photo->Zdjecie)?>'>
             <?php endforeach?>
         </section>
@@ -114,12 +111,12 @@
             <?php 
                 $table_name = $wpdb->prefix.'komentarze';
                 $join_table_name = $wpdb->prefix.'users';
-                $result = $wpdb->get_results(
+                $result2 = $wpdb->get_results(
                     $wpdb->prepare("SELECT $table_name.*,$join_table_name.display_name FROM $table_name JOIN $join_table_name ON $join_table_name.ID = $table_name.ID_Klienta WHERE ID_Zmarlego = %d",$_GET['id'] )
                 );
             ?>  
-            <?php if($result):?>
-                <?php foreach($result as $row):?>
+            <?php if($result2):?>
+                <?php foreach($result2 as $row):?>
                     <?php if($row->Is_accepted == 0 && $owner == $user_id ):?>
 
                         <div id='comment'>
@@ -220,7 +217,7 @@
 
 
 <div id="getLocalization">
-    <div id="map"></div>
+    <div id="map">t</div>
     <button id="getLocalizationButton" type="submit">lokalizacja</button>
 </div>
 
@@ -238,8 +235,14 @@
 
         $('#getLocalizationButton').on('click', function(e) {
 
+        var lat = <?= $result[0]->Szerokosc_geograficzna; ?>;
+        var lng = <?= $result[0]->Wysokosc_geograficzna; ?>;
+      
+        initMap(lat,lng);
+
         function initMap(lat, lng) {
         var location = { lat: lat, lng: lng };
+        
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: location

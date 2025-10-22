@@ -2,6 +2,9 @@
     margin: 0px;
     padding: 0px;
 }
+
+
+
 h1#header{
       color:#586C51;
       margin-top: 20px;
@@ -225,3 +228,8 @@ div#container{
         width: 100%;
     }
 }
+
+ #getLocalization #map {
+            width: 1000px;      
+            height: 400px;    
+        }
