@@ -27,5 +27,10 @@ require get_template_directory() . '/inc/class-theme.php';
 // Load the `kadence()` entry point function.
 require get_template_directory() . '/inc/functions.php';
 
+function mytheme_load_dashicons_front_end() {
+    wp_enqueue_style('dashicons');
+}
+add_action('wp_enqueue_scripts', 'mytheme_load_dashicons_front_end');
+
 // Initialize the theme.
 call_user_func( 'Kadence\kadence' );
