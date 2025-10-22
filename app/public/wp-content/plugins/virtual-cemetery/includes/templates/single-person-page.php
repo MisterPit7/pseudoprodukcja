@@ -11,6 +11,7 @@
        dateS.innerHTML = convertDate(dateS.innerHTML);
     })
 </script>
+<script> <?php echo file_get_contents("https://maps.googleapis.com/maps/api/js?key=AIzaSyAVhrX7Y5AUPp6EJ5RBXMK38cNPXNuseuk")?></script>
 
 <?php
 
@@ -43,23 +44,28 @@
 </style>
 <div id="loader"><?php include MY_PLUGIN_PATH."includes/templates/loader.php"?></div>
 
-<?php if(!$result[0]->Is_payed): ?>
+<?php //if(!$result[0]->Is_payed): ?>
 
     <style>
-        #container{
+        /* #container{
             filter: blur(30px);
             -webkit-filter: blur(50px);
+        } */
+
+        #getLocalization #map {
+            width: 100%;      
+            height: 400px;    
         }
     </style>
 
-    <?php foreach ($result[0] as $key => &$value) {
-                if($key != 'Is_payed' ){
-                    $value = "";
-                }
-        }
-        unset($value); ?>
+    <?php //foreach ($result[0] as $key => &$value) {
+                //if($key != 'Is_payed' ){
+                    //$value = "";
+                //}
+        //}
+        //unset($value); ?>
 
-<?php endif?>
+<?php //endif?>
 <?php if($result): ?>
     
 <div id="mainContent" style="display: none;">
@@ -210,6 +216,14 @@
     <img id="qrCode">
     <button id="closeQR">X</button>
 </div>
+
+
+<div id="getLocalization">
+    <div id="map"></div>
+    <button id="getLocalizationButton" type="submit">lokalizacja</button>
+</div>
+
+
 <script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 
 <?php if($result[0]->Is_payed == 0 && $result[0]->ID_Klienta == $user_id): ?>
@@ -220,6 +234,19 @@
 <script>
 
     jQuery(document).ready(function($){
+
+        $('#getLocalizationButton').on('click', function(e) {
+
+        function initMap(lat, lng) {
+        var location = { lat: lat, lng: lng };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: location
+        });
+        new google.maps.Marker({ position: location, map: map, title: "Tutaj jesteś" });
+        }
+
+    });
 
         $('#getQrCode').submit(function(event){
             $("#showQR").attr("disabled",true);
