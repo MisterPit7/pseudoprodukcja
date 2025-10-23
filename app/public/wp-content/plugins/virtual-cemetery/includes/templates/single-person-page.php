@@ -1,4 +1,9 @@
 <script defer>
+    function convertDate(date){
+        let arr = date.split('-');
+        return arr[0];
+    }
+
     window.addEventListener('load',function(){
        let loader = document.querySelector("#loader");
        let main = document.querySelector("#mainContent");
@@ -72,7 +77,7 @@
             <img src="data:image/png;base64,<?php print(base64_encode(file_get_contents(MY_PLUGIN_PATH."assets\images\obramowka2.png"))); ?>">
         </div>
         <h1 id='header'><span id="name">Ś.P. <?php esc_html_e($result[0]->Imie) ?></span> <span id="surname"><?php esc_html_e($result[0]->Nazwisko) ?></span></h1>
-        <div id="info">Żył/a w latach</div>
+        <div id="info">Żył(a) w latach</div>
         <div id='info'><span id="dateU"><?php esc_html_e($result[0]->Data_urodzenia) ?></span> - <span id="dateS"><?php esc_html_e($result[0]->Data_smierci) ?></span></div>
         <img id='profilePic' src="data:image/png;base64,<?php echo base64_encode($result[0]->Profilowe)?>">
         <hr>
@@ -82,9 +87,19 @@
         <?php if($result[0]->Is_payed == 1): ?>
 
         <form id="getQrCode">
-            <button type="submit" id="showQR">Pokaż kod QR</button>
+            <button type="submit" class="showBtn" id="showQR" style="margin-bottom: 0;">Pokaż kod QR</button>
+            <button type="button" id="getLocalizationButton" class="showBtn" type="submit">Pokaż lokalizację</button>
         </form>
-
+            <div id="getLocalization">
+                <div id="mapDiv" style="display: none;">
+                    <div id="map">
+                </div>    
+                <button id="closeMap">X</button>
+            </div>
+            <?php // if($result[0]->Szerokosc_geograficzna != 0 && $result[0]->Wysokosc_geograficzna != 0):?>
+            <?php //endif?>
+        </div>
+        
         
         <div id="underSection">
             <div id="the-other-under-section">    
@@ -221,11 +236,6 @@
 </div>
 
 
-<div id="getLocalization">
-    <div id="map">t</div>
-    <button id="getLocalizationButton" type="submit">lokalizacja</button>
-</div>
-
 
 <script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 
@@ -239,7 +249,7 @@
     jQuery(document).ready(function($){
 
         $('#getLocalizationButton').on('click', function(e) {
-
+        document.querySelector("#mapDiv").style="display:block;";
         var lat = <?= $result[0]->Szerokosc_geograficzna; ?>;
         var lng = <?= $result[0]->Wysokosc_geograficzna; ?>;
       
@@ -410,6 +420,10 @@
             $("body").css("filter","blur(0px)")
         })
 
+        $("#closeMap").click(function(){
+            $("#mapDiv").css("display","none");
+        });
+
     })
 
         //Wersja 0.9
@@ -471,11 +485,6 @@
         //     }
         // })
 
-      
-    function convertDate(date){
-        let arr = date.split('-');
-        return arr[0] ;
-    }
 
     
 </script>
