@@ -58,7 +58,7 @@
         </section>
     </div>
     <div style="display: flex;justify-content:center;gap:20px">
-        <button id="updateLocalizationButton">Ustaw lokalizację</button>
+        <button type="button" id="updateLocalizationButton">Ustaw lokalizację</button>
         <button id="add" type="submit">Zmień</button>
     </div>
 </form>
@@ -105,8 +105,7 @@
 
         $('#id').attr('value', id);
 
-        $('#updateLocalizationButton').on('click', function() {
-        
+        $('#updateLocalizationButton').click(function() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     function(position) {

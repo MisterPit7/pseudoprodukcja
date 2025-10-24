@@ -88,7 +88,9 @@
 
         <form id="getQrCode">
             <button type="submit" class="showBtn" id="showQR" style="margin-bottom: 0;">Pokaż kod QR</button>
-            <button type="button" id="getLocalizationButton" class="showBtn" type="submit">Pokaż lokalizację</button>
+            <?php  if($result[0]->Szerokosc_geograficzna != 0 && $result[0]->Wysokosc_geograficzna != 0):?>
+                <button type="button" id="getLocalizationButton" class="showBtn" type="submit">Pokaż lokalizację</button>
+            <?php endif?>
         </form>
             <div id="getLocalization">
                 <div id="mapDiv" style="display: none;">
@@ -96,8 +98,6 @@
                 </div>    
                 <button id="closeMap">X</button>
             </div>
-            <?php // if($result[0]->Szerokosc_geograficzna != 0 && $result[0]->Wysokosc_geograficzna != 0):?>
-            <?php //endif?>
         </div>
         
         
