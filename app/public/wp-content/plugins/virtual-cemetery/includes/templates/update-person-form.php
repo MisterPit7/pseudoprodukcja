@@ -57,7 +57,8 @@
 
         </section>
     </div>
-    <div style="display: flex;justify-content:center;">
+    <div style="display: flex;justify-content:center;gap:20px">
+        <button type="button" id="updateLocalizationButton">Ustaw lokalizację</button>
         <button id="add" type="submit">Zmień</button>
     </div>
 </form>
@@ -92,7 +93,6 @@
 <div id="buttonDiv">
  <button id="back" onclick="window.location.href='<?php echo home_url('/single-person?id=').$_GET['id']; ?>';this.disabled=true">Powrót</button>
 </div>
-<button id="updateLocalizationButton" style="position:absolute;top:900px">Lokalizacja</button>
 </div>
 <script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 <script>
@@ -105,8 +105,7 @@
 
         $('#id').attr('value', id);
 
-        $('#updateLocalizationButton').on('click', function() {
-        
+        $('#updateLocalizationButton').click(function() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     function(position) {

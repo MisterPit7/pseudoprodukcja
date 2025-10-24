@@ -30,8 +30,8 @@ $sql = "CREATE TABLE $table_name (
     Is_payed boolean DEFAULT 0,
     ID_Klienta bigint(11) UNSIGNED NOT NULL,
     Data_wygasniecia date NOT NULL,
-    Szerokosc_geograficzna varchar(20),
-    Wysokosc_geograficzna varchar(20),
+    Szerokosc_geograficzna varchar(20) DEFAULT '52.4396183',
+    Wysokosc_geograficzna varchar(20) DEFAULT '16.8703879',
     PRIMARY KEY (ID),
 ) $charset_collate ENGINE=InnoDB;";
 
