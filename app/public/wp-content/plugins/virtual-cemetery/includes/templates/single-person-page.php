@@ -222,7 +222,7 @@
 
 
 <div id="getLocalization">
-    <div id="map">t</div>
+    <div id="map"></div>
     <button id="getLocalizationButton" type="submit">lokalizacja</button>
 </div>
 
