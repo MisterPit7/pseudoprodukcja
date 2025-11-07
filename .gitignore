@@ -1,6 +1,7 @@
 *.log
 local.sql
 woo-przelewy24/
+woo-payu-payment-gateway/
 woocommerce/
 wc-logs/
 woocommerce_uploads/

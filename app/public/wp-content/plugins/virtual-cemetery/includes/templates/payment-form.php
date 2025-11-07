@@ -4,6 +4,7 @@
 <form id="payment-form">
     <h1>Adres rozliczeniowy</h1>
     <div id="inputDiv">
+    <?php wp_nonce_field('wp_rest', '_wpnonce') ?>
     <label for="name">Imie:</label><br>
     <input type="text" name="name" required><br>
 

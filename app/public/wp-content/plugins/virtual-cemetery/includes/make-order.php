@@ -80,7 +80,7 @@
 
         $order->calculate_totals();
 
-        $order->set_payment_method('p24-online-payments');
+        $order->set_payment_method('payustandard');
 
         return new WP_REST_Response([
         'succes'=>true,

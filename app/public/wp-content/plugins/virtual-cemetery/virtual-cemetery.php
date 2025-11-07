@@ -70,64 +70,64 @@ if(!class_exists('VirtualCemetery')){
     //     }
     // });
 
-    add_action( 'template_redirect', function() {
+    // add_action( 'template_redirect', function() {
 
-    if ( ! is_order_received_page() ) return;
+    // if ( ! is_order_received_page() ) return;
   
-    $order_id  = absint( get_query_var( 'order-received' ) );
-    $order_key = wc_clean( $_GET['key'] ?? '' );
+    // $order_id  = absint( get_query_var( 'order-received' ) );
+    // $order_key = wc_clean( $_GET['key'] ?? '' );
 
-    if ( ! $order_id || ! $order_key ) return;
+    // if ( ! $order_id || ! $order_key ) return;
   
-    $order = wc_get_order( $order_id );
+    // $order = wc_get_order( $order_id );
 
-    // Verify order key matches (security)
-    if ( $order->get_order_key() !== $order_key ) return;
+    // // Verify order key matches (security)
+    // if ( $order->get_order_key() !== $order_key ) return;
 
-    // Only redirect for paid orders
-    if ( $order->is_paid() ) {
+    // // Only redirect for paid orders
+    // if ( $order->is_paid() ) {
 
-     $my_value = $order->get_meta( 'isProfileExisting', true );
-     $expireDate = $order->get_meta('expireDate',true);
-        if ($my_value  == -1) {
-            global $wpdb;
-            $table_name = $wpdb->prefix . 'zmarli';
+    //  $my_value = $order->get_meta( 'isProfileExisting', true );
+    //  $expireDate = $order->get_meta('expireDate',true);
+    //     if ($my_value  == -1) {
+    //         global $wpdb;
+    //         $table_name = $wpdb->prefix . 'zmarli';
 
-            $wpdb->insert(
-                $table_name,
-                array(
-                    'Imie'             => 'Nowy',
-                    'Nazwisko'         => 'Użytkownik',
-                    'Profilowe'        => NULL,
-                    'Data_urodzenia'   => '2025-01-01',
-                    'Data_smierci'     => '2025-01-01',
-                    'Opis'             => 'Opis',
-                    'Geolokalizacja'   => '[Lokalizacja grobu]',
-                    'ID_Klienta'       => $order->get_customer_id(),
-                    'Numer_grobu'      => '[Number Grobu]',
-                    'Is_payed'         => true,
-                    'Data_wygasniecia' => $expireDate,
+    //         $wpdb->insert(
+    //             $table_name,
+    //             array(
+    //                 'Imie'             => 'Nowy',
+    //                 'Nazwisko'         => 'Użytkownik',
+    //                 'Profilowe'        => NULL,
+    //                 'Data_urodzenia'   => '2025-01-01',
+    //                 'Data_smierci'     => '2025-01-01',
+    //                 'Opis'             => 'Opis',
+    //                 'Geolokalizacja'   => '[Lokalizacja grobu]',
+    //                 'ID_Klienta'       => $order->get_customer_id(),
+    //                 'Numer_grobu'      => '[Number Grobu]',
+    //                 'Is_payed'         => true,
+    //                 'Data_wygasniecia' => $expireDate,
 
-                )
-            );
-        }else{
-            global $wpdb;
-            $table_name = $wpdb->prefix . 'zmarli';
-            $wpdb->update(
-                $table_name,
-                [
-                    "Is_payed" => true,
-                    'Data_wygasniecia' => $expireDate,
-                ],
-                [
-                    "ID"=>$my_value,
-                ]
-                );
+    //             )
+    //         );
+    //     }else{
+    //         global $wpdb;
+    //         $table_name = $wpdb->prefix . 'zmarli';
+    //         $wpdb->update(
+    //             $table_name,
+    //             [
+    //                 "Is_payed" => true,
+    //                 'Data_wygasniecia' => $expireDate,
+    //             ],
+    //             [
+    //                 "ID"=>$my_value,
+    //             ]
+    //             );
 
-        }
-        wp_safe_redirect( home_url( '/dashboard/' ) );
-        exit;
-    }
-});
+    //     }
+    //     wp_safe_redirect( home_url( '/dashboard/' ) );
+    //     exit;
+    // }
+    // });
 
 }
