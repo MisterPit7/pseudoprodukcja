@@ -235,12 +235,12 @@
     <button id="closeQR">X</button>
 </div>
 
-
+<?php if($result[0]->Is_payed): ?>
 <div id="getLocalization">
     <div id="map"></div>
     <button id="getLocalizationButton" type="submit">lokalizacja</button>
 </div>
-
+<?php endif;?>
 
 <script><?php require_once(MY_PLUGIN_PATH."assets/js/popup.js") ?></script>
 
